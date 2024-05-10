@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Tour Booking</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <h1>Tour Booking Form</h1>
+    <b>Note: * Mandatory Fields</b>
+    <hr />
+
+    <form action="#" method="post">
+      <label for="fullName">Full name*:</label> <br />
+      <input type="text" id="fullName" name="fullName" required />
+      <br />
+      <br />
+      <label for="email">Email address*:</label> <br />
+      <input type="email" id="email" name="email" required />
+      <br />
+      <br />
+      <label>Select Tour Package*:</label> <br />
+      <select name="selectTourPackage" id="packageOption" required>
+        <option value="southIndia" selected>South India</option>
+        <option value="northIndia">North India</option>
+        <option value="India">India</option>
+      </select>
+      <br />
+      <br />
+      <label for="arrivalDate">Arrival date*:</label> <br />
+      <input type="date" id="arrivalDate" name="arrivalDate" />
+      <br />
+      <br />
+      <label for="totalCount">Number of persons*:</label> <br />
+      <input type="text" id="totalCount" name="totalCount" />
+      <br />
+      <br />
+      <label>What would you want to avail?*</label> <br />
+      <input type="checkbox" id="boarding" name="boarding" />
+      <label for="boarding">Boarding</label> <br />
+      <input type="checkbox" id="food" name="food" />
+      <label for="food">Food</label> <br />
+      <input type="checkbox" id="sight" name="sight" />
+      <label for="sight">Sight seeing</label>
+      <br />
+      <br />
+      <label>Terms and conditions:*</label> <br />
+      <input type="radio" id="agree" name="TandC" value="agree" />
+      <label for="agree">I agree</label>
+      <input type="radio" id="disagree" name="TandC" value="disagree" />
+      <label for="disagree">I disagree</label>
+      <br />
+      <br />
+      <input type="submit" value="BOOK NOW" />
+    </form>
+  </body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Selector Bug</title>
+  <style>
+    #text {
+      font-size: 30px;
+    }
+
+    .text .p {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <div class="text">
+    <p>This is a paragraph with red text.</p>
+  </div>
+</body>
+</html>

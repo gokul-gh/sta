@@ -1,9 +1,9 @@
-.article:nth-child() {
-    background-color: #ffcccc;
-    padding: 10px;
-  }
-  
-  .article:nth-child() {
-    background-color: #99ff99;
-    padding: 10px;
-  } 
+.article:nth-child(odd) {
+  background-color: #ffcccc;
+  padding: 10px;
+}
+
+.article:nth-child(even) {
+  background-color: #99ff99;
+  padding: 10px;
+}

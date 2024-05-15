@@ -1,18 +1,19 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pseudo-element Selector Bug</title>
     <style>
-      .container p::before {
+       p::after {
         content: "Container: ";
         color: green;
       }
     </style>
-  </head> 
+  </head>
   <body>
-    <div class="container">This is a Container
+    <div class="container">
+      This is a Container
       <p>This is first paragraph.</p>
       <p>This is second paragraph.</p>
       <p>This is third paragraph.</p>

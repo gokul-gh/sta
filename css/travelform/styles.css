@@ -1,0 +1,70 @@
+html {
+    height: 100%;
+}
+
+body {
+    background-image: url("travelform-background.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    margin-left: 1%;
+    margin-right: 1%;
+}
+
+h1 {
+    color: white;
+    margin-bottom: 0px;
+}
+
+b {
+    color: red;
+}
+hr {
+    height: 5px;
+    background-color: white;
+    border: none;
+}
+
+form > label {
+    font-weight: 800;
+}
+
+/*  */
+
+input {
+    width: 300px;
+    height: 25px;
+    border: none;
+    margin-top: 10px;
+}
+
+.options {
+    width: auto;
+    height: auto;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    height: 18px;
+    width: 25px;
+}
+
+.package {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: 800;
+}
+
+select {
+    width: 300px;
+    height: 30px;
+}
+
+button {
+    background-color: #df490e;
+    border: none;
+    border-radius: 5%;
+    color: white;
+    height: 2em;
+    width: 6em;
+    margin-top: 0.5em;
+}

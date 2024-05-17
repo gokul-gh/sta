@@ -1,0 +1,55 @@
+html {
+    height: 100%;
+}
+
+body {
+    background-color: gold;
+    margin: 0em;
+}
+
+.white-bg {
+    background-color: white;
+    padding: 0.5em;
+    margin: 1em 6em;
+}
+
+header {
+    background-color: black;
+    color: gold;
+    display: flex;
+    justify-content: space-between;
+    padding: 2em 2em;
+}
+
+header > h1 {
+    font-weight: 100;
+}
+
+header > p {
+    font-size: 1.5em;
+}
+
+nav {
+    background-color: black;
+    margin-top: 0.3em;
+    padding: 0.5em;
+}
+
+nav > a {
+    border-right: 1px white solid;
+    color: white;
+    padding: 0.5em;
+    font-size: 1.1em;
+    font-weight: 800;
+    padding-left: 5ex;
+    padding-right: 5ex;
+}
+
+.content {
+    margin: 3em;
+    padding-right: 25em;
+}
+
+.content > h1 {
+    margin-bottom: 0em;
+}

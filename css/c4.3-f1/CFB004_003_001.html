@@ -1,0 +1,33 @@
+<!-- Fix bug: Find the bug from a layout where two elements float side by side inside a container and to ensure that they are correctly aligned.  -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .container {
+        width: 400px;
+        margin: 0 auto;
+        background-color: #f0f0f0;
+      }
+      .left,.right{
+        width: 50%;
+        padding: 20px;
+        color: #fff;
+        box-sizing: border-box;
+      }
+      .left {
+        float: left;
+        background-color: #3498db;
+      }
+      .right {
+        background-color: #e74c3c;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="left">Left Content</div>
+      <div class="right">Right Content</div>
+    </div>
+  </body>
+</html>

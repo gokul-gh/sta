@@ -1,0 +1,46 @@
+<!-- Find and Fix Bug: Navigation menu with a dropdown that is initially hidden and appears when you hover over a menu item. Fix the position property to ensure the dropdown appears correctly and doesn't cause layout issues. -->
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+nav ul {
+list-style: none;
+padding: 0;
+}
+
+nav li {
+display: inline;
+margin-right: 20px;
+}
+.dropdown-menu {
+display: none;
+top: 100%;
+left: 0;
+background-color: #fff;
+border: 1px solid #ccc;
+padding: 10px;
+}
+
+.dropdown:hover .dropdown-menu {
+display: block;
+}
+</style>
+</head>
+<body>
+<nav>
+<ul>
+<li><a href="#">Home</a></li>
+<li class="dropdown">
+<a href="#">Services</a>
+<ul class="dropdown-menu">
+<li><a href="#">Web Design</a></li>
+<li><a href="#">Graphic Design</a></li>
+<li><a href="#">SEO</a></li>
+</ul>
+</li>
+<li><a href="#">About Us</a></li>
+<li><a href="#">Contact</a></li>
+</ul>
+</nav>
+</body>
+</html>

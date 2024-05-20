@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Relative Position Bug</title>
+    <style>
+      .container {
+        width: 300px;
+        height: 250px;
+        background-color: lightblue;
+      }
+      * {
+        margin: 0;
+      }
+      .box {
+        width: 100px;
+        height: 100px;
+        top: 10px;
+        left: 25px;
+        background-color: lightcoral;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      Container
+      <div class="box">Box</div>  
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui officia
+        dolore obcaecati illum debitis dolor tenetur nobis aut, aliquid
+        perspiciatis, accusamus laboriosam optio fugiat maiores voluptatem! Ex
+        repudiandae corporis est.
+      </p>
+    </div>
+  </body>
+</html>

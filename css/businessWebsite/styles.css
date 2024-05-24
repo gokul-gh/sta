@@ -1,0 +1,231 @@
+body {
+  margin: 0;
+  background-image: url(assets/backgroundImage.png);
+}
+
+#blackBackground, header {
+  background-image: url(assets/backgroundImage.png);
+  background-color: black;
+  color: white;
+}
+
+header {
+  position: fixed;
+  width: 100%;
+  padding: 5px;
+  padding-bottom: 0;
+  z-index: 1;
+}
+header > img {
+  height: 40px;
+  width: 40px;
+  float: left;
+}
+
+nav > ul {
+  list-style-type: none;
+  display: flex;
+  justify-content: flex-end;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  margin: 15px;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  padding-right: 1%;
+}
+
+li > a {
+  color: white;
+  text-decoration: none;
+}
+
+.paraCenter, .paraTechExpertise { 
+  margin-left: 33%;
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: center;
+  letter-spacing: 7px;
+  line-height: 35px;
+  width: 35%;
+}
+
+.paraCenter {
+  margin-top: 0%;
+  padding-top: 8%;
+  padding-bottom: 2%;
+}
+
+.providingDeveloperWith {
+  padding: 30px;
+  display: flex;
+  justify-content: space-evenly;
+  font-size: 13px;
+  letter-spacing: 2px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.providingDeveloperWith img {
+  height: 45%;
+  width: 45%;
+}
+
+.paraTechExpertise {
+  margin-bottom: 20px;
+}
+
+.technologyExpertise {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  height: 30vh;
+  padding-left: 18%;
+  padding-right: 18%;
+}
+
+.technologyExpertise img {
+  width: 60px;
+  height: 60px;
+  padding: 10px;
+  border: 1px rgba(255, 255, 255, 0) solid;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+#chooseUsPara, #ourClientsPara, #testimonialsPara, #teamPara {
+  text-align: center;
+  border: 1px rgba(0, 0, 0, 0.5) solid;
+  margin: 4% 44%;
+  padding: 10px 10px;
+}
+
+.chooseUs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5%;
+  margin-right: 10%;
+  margin-left: 10%;
+}
+
+.chooseUs img {
+  height: 35px;
+  width: 35px;
+}
+
+.card {
+  background-color: #efefef;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 2%;
+  margin: 10% 12%;
+  text-align: center;
+  padding: 10% 5%;
+}
+
+.card > .cardSubpara{
+  font-size: 0.8rem;
+}
+
+.ourClients {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  justify-items: center;
+  margin-right: 10%;
+  margin-left: 10%;
+}
+
+.ourClients img {
+  height: 50%;
+  width: 50%;
+  padding-bottom: 10%;
+}
+
+.plainWhiteBackground {
+  background-image: none;
+  background-color: white;
+  padding: 1% 10%;
+  padding-bottom: 8%;
+}
+
+.plainWhiteBackground img{
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+}
+
+#jayKrishnasamyName{
+  font-weight: 900;
+}
+
+#jayKrishnasamyPosition {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.jayKrishnasamyTestimonial {
+  display: flex;
+  flex-direction: row;
+}
+
+.jayKrishnasamyTestimonial p {
+  padding-left: 10%;
+  padding-right: 6%;
+}
+
+.teamImages {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  text-align: center;
+  margin-left: 15%;
+  margin-right: 15%;
+  font-size: 13px;
+  letter-spacing: 2px;
+}
+
+.teamImages img {
+  height: 60%;
+  width: 60%;
+  filter: grayscale(1);
+}
+
+.greenBackground {
+  background-image: url(assets/backgroundImage.png);
+  background-color: #549b7b;
+  color: white;
+  padding-top: 1%;
+}
+
+#contactPara{
+  border: 1px white solid;
+  text-align: center;
+  margin: 2% 43%;
+  padding: 1% 2%;
+  letter-spacing: 2px;
+}
+
+.greenBackground div {
+  display: flex;
+  flex-direction: row;
+  padding: 2% 5%;
+}
+
+address {
+  font-family: Helvetica Neue Helvetica sans-serif;
+  font-style: normal;
+  padding: 1% 5%;
+}
+
+address p {
+  letter-spacing: 2px;
+}
+
+footer {
+  background-image: url(assets/backgroundImage.png);
+  background-color: black;
+  color: white;
+  padding: 0.5% 0%;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+}

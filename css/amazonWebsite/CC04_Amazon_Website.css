@@ -1,0 +1,294 @@
+body {
+  margin: 0px;
+}
+
+header {
+  background-color: #0f1111;
+  color: white;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  white-space: nowrap;
+}
+
+header > img {
+  height: 9vh;
+  width: 18vh;
+}
+
+.location {
+  display: flex;
+  align-items: center;
+}
+
+.location > span {
+  font-size: 1rem;
+}
+
+.location > p {
+  font-size: 1rem;
+}
+
+.deliver > p {
+  margin-bottom: 0px;
+  margin-left: 16px;
+  margin-top: 0.5rem;
+  opacity: 0.8;
+  font-size: 0.8rem;
+}
+
+.location > p {
+  margin: 2px 0;
+}
+
+.searchBar {
+  display: flex;
+  padding-left: 0.5rem;
+  width: 50rem;
+  height: 2.5rem;
+}
+
+#searchSelect {
+  background-color: #e6e6e6;
+  border: 0px;
+  padding-left: 10px;
+  padding-right: 5px;
+  border-right: solid 5px transparent;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+#searchInput {
+  border: 0px;
+  width: 80%;
+  padding-left: 10px;
+}
+
+#searchButton {
+  border: 0;
+  padding: 0.1rem 0.5rem;
+  background-color: #febd68;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+#searchInput::placeholder {
+  padding-left: 0.5rem;
+}
+
+.signIn {
+  font-weight: 600;
+  text-align: center;
+  padding: 0.4rem 0.5rem;
+  margin: 0;
+}
+
+.orders {
+  padding: 0.5rem 0.5rem;
+  margin: 0 0.5rem;
+}
+
+.cartIcon {
+  font-size: 2rem;
+  margin: 0 0.4rem;
+  padding: 0.2rem 0.4rem;
+}
+
+.menuIcon {
+  margin: 0.2rem 0.5rem;
+  padding: 0.2rem 0.5rem;
+}
+
+nav {
+  background-color: #222f3d;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navLeft {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.navLeft > p {
+  padding: 0.3rem 0.5rem;
+  margin: 0.2rem 0%;
+}
+
+.navRight {
+  padding: 0.4rem 0.5rem;
+  margin: 0.4rem 0.5rem;
+}
+
+.navRight > p {
+  margin: 0;
+}
+
+nav p {
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+.primeDayBackground > img {
+  width: 100%;
+  /* display: block;  https://www.geeksforgeeks.org/how-to-get-rid-of-the-gap-under-the-image/  */
+}
+
+.shopProducts {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 3rem;
+  background-color: #f3f3f3;
+
+  padding: 1rem 3rem 3rem;
+}
+
+.shopProducts img {
+  height: 75%;
+  width: 85%;
+}
+
+.shopProducts > div {
+  background-color: white;
+  margin-top: 2rem;
+  width: 90%;
+  padding-left: 2rem;
+  padding-bottom: 2.5rem;
+}
+
+.shopProducts [href] {
+  text-decoration: none;
+  color: #6393ff;
+}
+
+.shopProducts :not([href]) {
+  font-weight: 600;
+}
+
+.backToTop {
+  background-color: #37475a;
+  color: white;
+  text-align: center;
+  font-weight: 600;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.backToTop > p {
+  margin: 0;
+}
+
+footer {
+  display: flex;
+  justify-content: space-evenly;
+  background-color: #232f3e;
+  color: white;
+  padding-bottom: 18px;
+}
+
+.boldFooter {
+  font-weight: 600;
+}
+
+footer p:not(.boldFooter) {
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.whiteBorder:hover {
+  border: 1px white solid;
+}
+
+.underline:hover {
+  text-decoration: underline;
+}
+
+@media only screen and (max-width: 500px) {
+  .deliver,
+  .orders,
+  .navRight {
+    display: none;
+  }
+
+  header > img {
+    width: 10vh;
+    height: 7vh;
+    margin-left: 20px;
+  }
+
+  .signIn {
+    margin: 0;
+    font-size: 0.8rem;
+  }
+
+  .cartIcon{
+    padding-bottom: 0.3rem;
+  }
+
+  nav {
+    padding-left: 0.5rem;
+    font-size: 0.8rem;
+    height: 2.5rem;
+  }
+
+  .searchBar {
+    padding-left: 1rem;
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+  }
+
+  #searchInput {
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    width: 70%;
+  }
+
+  #searchSelect {
+    display: none;
+  }
+
+  .primeDayBackground > img {
+    height: 20vh;
+  }
+
+  .shopProducts {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    align-items: center;
+    padding: 0%;
+    gap: 0;
+    overflow: hidden;
+  }
+
+  .shopProducts img {
+    width: 87%;
+    height: 50%;
+  }
+
+  .shopProducts > div {
+    width: 96%;
+    margin-top: 0;
+    padding-bottom: 0;
+  }
+
+  .productsLabel {
+    font-size: 1.5rem;
+  }
+
+  footer {
+    flex-direction: column;
+    text-align: center;
+    padding-bottom: 5rem;
+  }
+
+  .boldFooter {
+    padding-top: 1rem;
+  }
+}

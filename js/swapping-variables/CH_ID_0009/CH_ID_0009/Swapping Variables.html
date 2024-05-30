@@ -113,6 +113,11 @@ window.addEventListener("click", function (event) {
         let firstNumber = 50;
         let secondNumber = 100;
        //Swapping Logic
+       beforeSwapping.innerHTML = "Before swapping <br> First number: " + firstNumber + "<br>Second number: " + secondNumber;
+       firstNumber = firstNumber + secondNumber;
+       secondNumber = firstNumber - secondNumber;
+       firstNumber = firstNumber - secondNumber;
+       displayNumber.innerHTML = "<br><br> After swapping <br> First number: " + firstNumber + "<br> Second number: " + secondNumber;
     </script>
 </body>
 

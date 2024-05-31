@@ -1,0 +1,161 @@
+<!-- /*******************************************************************************
+              *  Name of the challenge  :   Input               s                            *
+              *  Developed for          :   SOFT TECH ASHRAM                                 *
+              *                                                                              *
+              *  Developer                 Creation Date                        Activity     *
+              *                                                                              *
+              *                           Maintenance History                                *
+              *                                                                              *
+              *********************************************************************************/ -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:ital@1&family=Roboto:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik&display=swap"
+      rel="stylesheet"
+    />
+    <title>Inputs</title>
+    <link href="Inputs.css" type="text/css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <div class="mainWebpage">
+      <div class="topHeader">
+        <div class="headerContent">
+          <div>
+            <img src="./Images/Logo_03.png" style="width: 30px; height: 35px" />
+          </div>
+          <div id="headerimageContent">Soft Tech Ashram</div>
+        </div>
+        <div id="heading">JavaScript Training Program</div>
+        <div class="dateTime">
+          Date&emsp13; :<span id="dateOutput" style="margin-left: 10px"></span
+          ><br />
+          Time &emsp13;:<span id="timeOutput" style="margin-left: 10px"></span>
+        </div>
+      </div>
+      <div class="mainBody">
+        <div class="outputWindow">
+          <div class="outputContent">
+            <br />
+            <span id="inputId">Inputs</span>
+
+            <hr width="100%" />
+
+            <div class="main">
+              <div><label>Enter The First Number</label><br /></div>
+              :
+              <!-- Get input element, id: firstNumber -->
+            </div>
+            <br />
+            <div class="main">
+              <div><label>Enter The Second Number</label><br /></div>
+              :
+              <!-- Get input element, id: secondNumber -->
+            </div>
+            <br />
+            <div class="main">
+              <div><label>Enter The Third Number</label><br /></div>
+              :
+              <!-- Get input element, id: thirdNumber -->
+            </div>
+            <br />
+            <hr width="100%" />
+
+            <div class="main">
+              <div><label>Result</label><br /></div>
+              :
+              <!-- get input element for Result, id: resultId -->
+            </div>
+            <br />
+            <div class="main">
+              <div><button id="buttonId">Add</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button id="successBtn" onclick="toggleSuccessModal()">Success</button>
+
+      <div class="modal" id="successModal">
+        <div class="modalBox">
+          <h2>Success Code</h2>
+          <div>
+            <input id="successCode" readonly />
+            <button id="copy">
+              <span>&#128203; </span>
+              Copy
+            </button>
+          </div>
+          <button id="okay" onclick="toggleSuccessModal()">OK</button>
+        </div>
+      </div>
+
+      <button id="errorBtn" onclick="toggleErrorModal()">Error</button>
+
+      <div class="modal" id="errorModal">
+        <div class="modalBox" id="errorBox">
+          <h1 style="margin: 0">OOPs! Error(s)</h1>
+          <button id="close" onclick="toggleErrorModal()">Close</button>
+        </div>
+      </div>
+
+      <div class="footerContent">
+        <div style="font-size: 18px">
+          <i>Learning Objective :Inputs</i>
+        </div>
+        <div class="logoContent">
+          <div>Powered by :&emsp13;</div>
+          <div>
+            <img
+              src="Images/logo.jpeg"
+              style="width: 55px; height: 55px; mix-blend-mode: multiply"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      //Date and Time declaration
+      let displayDate = new Date();
+      document.getElementById("dateOutput").innerHTML =
+        displayDate.toLocaleDateString();
+      document.getElementById("timeOutput").innerHTML =
+        displayDate.toLocaleTimeString();
+
+      //copy to clipboard
+      const copyText = document.querySelector("#copy");
+      copyText.addEventListener("click", () => {
+        navigator.clipboard.writeText(
+          document.querySelector("#successCode").value
+        );
+        copyText.textContent = "copied";
+        setTimeout(() => {
+          copyText.innerHTML = `<span>&#128203; </span>copy`;
+        }, 2000);
+      });
+
+      //Modal
+      const toggleSuccessModal = () => successModal.classList.toggle("active");
+      const toggleErrorModal = () => errorModal.classList.toggle("active");
+      window.addEventListener("click", function (event) {
+        if (event.target === successModal)
+          successModal.classList.remove("active");
+        if (event.target === errorModal) errorModal.classList.remove("active");
+      });
+    </script>
+  </body>
+</html>

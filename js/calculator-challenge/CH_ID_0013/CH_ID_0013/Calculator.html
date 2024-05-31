@@ -8,7 +8,7 @@
               *                                                                              *
               *********************************************************************************/ -->
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -136,7 +136,7 @@
       const copyText = document.querySelector("#copy");
       copyText.addEventListener("click", () => {
         navigator.clipboard.writeText(
-          document.querySelector("#successCode").value
+          document.querySelector("#successCode").value,
         );
         copyText.textContent = "copied";
         setTimeout(() => {
@@ -154,6 +154,40 @@
       });
 
       //code Statements
+      function addFunction() {
+        let firstNumber = parseInt(document.getElementById("firstNumber").value);
+        let secondNumber = parseInt(document.getElementById("secondNumber").value);
+        let result = firstNumber + secondNumber;
+        document.getElementById("resultId").value = result;
+      }
+
+      function subFunction(){
+        let firstNumber = parseInt(document.getElementById("firstNumber").value);
+        let secondNumber = parseInt(document.getElementById("secondNumber").value);
+        let result = firstNumber - secondNumber;
+        document.getElementById("resultId").value = result;
+      }
+
+      function mulFunction(){
+        let firstNumber = parseInt(document.getElementById("firstNumber").value);
+        let secondNumber = parseInt(document.getElementById("secondNumber").value);
+        let result = firstNumber * secondNumber;
+        document.getElementById("resultId").value = result;
+      }
+
+      function divideFunction(){
+        let firstNumber = parseInt(document.getElementById("firstNumber").value);
+        let secondNumber = parseInt(document.getElementById("secondNumber").value);
+        let result = firstNumber / secondNumber;
+        document.getElementById("resultId").value = result;
+      }
+
+      function reset(){
+        document.getElementById("firstNumber").value = "";
+        document.getElementById("secondNumber").value = "";
+        document.getElementById("resultId").value = "";
+      }
+
     </script>
   </body>
 </html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -42,8 +42,9 @@
             </span>
             <hr width="100%" />
             <div class="main">
-<label>Enter UserName</label> 
-<input id="nameId" type="number">           </div>
+              <label>Enter UserName</label>
+              <input id="nameId" type="text" />
+            </div>
           </div>
         </div>
       </div>
@@ -57,8 +58,8 @@
       </div>
     </div>
     <script>
-      const USER_NAME=document.getElementById("userId");
-
+      const USER_NAME = document.getElementById("nameId");
+      USER_NAME.value = "myName";
     </script>
   </body>
 </html>

@@ -7,7 +7,7 @@
               *                           Maintenance History                                *
               *                                                                              *
               *********************************************************************************/ -->
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -56,29 +56,39 @@
             <hr width="100%" />
 
             <div class="main">
-              <div><label>Enter The First Number</label><br /></div>
+              <div>
+                <label for="firstNumber">Enter The First Number</label><br />
+              </div>
               :
               <!-- Get input element, id: firstNumber -->
+              <input type="number" id="firstNumber" name="firstNumber" />
             </div>
             <br />
             <div class="main">
-              <div><label>Enter The Second Number</label><br /></div>
+              <div>
+                <label for="secondNumber">Enter The Second Number</label><br />
+              </div>
               :
               <!-- Get input element, id: secondNumber -->
+              <input type="number" id="secondNumber" name="secondNumber" />
             </div>
             <br />
             <div class="main">
-              <div><label>Enter The Third Number</label><br /></div>
+              <div>
+                <label for="thirdNumber">Enter The Third Number</label><br />
+              </div>
               :
               <!-- Get input element, id: thirdNumber -->
+              <input type="number" id="thirdNumber" name="thirdNumber" />
             </div>
             <br />
             <hr width="100%" />
 
             <div class="main">
-              <div><label>Result</label><br /></div>
+              <div><label for="resultId">Result</label><br /></div>
               :
               <!-- get input element for Result, id: resultId -->
+              <input type="number" id="resultId" name="resultId" readonly />
             </div>
             <br />
             <div class="main">
@@ -140,7 +150,7 @@
       const copyText = document.querySelector("#copy");
       copyText.addEventListener("click", () => {
         navigator.clipboard.writeText(
-          document.querySelector("#successCode").value
+          document.querySelector("#successCode").value,
         );
         copyText.textContent = "copied";
         setTimeout(() => {

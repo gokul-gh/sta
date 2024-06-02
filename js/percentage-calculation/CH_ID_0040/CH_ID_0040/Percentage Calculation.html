@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:ital@1&family=Roboto:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik&display=swap"
+      rel="stylesheet"
+    />
+    <title>Percentage Calculation</title>
+    <link href="Percentage Calculation.css" type="text/css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <div class="mainWebpage">
+      <div class="topHeader">
+        <div class="headerContent">
+          <div>
+            <img src="Images/Logo_03.png" style="width: 30px; height: 35px" />
+          </div>
+          <div id="headerimageContent">Soft Tech Ashram</div>
+        </div>
+        <div id="heading">JavaScript Training Program</div>
+        <div class="dateTime"></div>
+      </div>
+      <div class="mainBody">
+        <div class="outputWindow">
+          <div class="outputContent">
+            <br />
+            <span id="inputId">Percentage Calculation</span>
+
+            <hr width="100%" />
+
+            <div class="main">
+              <div><label>Enter The Number</label><br /></div>
+              <div>:<input type="number" id="firstNumber" /></div>
+            </div>
+            <br />
+            <div class="main">
+              <div><label>Enter The Percentage</label><br /></div>
+              <div>:<input type="number" id="secondNumber" /></div>
+            </div>
+            <br />
+
+            <hr width="100%" />
+
+            <div class="main">
+              <div><label>Result</label><br /></div>
+              <div>:<input type="number" id="resultId" readonly /></div>
+            </div>
+            <br />
+            <div class="main">
+              <div class="main">
+                <div><button id="buttonId">Calculate</button></div>
+              </div>
+              <div class="main">
+                <div><button id="resetId">Reset</button></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button id="successBtn" onclick="toggleSuccessModal()">Success</button>
+
+      <div class="modal" id="successModal">
+        <div class="modalBox">
+          <h2>Success Code</h2>
+          <div>
+            <input id="successCode" readonly />
+            <button id="copy">
+              <span>&#128203; </span>
+              Copy
+            </button>
+          </div>
+          <button id="okay" onclick="toggleSuccessModal()">OK</button>
+        </div>
+      </div>
+
+      <button id="errorBtn" onclick="toggleErrorModal()">Error</button>
+
+      <div class="modal" id="errorModal">
+        <div class="modalBox" id="errorBox">
+          <h1 style="margin: 0">OOPs! Error(s)</h1>
+          <button id="close" onclick="toggleErrorModal()">Close</button>
+        </div>
+      </div>
+
+      <div class="footerContent">
+        <div style="font-size: 18px">
+          <i>Learning Objective :Function With Basic Math Operation</i>
+        </div>
+        <div class="logoContent">SoftTechAshram.com</div>
+      </div>
+    </div>
+    <script src="Percentage Calculation.js"></script>
+  </body>
+</html>

@@ -7,15 +7,17 @@
               ************************************************************ */
 
 
-// Declaration
+//Variables declaration
 let firstNumber = document.getElementById("firstNumber");
 let secondNumber = document.getElementById("secondNumber");
 let result = document.getElementById("resultId");
 
+//Percentage calculation function
 function calculate() {
   result.value = firstNumber.value * ( secondNumber.value / 100 );
  }
 
+//Reset function
 function reset() {
   firstNumber.value = "";
   secondNumber.value = "";

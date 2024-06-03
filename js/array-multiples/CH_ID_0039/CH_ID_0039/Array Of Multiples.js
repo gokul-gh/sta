@@ -8,6 +8,26 @@
 
 
 // Declaration
+
+//Variable declaration
+let firstNumber = document.getElementById("firstNumber");
+let secondNumber = document.getElementById("secondNumber");
+let result = document.getElementById("resultId");
+
+//Function for creating the multiples of a number
+function multiple() {
+  for(let startValue = 1; startValue <= secondNumber.value; startValue++) {
+    result.innerHTML += firstNumber.value * startValue + " ";
+  }
+}
+
+//Reset function for clearing the output
+function reset() {
+  firstNumber.value = "";
+  secondNumber.value = "";
+  result.innerHTML = "";
+}
+
 // Screen date and time declaration.
 let displayDate = new Date();
 //copy to clipboard

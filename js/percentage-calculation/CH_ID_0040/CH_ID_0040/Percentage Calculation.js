@@ -8,6 +8,22 @@
 
 
 // Declaration
+let firstNumber = document.getElementById("firstNumber");
+let secondNumber = document.getElementById("secondNumber");
+let result = document.getElementById("resultId");
+
+function calculate() {
+  result.value = firstNumber.value * ( secondNumber.value / 100 );
+ }
+
+function reset() {
+  firstNumber.value = "";
+  secondNumber.value = "";
+  result.value = "";
+}
+
+
+
 // Screen date and time declaration.
 let displayDate = new Date();
 
@@ -32,16 +48,3 @@ let displayDate = new Date();
    if (event.target === errorModal) errorModal.classList.remove("active");
  });
 
- function calculate(){
-  let firstNumber = document.getElementById("firstNumber").value;
-  let secondNumber = document.getElementById("secondNumber").value;
-  let result = document.getElementById("resultId");
-
-  result.value = firstNumber * ( secondNumber / 100 );
- }
-
- function reset() {
-  document.getElementById("firstNumber").value = "";
-  document.getElementById("secondNumber").value = "";
-  document.getElementById("resultId").value = "";
- }

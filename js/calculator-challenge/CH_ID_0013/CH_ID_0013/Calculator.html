@@ -71,13 +71,13 @@
               <div>:<input type="number" id="resultId" readonly /></div>
             </div>
             <div class="main">
-              <div><button onclick="addFunction()" id="addId">ADD</button></div>
-              <div><button onclick="subFunction()" id="subId">SUB</button></div>
+              <div><button onclick="addOperation()" id="addId">ADD</button></div>
+              <div><button onclick="subOperation()" id="subId">SUB</button></div>
               <div>
-                <button onclick="mulFunction()" id="mulId">MULTIPLY</button>
+                <button onclick="multiplyOperation()" id="mulId">MULTIPLY</button>
               </div>
               <div>
-                <button onclick="divideFunction()" id="divideId">DIVIDE</button>
+                <button onclick="divideOperation()" id="divideId">DIVIDE</button>
               </div>
               <div><button onclick="reset()" id="resetId">RESET</button></div>
             </div>
@@ -124,70 +124,6 @@
         </div>
       </div>
     </div>
-    <script>
-      //Date and Time declaration
-      let displayDate = new Date();
-      document.getElementById("dateOutput").innerHTML =
-        displayDate.toLocaleDateString();
-      document.getElementById("timeOutput").innerHTML =
-        displayDate.toLocaleTimeString();
-
-      //copy to clipboard
-      const copyText = document.querySelector("#copy");
-      copyText.addEventListener("click", () => {
-        navigator.clipboard.writeText(
-          document.querySelector("#successCode").value,
-        );
-        copyText.textContent = "copied";
-        setTimeout(() => {
-          copyText.innerHTML = `<span>&#128203; </span>copy`;
-        }, 2000);
-      });
-
-      //Modal
-      const toggleSuccessModal = () => successModal.classList.toggle("active");
-      const toggleErrorModal = () => errorModal.classList.toggle("active");
-      window.addEventListener("click", function (event) {
-        if (event.target === successModal)
-          successModal.classList.remove("active");
-        if (event.target === errorModal) errorModal.classList.remove("active");
-      });
-
-      //code Statements
-      function addFunction() {
-        let firstNumber = parseInt(document.getElementById("firstNumber").value);
-        let secondNumber = parseInt(document.getElementById("secondNumber").value);
-        let result = firstNumber + secondNumber;
-        document.getElementById("resultId").value = result;
-      }
-
-      function subFunction(){
-        let firstNumber = parseInt(document.getElementById("firstNumber").value);
-        let secondNumber = parseInt(document.getElementById("secondNumber").value);
-        let result = firstNumber - secondNumber;
-        document.getElementById("resultId").value = result;
-      }
-
-      function mulFunction(){
-        let firstNumber = parseInt(document.getElementById("firstNumber").value);
-        let secondNumber = parseInt(document.getElementById("secondNumber").value);
-        let result = firstNumber * secondNumber;
-        document.getElementById("resultId").value = result;
-      }
-
-      function divideFunction(){
-        let firstNumber = parseInt(document.getElementById("firstNumber").value);
-        let secondNumber = parseInt(document.getElementById("secondNumber").value);
-        let result = firstNumber / secondNumber;
-        document.getElementById("resultId").value = result;
-      }
-
-      function reset(){
-        document.getElementById("firstNumber").value = "";
-        document.getElementById("secondNumber").value = "";
-        document.getElementById("resultId").value = "";
-      }
-
-    </script>
+    <script src="Calculator.js"></script>
   </body>
 </html>

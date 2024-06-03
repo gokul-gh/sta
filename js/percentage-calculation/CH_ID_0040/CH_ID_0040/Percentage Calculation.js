@@ -31,3 +31,17 @@ let displayDate = new Date();
      successModal.classList.remove("active");
    if (event.target === errorModal) errorModal.classList.remove("active");
  });
+
+ function calculate(){
+  let firstNumber = document.getElementById("firstNumber").value;
+  let secondNumber = document.getElementById("secondNumber").value;
+  let result = document.getElementById("resultId");
+
+  result.value = firstNumber * ( secondNumber / 100 );
+ }
+
+ function reset() {
+  document.getElementById("firstNumber").value = "";
+  document.getElementById("secondNumber").value = "";
+  document.getElementById("resultId").value = "";
+ }

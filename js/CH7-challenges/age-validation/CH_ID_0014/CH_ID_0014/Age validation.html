@@ -1,0 +1,174 @@
+<!--          /*******************************************************************************
+              *  Name of the challenge  :   Age Validation                                   *
+              *  Developed for          :   SOFT TECH ASHRAM                                 *
+              *                                                                              *
+              *  Developer                 Creation Date                        Activity     *
+              *                                                                              *
+              *                           Maintenance History                                *
+              *                                                                              *
+              *********************************************************************************/ -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:ital@1&family=Roboto:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik&display=swap"
+      rel="stylesheet"
+    />
+    <title>Age Validation</title>
+    <link
+      href="Stylesheet/Age validation.css"
+      type="text/css"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <div class="mainWebpage">
+      <div class="topHeader">
+        <div class="headerContent">
+          <div>
+            <img src="Images/Logo_03.png" style="width: 50px; height: 50px" />
+          </div>
+          <div id="headerimageContent">Soft Tech Ashram</div>
+        </div>
+        <div id="heading">JavaScript Training Program</div>
+        <div class="dateTime">
+          Date:<span id="dateOutput" style="margin-left: 10px"></span><br />
+          Time: <span id="timeOutput" style="margin-left: 10px"></span>
+        </div>
+      </div>
+      <div class="mainBody">
+        <div class="outputWindow">
+          <div class="outputContent">
+            <br />
+            <span id="exerciseHeading">
+              <span id="inputId">Age Validation</span>
+            </span>
+            <hr width="100%" />
+            <div class="main1">
+              <div>
+                <label>Enter Person's Age</label>
+              </div>
+              <div><input type="text" maxlength="2" id="ageId" /><br /></div>
+            </div>
+            <div class="main">
+              <div><label>Gender</label></div>
+              <div>
+                <!-- Create Radio buttons for gender -->
+              </div>
+            </div>
+            <hr />
+            <div class="main">
+              <div><label>Eligible for Marriage/Not</label></div>
+
+              <div><textarea id="checkId" readonly></textarea></div>
+            </div>
+
+            <div class="main2">
+              <div></div>
+              <div>
+                <button id="buttonId" onclick="validate()">Validate</button>
+              </div>
+              <br />
+              <div>
+                <button id="clearId" onclick="reset()">Reset</button><br />
+              </div>
+            </div>
+            <div><br /></div>
+            <div class="main4">
+              Note:<br />
+              Eligible Age for Girls&nbsp; :&nbsp; 18<br />
+              Eligible Age for Boys&nbsp;:&nbsp; 21
+            </div>
+          </div>
+        </div>
+      </div>
+      <button id="successBtn" onclick="toggleSuccessModal()">Success</button>
+
+      <div class="modal" id="successModal">
+        <div class="modalBox">
+          <h2>Success Code</h2>
+          <div>
+            <input id="successCode" readonly />
+            <button id="copy">
+              <span>&#128203; </span>
+              Copy
+            </button>
+          </div>
+          <button id="okay" onclick="toggleSuccessModal()">OK</button>
+        </div>
+      </div>
+
+      <button id="errorBtn" onclick="toggleErrorModal()">Error</button>
+
+      <div class="modal" id="errorModal">
+        <div class="modalBox" id="errorBox">
+          <h1 style="margin: 0">OOPs! Error(s)</h1>
+          <button id="close" onclick="toggleErrorModal()">Close</button>
+        </div>
+      </div>
+
+      <div class="footerContent">
+        <div style="font-size: 18px">
+          <i>Learning Objective :&emsp;Conditional Statements</i>
+        </div>
+        <div class="logoContent">
+          <div>Powered by:&emsp;</div>
+          <div>
+            <img
+              src="Images/logo.jpeg"
+              style="width: 30px; height: 30px; mix-blend-mode: multiply"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      // Screen date and time declaration.
+      let displayDate = new Date();
+      document.getElementById("dateOutput").innerHTML =
+        displayDate.toLocaleDateString();
+      document.getElementById("timeOutput").innerHTML =
+        displayDate.toLocaleTimeString();
+
+      //copy to clipboard
+      const copyText = document.querySelector("#copy");
+      copyText.addEventListener("click", () => {
+        navigator.clipboard.writeText(
+          document.querySelector("#successCode").value
+        );
+        copyText.textContent = "copied";
+        setTimeout(() => {
+          copyText.innerHTML = `<span>&#128203; </span>copy`;
+        }, 2000);
+      });
+
+      //Modal
+      const toggleSuccessModal = () => successModal.classList.toggle("active");
+      const toggleErrorModal = () => errorModal.classList.toggle("active");
+      window.addEventListener("click", function (event) {
+        if (event.target === successModal)
+          successModal.classList.remove("active");
+        if (event.target === errorModal) errorModal.classList.remove("active");
+      });
+
+      function validate() {
+        //Code Statements
+      }
+    </script>
+  </body>
+</html>

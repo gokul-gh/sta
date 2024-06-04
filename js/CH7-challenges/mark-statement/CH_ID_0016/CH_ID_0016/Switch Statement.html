@@ -1,0 +1,269 @@
+<!--          /*******************************************************************************
+              *  Name of the challenge  :   Switch Statement                                 *
+              *  Developed for          :   SOFT TECH ASHRAM                                 *
+              *                                                                              *
+              *  Developer                 Creation Date                        Activity     *
+              *                                                                              *
+              *                           Maintenance History                                *
+              *                                                                              *
+              *********************************************************************************/ -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:ital@1&family=Roboto:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik&display=swap"
+      rel="stylesheet"
+    />
+    <title>Switch Statement</title>
+    <link
+      href="Stylesheet/Switch Statement.css"
+      type="text/css"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <div class="mainWebpage">
+      <div class="topHeader">
+        <div class="headerContent">
+          <div>
+            <img src="Images/Logo_03.png" style="width: 50px; height: 50px" />
+          </div>
+          <div id="headerimageContent">Soft Tech Ashram</div>
+        </div>
+        <div id="heading">JavaScript Training Program</div>
+        <div class="dateTime">
+          Date:<span id="dateOutput" style="margin-left: 10px"></span><br />
+          Time: <span id="timeOutput" style="margin-left: 10px"></span>
+        </div>
+      </div>
+
+      <div class="mainBody">
+        <div class="outputWindow">
+          <div class="outputContent">
+            <span id="exerciseHeading">
+              <span id="inputId">Switch Statement</span>
+            </span>
+            <hr width="100%" />
+            <div class="main2">
+              <div><label>Name&emsp;</label></div>
+
+              <div><input type="text" id="nameId" /></div>
+            </div>
+            <div style="color: Blue; text-align: center">
+              Marks(Mark Limit:100)
+            </div>
+
+            <div class="marks">
+              <div class="subjects">
+                <div>Language</div>
+                <div><input type="number" id="langId" /></div>
+              </div>
+              <div class="subjects">
+                <div>Physics</div>
+                <div><input type="number" id="physicsId" /><br /></div>
+              </div>
+
+              <div class="subjects">
+                <div>Maths</div>
+                <div><input type="number" id="mathsId" /></div>
+              </div>
+              <div class="subjects">
+                <div>Chemistry</div>
+                <div><input type="number" id="chemistryId" /></div>
+              </div>
+              <div class="subjects">
+                <div>Biology</div>
+                <div><input type="number" min="0" max="100" id="bioId" /></div>
+              </div>
+            </div>
+
+            <hr />
+            <div class="main2">
+              <div><label>Total</label></div>
+              <div><input type="text" id="totalId" readonly /></div>
+            </div>
+            <div class="main2">
+              <div><label>Average</label></div>
+              <div><input type="text" id="avgId" readonly /></div>
+            </div>
+            <div class="main2">
+              <div>
+                <label>Grade</label>
+              </div>
+              <div>
+                <input type="text" id="gradeId" readonly />
+              </div>
+            </div>
+            <div class="main2">
+              <div>
+                <label>Pass/Fail</label>
+              </div>
+              <div>
+                <input type="text" id="passId" readonly />
+              </div>
+            </div>
+
+            <div class="space_output">
+              <div>
+                <div class="main2">
+                  <div>
+                    <label>Cutoff&emsp;&emsp;&emsp;&emsp;&emsp;</label
+                    >&emsp13;&emsp13;
+                  </div>
+                  <div>
+                    <input type="text" id="cutoffId" readonly />
+                  </div>
+                </div>
+
+                <div class="main">
+                  <div>
+                    <label>Eligibility&emsp;</label>
+                  </div>
+                  <div>
+                    <input type="text" id="eligibleId" readonly /><br />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br />
+            <div class="main3">
+              <button
+                id="buttonId"
+                style="margin: bottom 10px"
+                onclick="calculate()"
+              >
+                Calculate
+              </button>
+              <button
+                id="resetId"
+                style="margin: bottom 10px"
+                onclick="reset()"
+              >
+                Reset</button
+              ><br />
+            </div>
+            <div class="main">
+              <div class="even">
+                <div style="color: blue">Note:</div>
+
+                <div
+                  style="
+                    font-size: 13px;
+                    width: 200px;
+                    height: 70px;
+                    border: 1px solid #000;
+                  "
+                >
+                  Eligibility:<br />&emsp; >180:Medicine<br />
+                  &emsp;< 180 and>160:Engineering
+                </div>
+              </div>
+
+              <div class="even">
+                <div style="color: blue">Note</div>
+
+                <div
+                  style="
+                    font-size: 13px;
+                    width: 220px;
+                    height: 70px;
+                    border: 1px solid #000;
+                  "
+                >
+                  Grade:<br />
+                  &emsp;Grade A:>90: Grade: B >60 & 90 <br />&emsp;Grade: C
+                  >40&60
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button id="successBtn" onclick="toggleSuccessModal()">Success</button>
+
+      <div class="modal" id="successModal">
+        <div class="modalBox">
+          <h2>Success Code</h2>
+          <div>
+            <input id="successCode" readonly />
+            <button id="copy">
+              <span>&#128203; </span>
+              Copy
+            </button>
+          </div>
+          <button id="okay" onclick="toggleSuccessModal()">OK</button>
+        </div>
+      </div>
+
+      <button id="errorBtn" onclick="toggleErrorModal()">Error</button>
+
+      <div class="modal" id="errorModal">
+        <div class="modalBox" id="errorBox">
+          <h1 style="margin: 0">OOPs! Error(s)</h1>
+          <button id="close" onclick="toggleErrorModal()">Close</button>
+        </div>
+      </div>
+
+      <div class="footerContent">
+        <div style="font-size: 18px">
+          <i>Learning Objective : &emsp;Switch Statement</i>
+        </div>
+        <div class="logoContent">
+          <div>Powered by : &emsp;</div>
+          <div>
+            <img
+              src="./Images/logo.jpeg"
+              style="width: 30px; height: 30px; mix-blend-mode: multiply"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      // Screen date and time declaration.
+      let displayDate = new Date();
+      document.getElementById("dateOutput").innerHTML =
+        displayDate.toLocaleDateString();
+      document.getElementById("timeOutput").innerHTML =
+        displayDate.toLocaleTimeString();
+
+      //copy to clipboard
+      const copyText = document.querySelector("#copy");
+      copyText.addEventListener("click", () => {
+        navigator.clipboard.writeText(
+          document.querySelector("#successCode").value
+        );
+        copyText.textContent = "copied";
+        setTimeout(() => {
+          copyText.innerHTML = `<span>&#128203; </span>copy`;
+        }, 2000);
+      });
+
+      //Modal
+      const toggleSuccessModal = () => successModal.classList.toggle("active");
+      const toggleErrorModal = () => errorModal.classList.toggle("active");
+      window.addEventListener("click", function (event) {
+        if (event.target === successModal)
+          successModal.classList.remove("active");
+        if (event.target === errorModal) errorModal.classList.remove("active");
+      });
+
+      //code statements
+    </script>
+  </body>
+</html>

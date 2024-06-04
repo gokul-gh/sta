@@ -20,11 +20,11 @@ function compareAge() {
   //Condition to validate the age limit is between 0 to 110
   if (
     firstPersonInput <= MAX_AGE &&
-    firstPersonInput >= 0 &&
+    firstPersonInput >= MIN_AGE &&
     secondPersonInput <= MAX_AGE &&
-    secondPersonInput >= 0 &&
+    secondPersonInput >= MIN_AGE &&
     thirdPersonInput <= MAX_AGE &&
-    thirdPersonInput >= 0
+    thirdPersonInput >= MIN_AGE
   ) {
     //Condition if all three person's age are equal
     if (

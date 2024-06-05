@@ -15,8 +15,8 @@ let cutoff = document.getElementById("cutoffId");
 let eligibility = document.getElementById("eligibleId");
 
 //Constant declaration
-let MAX_MARK = 100;
-let MIN_MARK = 0;
+const MAX_MARK = 100;
+const MIN_MARK = 0;
 
 //Function to calculate mark statement
 function calculate() {

@@ -1,6 +1,35 @@
 //Code Logic
 
-// Declaration
+//Variables declaration
+let degreeOption = document.getElementById("degree");
+let eligiblity = document.getElementById("result");
+
+//Function to check software vacancies
+function findEligiblity() {
+  let degree = degreeOption.value;
+
+  if (
+    degree == "bca" ||
+    degree == "bscCs" ||
+    degree == "beCs" ||
+    degree == "beIt"
+  ) {
+    eligiblity.innerHTML = "Jr. Software developer";
+  } else if (
+    degree == "mca" ||
+    degree == "mscCs" ||
+    degree == "meCs" ||
+    degree == "meIt"
+  ) {
+    eligiblity.innerHTML = "Sr. Software developer";
+  }
+}
+
+//Reset function to clear input values
+function reset() {
+  eligiblity.innerHTML = "";
+}
+
 // Screen date and time declaration.
 let displayDate = new Date();
 

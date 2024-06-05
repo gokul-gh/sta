@@ -8,8 +8,8 @@ let elderOutput = document.getElementById("ageId");
 let descendingAgeOrder = document.getElementById("orderId");
 
 //Constant declaration
-let MAX_AGE = 110;
-let MIN_AGE = 0;
+const MAX_AGE = 110;
+const MIN_AGE = 0;
 
 //Function to compare age
 function compareAge() {

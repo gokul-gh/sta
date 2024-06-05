@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:ital@1&family=Roboto:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik&display=swap"
+      rel="stylesheet"
+    />
+    <title>Soft Techashram</title>
+    <link
+      href="Style Sheet/Admission System(Based on Quota).css"
+      type="text/css"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/x-icon" href="Images/Logo_03.png" />
+  </head>
+
+  <body>
+    <div class="mainWebpage">
+      <div class="topHeader">
+        <div class="headerContent">
+          <div class="logoContainer">
+            <img
+              src="./Images/Logo_03.png"
+              style="width: 80px; height: 80px"
+              class="logo"
+            />
+          </div>
+          <div id="headerimageContent">SOFT TECH ASHRAM</div>
+        </div>
+        <div id="heading">JavaScript Training Program</div>
+        <div class="dateTime">
+          Date&emsp13; :<span id="datOutput" style="margin-left: 10px"></span
+          ><br />
+          Time &emsp13;:<span id="timOutput" style="margin-left: 10px"></span>
+        </div>
+      </div>
+      <div class="mainBody">
+        <div class="outputWindow">
+          <div class="outputContent">
+            <br />
+            <span id="exerciseHeading"
+              >Engineering College Admission System</span
+            >
+            <hr width="100%" />
+
+            <div class="wrapper">
+              <div style="width: 50%">
+                <div class="fieldContainer">
+                  <label for="maths">Maths <span>(Out of 100)</span></label>
+                  <input type="number" id="maths" />
+                </div>
+                <div class="fieldContainer">
+                  <label for="physics">Physics <span>(Out of 50)</span> </label>
+                  <input type="number" id="physics" />
+                </div>
+                <div class="fieldContainer">
+                  <label for="chemistry"
+                    >Chemistry <span>(Out of 50)</span></label
+                  >
+                  <input type="number" id="chemistry" />
+                </div>
+                <div class="fieldContainer">
+                  <label for="cutoff">Cutoff</label>
+                  <input type="number" id="cutoff" readonly />
+                </div>
+                <div class="communityBox">
+                  <p>Community</p>
+                  <div class="radioGroup">
+                    <div class="radioButton">
+                      <input
+                        type="radio"
+                        name="community"
+                        id="oc"
+                        value="oc"
+                        checked
+                      />
+                      <label for="oc">OC</label>
+                    </div>
+                    <div class="radioButton">
+                      <input type="radio" name="community" id="bc" value="bc" />
+                      <label for="bc">BC</label>
+                    </div>
+                    <div class="radioButton">
+                      <input type="radio" name="community" id="sc" value="sc" />
+                      <label for="sc">SC</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <table id="eligibility">
+                <tbody>
+                  <tr>
+                    <th colspan="3">Cutoff</th>
+                    <th rowspan="2">Colleges</th>
+                  </tr>
+                  <tr>
+                    <th>OC</th>
+                    <th>BC</th>
+                    <th>SC</th>
+                  </tr>
+                  <tr>
+                    <td>195</td>
+                    <td>194</td>
+                    <td>193</td>
+                    <td>Level 1 Government Engineering College</td>
+                  </tr>
+                  <tr>
+                    <td>190</td>
+                    <td>189</td>
+                    <td>188</td>
+                    <td>Level 2 Government Engineering College</td>
+                  </tr>
+                  <tr>
+                    <td>185</td>
+                    <td>184</td>
+                    <td>183</td>
+                    <td>Level 1 Private Engineering College</td>
+                  </tr>
+                  <tr>
+                    <td>180</td>
+                    <td>179</td>
+                    <td>178</td>
+                    <td>Level 2 Private Engineering College</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div id="collectionResult">
+              <button onclick="findCutOff()">Find College</button>
+              <button onclick="reset()">Reset</button>
+            </div>
+
+            <div id="resultContainer">
+              <div>Eligible College : <span id="result"></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button id="successBtn" onclick="toggleSuccessModal()">Success</button>
+
+      <div class="modal" id="successModal">
+        <div class="modalBox">
+          <h2>Success Code</h2>
+          <div>
+            <input id="successCode" readonly />
+            <button id="copy">
+              <span>&#128203; </span>
+              Copy
+            </button>
+          </div>
+          <button id="okay" onclick="toggleSuccessModal()">OK</button>
+        </div>
+      </div>
+
+      <button id="errorBtn" onclick="toggleErrorModal()">Error</button>
+
+      <div class="modal" id="errorModal">
+        <div class="modalBox" id="errorBox">
+          <h1 style="margin: 0">OOPs! Error(s)</h1>
+          <button id="close" onclick="toggleErrorModal()">Close</button>
+        </div>
+      </div>
+
+      <div class="footerContent">
+        <div style="font-size: 18px">
+          <i>Learning Objective : If Condition</i>
+        </div>
+        <div class="logoContent">
+          <div>Powered by :&emsp13;</div>
+          <div>
+            <img
+              src="Images/logo.jpeg"
+              style="width: 45px; height: 45px; mix-blend-mode: multiply"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="Admission system.js"></script>
+  </body>
+</html>

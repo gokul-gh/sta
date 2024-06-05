@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:ital@1&family=Roboto:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik&display=swap"
+      rel="stylesheet"
+    />
+    <title>Even Number</title>
+    <link href="StyleSheet/Even number.css" type="text/css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <div class="mainWebpage">
+      <div class="topHeader">
+        <div class="headerContent">
+          <div>
+            <img src="Images/Logo_03.png" style="width: 40px; height: 45px" />
+          </div>
+          <div id="headerimageContent">Soft Tech Ashram</div>
+        </div>
+        <div id="heading">JAVASCRIPT TRAINING PROGRAM</div>
+        <div class="dateTime"></div>
+      </div>
+      <div class="mainBody">
+        <div class="outputWindow">
+          <div class="outputContent">
+            <br />
+            <span id="exerciseHeading">
+              <span id="inputId">Even Numbers</span>
+            </span>
+            <hr width="100%" />
+            <div class="main3">
+              <div><label>Enter the First Number </label><br /></div>
+              <div>
+                <input type="number" id="firstNumber" min="0" max="50" /><br />
+              </div>
+            </div>
+            <div class="main3">
+              <div><label>Enter the Second Number</label><br /></div>
+              <div>
+                <input type="number" id="secondNumber" min="0" max="50" /><br />
+              </div>
+            </div>
+            <div class="main3">
+              <div style="margin-left: 10px"><label>Select Choice</label></div>
+
+              <div>
+                <select id="selectId" name="factorial">
+                  <option value="">Select</option>
+                  <!-- Add Dropdown Options Here(Loops) -->
+                </select>
+              </div>
+            </div>
+
+            <div class="output">
+              <label>
+                For_loop <textarea id="showFor" readonly> </textarea>
+              </label>
+              <label
+                >While_loop <textarea id="showWhile" readonly></textarea>
+              </label>
+              <label>
+                Do_While_Loop <textarea id="showDowhile" readonly></textarea>
+              </label>
+            </div>
+            <div class="main3">
+              <div><button id="resetId" onclick="reset()">Reset</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button id="successBtn" onclick="toggleSuccessModal()">Success</button>
+
+      <div class="modal" id="successModal">
+        <div class="modalBox">
+          <h2>Success Code</h2>
+          <div>
+            <input id="successCode" readonly />
+            <button id="copy">
+              <span>&#128203; </span>
+              Copy
+            </button>
+          </div>
+          <button id="okay" onclick="toggleSuccessModal()">OK</button>
+        </div>
+      </div>
+
+      <button id="errorBtn" onclick="toggleErrorModal()">Error</button>
+
+      <div class="modal" id="errorModal">
+        <div class="modalBox" id="errorBox">
+          <h1 style="margin: 0">OOPs! Error(s)</h1>
+          <button id="close" onclick="toggleErrorModal()">Close</button>
+        </div>
+      </div>
+
+      <div class="footerContent">
+        <div style="font-size: 18px">
+          <i>Learning Objective&nbsp;:&nbsp;Loop Statements</i>
+        </div>
+        <div class="logoContent" style="color: blue; font-size: 24px">
+          SoftTechAshram.com
+        </div>
+      </div>
+    </div>
+    <script src="Even number.js"></script>
+  </body>
+</html>

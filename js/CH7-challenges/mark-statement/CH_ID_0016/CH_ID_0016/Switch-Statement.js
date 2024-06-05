@@ -72,7 +72,7 @@ function calculate() {
     cutoffMark = mathsMark + physicsMark / 2 + chemistryMark / 2;
     cutoff.value = cutoffMark;
 
-    if (cutoffMark > 180) {
+    if (cutoffMark >= 180) {
       eligibility.value = "Medicine";
     } else if (cutoffMark < 180 && cutoffMark > 160) {
       eligibility.value = "Engineering";

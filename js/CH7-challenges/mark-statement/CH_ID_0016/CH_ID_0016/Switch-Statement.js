@@ -6,13 +6,13 @@ let languageSubject = document.getElementById("langId");
 let physicsSubject = document.getElementById("physicsId");
 let mathsSubject = document.getElementById("mathsId");
 let chemistrySubject = document.getElementById("chemistryId");
-let BiologySubject = document.getElementById("bioId");
+let biologySubject = document.getElementById("bioId");
 let total = document.getElementById("totalId");
 let average = document.getElementById("avgId");
 let grade = document.getElementById("gradeId");
 let pass = document.getElementById("passId");
 let cutoff = document.getElementById("cutoffId");
-let eligibility = document.getElementById("eligibleId");
+let eligiblity = document.getElementById("eligibleId");
 
 //Constant declaration
 const MAX_MARK = 100;
@@ -24,7 +24,7 @@ function calculate() {
   let physicsMark = parseInt(physicsSubject.value);
   let mathsMark = parseInt(mathsSubject.value);
   let chemistryMark = parseInt(chemistrySubject.value);
-  let BiologyMark = parseInt(BiologySubject.value);
+  let biologyMark = parseInt(biologySubject.value);
   let totalMark;
   let averageMark;
   let cutoffMark;
@@ -38,11 +38,11 @@ function calculate() {
     mathsMark <= MAX_MARK &&
     chemistryMark >= MIN_MARK &&
     chemistryMark <= MAX_MARK &&
-    BiologyMark >= MIN_MARK &&
-    BiologyMark <= MAX_MARK
+    biologyMark >= MIN_MARK &&
+    biologyMark <= MAX_MARK
   ) {
     totalMark =
-      languageMark + physicsMark + mathsMark + chemistryMark + BiologyMark;
+      languageMark + physicsMark + mathsMark + chemistryMark + biologyMark;
     total.value = totalMark;
     averageMark = totalMark / 5;
     average.value = averageMark;
@@ -53,29 +53,32 @@ function calculate() {
         break;
       case averageMark > 60 && averageMark <= 90:
         grade.value = "B";
+        break;
       case averageMark > 40 && averageMark <= 60:
         grade.value = "C";
+        break;
     }
+
+    cutoffMark = mathsMark + physicsMark / 2 + chemistryMark / 2;
+    cutoff.value = cutoffMark;
 
     if (
       languageMark > 40 &&
       physicsMark > 40 &&
       mathsMark > 40 &&
       chemistryMark > 40 &&
-      BiologyMark > 40
+      biologyMark > 40
     ) {
       pass.value = "Pass";
+
+      if (cutoffMark >= 180) {
+        eligiblity.value = "Medicine";
+      } else if (cutoffMark < 180 && cutoffMark > 160) {
+        eligiblity.value = "Engineering";
+      }
     } else {
       pass.value = "Fail";
-    }
-
-    cutoffMark = mathsMark + physicsMark / 2 + chemistryMark / 2;
-    cutoff.value = cutoffMark;
-
-    if (cutoffMark >= 180) {
-      eligibility.value = "Medicine";
-    } else if (cutoffMark < 180 && cutoffMark > 160) {
-      eligibility.value = "Engineering";
+      eligiblity.value = "";
     }
   } else {
     alert("Enter marks value only ranging from 0 to 100");
@@ -89,13 +92,13 @@ function reset() {
   physicsSubject.value = "";
   mathsSubject.value = "";
   chemistrySubject.value = "";
-  BiologySubject.value = "";
+  biologySubject.value = "";
   total.value = "";
   average.value = "";
   grade.value = "";
   pass.value = "";
   cutoff.value = "";
-  eligibility.value = "";
+  eligiblity.value = "";
 }
 
 // Screen date and time declaration.

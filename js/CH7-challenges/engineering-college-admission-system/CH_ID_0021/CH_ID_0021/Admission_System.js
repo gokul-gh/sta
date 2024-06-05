@@ -43,6 +43,9 @@ function findCutOff() {
         eligiblity.innerHTML = "Level 2 Private Engineering College";
         break;
     }
+    if (cutoffMark < 180) {
+      eligiblity.innerHTML = "";
+    }
   } else {
     alert("Enter mark values only within the range.");
   }

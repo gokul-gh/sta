@@ -148,17 +148,6 @@ label {
   background-color: #365279;
   font-family: "Rubik", sans-serif;
 }
-#evaluvateId {
-  color: white;
-  height: 35px;
-  width: 130px;
-  margin-left: 20px;
-  font-size: 16px;
-  border-radius: 10px;
-  margin-top: 170px;
-  background-color: #365279;
-  font-family: "Rubik", sans-serif;
-}
 
 .footerContent {
   display: flex;

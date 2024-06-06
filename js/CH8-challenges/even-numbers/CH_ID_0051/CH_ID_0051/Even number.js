@@ -13,16 +13,18 @@ function evaluvate() {
   let secondNumber = secondNumberId.value;
   let dropdown = dropdownId.value;
 
-  switch (true) {
-    case dropdown == "forLoop":
+  switch (dropdown) {
+    case "forLoop":
       for (initialize = firstNumber; initialize <= secondNumber; initialize++) {
         if (initialize % 2 == 0) {
           forLoopOutput.value += `${initialize} `;
         }
       }
+      whileLoopOutput.value = "";
+      dowhileLoopOutput.value = "";
       break;
 
-    case dropdown == "whileLoop":
+    case "whileLoop":
       initialize = firstNumber;
       while (initialize <= secondNumber) {
         if (initialize % 2 == 0) {
@@ -30,9 +32,11 @@ function evaluvate() {
         }
         initialize++;
       }
+      forLoopOutput.value = "";
+      dowhileLoopOutput.value = "";
       break;
 
-    case dropdown == "doWhileLoop":
+    case "doWhileLoop":
       initialize = firstNumber;
       do {
         if (initialize % 2 == 0) {
@@ -40,6 +44,8 @@ function evaluvate() {
         }
         initialize++;
       } while (initialize <= secondNumber);
+      forLoopOutput.value = "";
+      whileLoopOutput.value = "";
       break;
   }
 }

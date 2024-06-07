@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:ital@1&family=Roboto:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik&display=swap"
+      rel="stylesheet"
+    />
+    <title>Display Years in Reverse and Find Leap Year</title>
+    <link
+      href="StyleSheet/Display Years in Reverse.css"
+      type="text/css"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <div class="mainWebpage">
+      <div class="topHeader">
+        <div class="headerContent">
+          <div>
+            <img src="Images/Logo_03.png" style="width: 40px; height: 40px" />
+          </div>
+          <div id="headerimageContent">Soft Tech Ashram</div>
+        </div>
+        <div id="heading">JAVASCRIPT TRAINING PROGRAM</div>
+        <div class="dateTime"></div>
+      </div>
+      <div class="mainBody">
+        <div class="outputWindow">
+          <div class="outputContent">
+            <span id="exerciseHeading">
+              <span id="inputId">
+                Display Years in Reverse and Find Leap Year</span
+              >
+            </span>
+            <hr width="100%" />
+            <label>Range(Year) &nbsp;:&emsp;1900-2500</label>
+            <div class="main1">
+              <div><label>Enter First Date</label><br /></div>
+              <div><input type="date" id="firstDateId" /><br /></div>
+            </div>
+            <div class="main1">
+              <div><label>Enter Second Date</label><br /></div>
+              <div><input type="date" id="secondDateId" /><br /></div>
+            </div>
+            <hr />
+            <div class="main1">
+              <div>
+                <label>Select Any Choice:</label>
+              </div>
+              <div>
+                <select id="selectId" name="displayLeap">
+                  <option value="">Select</option>
+                  <!-- Add dropdown options here --></select
+                ><br />
+              </div>
+            </div>
+            <div class="output">
+              <div class="main">
+                <label>
+                  For_loop
+                  <div class="box" id="showFor">
+                    <label>Display years in reverse</label><br />
+                    <textarea
+                      rows="4"
+                      cols="15"
+                      id="reverseId"
+                      readonly
+                    ></textarea
+                    ><br />
+                    <label> Display all leap years</label>
+                    <textarea rows="3" cols="15" id="leapId" readonly></textarea
+                    ><br />
+                    <label>Number of leap years</label><br />
+                    <input type="text" id="countLeap" readonly />
+                  </div>
+                </label>
+              </div>
+
+              <div class="main">
+                <label>
+                  While loop
+                  <div class="box" id="showWhile">
+                    <label>Display years in reverse</label><br />
+                    <textarea
+                      rows="4"
+                      cols="15"
+                      id="whilereverseId"
+                      readonly
+                    ></textarea
+                    ><br />
+                    <label> Display all leap years</label>
+                    <textarea
+                      rows="3"
+                      cols="15"
+                      id="whileleapId"
+                      readonly
+                    ></textarea
+                    ><br />
+                    <div><label>Number of leap years</label></div>
+                    <div>
+                      <input type="text" id="whilecountLeap" readonly /><br />
+                    </div>
+                  </div>
+                </label>
+              </div>
+
+              <div class="main">
+                <label>
+                  Do_While loop
+                  <div class="box" id="showDowhile">
+                    <label>Display years in reverse</label><br />
+                    <textarea
+                      rows="4"
+                      cols="15"
+                      id="dowhilereverseId"
+                      readonly
+                    ></textarea
+                    ><br />
+                    <label> Display all leap years</label>
+                    <textarea
+                      rows="3"
+                      cols="15"
+                      id="dowhileleapId"
+                      readonly
+                    ></textarea
+                    ><br />
+                    <div><label>Number of leap years</label></div>
+                    <div>
+                      <input type="text" id="dowhilecountLeap" readonly /><br />
+                    </div>
+                  </div>
+                </label>
+              </div>
+            </div>
+            <div class="main" style="position: relative">
+              <div
+                style="right: -180px; top: 10px; position: absolute"
+                id="resetId"
+                onclick="reset()"
+              >
+                <button>Reset</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button id="successBtn" onclick="toggleSuccessModal()">Success</button>
+
+      <div class="modal" id="successModal">
+        <div class="modalBox">
+          <h2>Success Code</h2>
+          <div>
+            <input id="successCode" readonly />
+            <button id="copy">
+              <span>&#128203; </span>
+              Copy
+            </button>
+          </div>
+          <button id="okay" onclick="toggleSuccessModal()">OK</button>
+        </div>
+      </div>
+
+      <button id="errorBtn" onclick="toggleErrorModal()">Error</button>
+
+      <div class="modal" id="errorModal">
+        <div class="modalBox" id="errorBox">
+          <h1 style="margin: 0">OOPs! Error(s)</h1>
+          <button id="close" onclick="toggleErrorModal()">Close</button>
+        </div>
+      </div>
+
+      <div class="footerContent">
+        <div style="font-size: 18px">
+          <i>Learning Objective :&emsp;Loop Statements</i>
+        </div>
+        <div class="logoContent" style="color: blue; font-size: 30px">
+          SoftTechAshram.com
+        </div>
+      </div>
+    </div>
+    <script src="Display Years in Reverse.js"></script>
+  </body>
+</html>

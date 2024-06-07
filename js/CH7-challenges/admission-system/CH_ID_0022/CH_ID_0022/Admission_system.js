@@ -21,7 +21,7 @@ function findCutOff() {
   let chemistryMark = parseInt(chemistry.value);
   let cutoffMark;
 
-  cutoffMark = mathsMark + physicsMark / 2 + chemistryMark / 2;
+  cutoffMark = mathsMark + physicsMark + chemistryMark;
   cutoff.value = cutoffMark;
 
   if (

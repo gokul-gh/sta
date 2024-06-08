@@ -21,6 +21,9 @@ let dowhileOutput = document.getElementById("showDowhile");
 //Constant declaration
 const MAX_ROW = 10;
 
+//Error message declaration
+const ERR_MESSAGE = "No.of.rows value is greater than 10. Enter less than 10.";
+
 //Fuction to display the star pattern
 function repeat() {
   let noOfRows = noOfRowsId.value;
@@ -188,7 +191,7 @@ function repeat() {
         break;
     }
   } else {
-    alert("No.of.rows value is greater than 10. Enter less than 10.");
+    alert(ERR_MESSAGE);
   }
 }
 

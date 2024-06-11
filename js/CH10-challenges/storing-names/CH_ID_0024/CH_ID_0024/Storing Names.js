@@ -8,10 +8,11 @@ let resultOutput = document.getElementById("variableResultsId");
 function printNames() {
   resultOutput.innerHTML = "";
 
-  let actorName = [actorNameId1.value, actorNameId2.value, actorNameId3.value];
-  for (iteration = 0; iteration < actorName.length; iteration++) {
-    resultOutput.innerHTML += actorName[iteration] + "  ";
-  }
+  let actorName1 = actorNameId1.value;
+  let actorName2 = actorNameId2.value;
+  let actorName3 = actorNameId3.value;
+
+  resultOutput.innerHTML += `${actorName1}  ${actorName2}  ${actorName3}`;
 }
 
 //Function to reset all

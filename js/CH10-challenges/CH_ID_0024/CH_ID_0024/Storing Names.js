@@ -1,4 +1,27 @@
 // Declaration
+let actorNameId1 = document.getElementById("actorNameInput1");
+let actorNameId2 = document.getElementById("actorNameInput2");
+let actorNameId3 = document.getElementById("actorNameInput3");
+let resultOutput = document.getElementById("variableResultsId");
+
+//Function to print input names in result
+function printNames() {
+  resultOutput.innerHTML = "";
+
+  let actorName = [actorNameId1.value, actorNameId2.value, actorNameId3.value];
+  for (iteration = 0; iteration < actorName.length; iteration++) {
+    resultOutput.innerHTML += actorName[iteration] + "  ";
+  }
+}
+
+//Function to reset all
+function reset() {
+  actorNameId1.value = "";
+  actorNameId2.value = "";
+  actorNameId3.value = "";
+  resultOutput.innerHTML = "";
+}
+
 // Screen date and time declaration.
 let displayDate = new Date();
 

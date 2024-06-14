@@ -50,7 +50,7 @@ function printArrayActorNames() {
 
 function resetArrayInputs() {
   actorNameInputId.value = "";
-  numberOfActorsAdded.innerHTML = "";
+  numberOfActorsAdded.innerHTML = "No. of Actors added : 0";
   actorNameOutput.innerHTML = "";
   iteration = 0;
 }

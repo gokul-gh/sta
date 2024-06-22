@@ -1,0 +1,199 @@
+body {
+    overflow: hidden;
+    margin: 0px;
+}
+button{
+    background-color: #f2f3cb;
+}
+.outputWindow {
+    margin-top: 20px;
+    background-color: #f2f3cb;
+    height: 70vh;
+    margin-bottom: 20px;
+    width: 46%;
+    color: #365279;
+    font-family: 'Montserrat', sans-serif;
+    display: flex;
+    flex-direction: column;
+    /* justify-content:space-evenly; */
+
+}
+#inputId
+{
+margin-left: 150px;
+font-size: 30px;
+}
+.main{
+    width:90%;
+    display: flex;
+    justify-content: space-between;   
+}
+.mainWebpage {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 100vh;
+}
+.maincontainer
+{
+    display: flex;
+    height:50vh;
+    justify-content: space-between;
+}
+.topHeader {
+    height: 3%;
+    background-color: #365277;
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.headerContent {
+    display: flex;
+    flex-direction: row
+}
+
+#headerimageContent {
+    color: antiquewhite;
+    margin-left: 7px;
+    display:flex;
+    align-items: center;
+    font-family: 'Lato', sans-serif;
+    font-size: 18px;
+}
+
+#heading {
+    font-size: 25px;
+    font-family: 'Montserrat', sans-serif;
+    color: antiquewhite;
+}
+
+.dateTime {
+    font-size: 17px;
+    color: antiquewhite;
+    padding-right: 10px;
+}
+
+.mainBody {
+    /* height: 80%; */
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.outputContent {
+    font-size: 15px;
+    color: #365279;
+
+}
+
+
+label {
+    margin-bottom: 10px;
+    height: 20px;
+    margin-left: 20px;
+    font-size: 15px;
+    width: 150px;
+    color: #365279;
+}
+
+#exerciseHeading {
+    margin-bottom: 30px;
+    height: 30px;
+    font-size: 22px;
+    margin-left: 20px;
+    width: 180px;
+    color: #365279;
+
+}
+
+#buttonId,#resetId,#restartButton {
+    color: white;
+    height: 35px;
+    width:160px;
+    margin-left: 10px;
+    font-size: 15px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    background-color: #365279;
+    font-family: 'Rubik', sans-serif;
+}
+
+.footerContent {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 8%;
+    background-color: #e4f6f6;
+    color: #365279;
+    padding-left: 40px;
+    padding-right: 5px;
+    align-items: center;
+}
+
+.logoContent {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-right: 10px;
+}.mainContainer{
+    display:flex;
+    flex-direction: column;
+    background-color: #f2f3cb;
+    height:40vh;
+    align-items: center;
+    justify-content:space-between;
+    color: #365279;
+
+}
+#resultUpdate,#whoWins,#ourChoices{
+    height: 15vh;
+}
+#displayScore{
+    display:flex;
+    flex-direction: row;
+    /* height:300px; */
+    width:500px;
+    background-color: #f2f3cb;
+    justify-content: space-around;
+    align-items: center;
+}
+.myScore,.cpuScore{
+    height:120px;
+    width:150px;
+    color: #365279;
+    font-size: larger;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: azure;
+}
+#userImage  img{
+   width:80px;
+   height:80px;
+}
+#cpuImage img{
+    width:80px;
+    height:80px;
+}
+
+#ourChoices{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width:300px;
+    align-items: center;
+    background-color: beige;
+}
+    
+#ourChoices img{
+    height:70px;
+    width:70px;
+    background-color: #f2f3cb;}

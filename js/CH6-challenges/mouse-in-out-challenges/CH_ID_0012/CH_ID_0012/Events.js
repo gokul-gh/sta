@@ -18,7 +18,7 @@
 
     //mouseOut operation when mouse is mover out from the paragraph content
     function mouseOut() {
-        paraContent.style.color = "black";
+        paraContent.style.color = "rgb(54, 82, 121)";
     }
 
 

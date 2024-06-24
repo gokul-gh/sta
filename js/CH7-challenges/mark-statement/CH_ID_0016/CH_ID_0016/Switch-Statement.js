@@ -60,7 +60,6 @@ function calculate() {
     }
 
     cutoffMark = mathsMark + physicsMark / 2 + chemistryMark / 2;
-    cutoff.value = cutoffMark;
 
     if (
       languageMark > 40 &&
@@ -70,6 +69,7 @@ function calculate() {
       biologyMark > 40
     ) {
       pass.value = "Pass";
+      cutoff.value = cutoffMark;
 
       if (cutoffMark >= 180) {
         eligiblity.value = "Medicine";
@@ -78,7 +78,6 @@ function calculate() {
       }
     } else {
       pass.value = "Fail";
-      eligiblity.value = "";
     }
   } else {
     alert("Enter marks value only ranging from 0 to 100");

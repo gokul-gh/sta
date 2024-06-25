@@ -1,11 +1,49 @@
 /*            *************************************************************
-              *   Name of the challenge: Longest Country Name             *
-              *            Developed by:                                  *
-              *           Programmed by:                                  *
-              *     Maintenance history:                  Ticket No:      *
-              *************************************************************  */
+ *   Name of the challenge: Longest Country Name             *
+ *            Developed by:                                  *
+ *           Programmed by:                                  *
+ *     Maintenance history:                  Ticket No:      *
+ *************************************************************  */
 
 // Declaration
+let inputCountryNameId = document.getElementById("arrayItems");
+let displayCountryList = document.getElementById("displayArray");
+let longestCountryNameId = document.getElementById("maxId");
+
+let countryArray = [],
+  iteration = 0,
+  maxlength = 0,
+  longestCountryName = "";
+
+function addItems() {
+  let inputCountryName = inputCountryNameId.value;
+
+  displayCountryList.value += `${inputCountryName}\n`;
+  countryArray[iteration] = inputCountryName;
+  iteration++;
+}
+
+function longestName() {
+  for (countryName of countryArray) {
+    if (countryName.length > maxlength) {
+      longestCountryName = countryName;
+      maxlength = countryName.length;
+    }
+  }
+  longestCountryName = longestCountryName.charAt(0).toUpperCase() + longestCountryName.slice(1) ;
+  longestCountryNameId.value = longestCountryName;
+}
+
+function reset() {
+  countryArray = [];
+  iteration = 0;
+  maxlength = 0;
+  longestCountryName = "";
+  inputCountryNameId.value = "";
+  displayCountryList.value = "";
+  longestCountryNameId.value = "";
+}
+
 // Screen date and time declaration.
 let displayDate = new Date();
 //Modal
@@ -16,17 +54,12 @@ window.addEventListener("click", function (event) {
   if (event.target === errorModal) errorModal.classList.remove("active");
 });
 
-     //copy to clipboard
+//copy to clipboard
 const copyText = document.querySelector("#copy");
-      copyText.addEventListener("click", () => {
-        navigator.clipboard.writeText(
-          document.querySelector("#successCode").value
-        );
-        copyText.textContent = "copied";
-        setTimeout(() => {
-          copyText.innerHTML = `<span>&#128203; </span>copy`;
-        }, 2000);
-      });
-
-
-
+copyText.addEventListener("click", () => {
+  navigator.clipboard.writeText(document.querySelector("#successCode").value);
+  copyText.textContent = "copied";
+  setTimeout(() => {
+    copyText.innerHTML = `<span>&#128203; </span>copy`;
+  }, 2000);
+});

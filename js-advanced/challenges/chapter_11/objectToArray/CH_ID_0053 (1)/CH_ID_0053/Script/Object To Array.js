@@ -11,10 +11,6 @@ let objectValueId = document.getElementById("valueId");
 let objectOutputArea = document.getElementById("displayObject");
 let arrayOutputArea = document.getElementById("displayArrayitems");
 
-//Button declaration
-let addButton = document.getElementById("addButton");
-let convertButton = document.getElementById("pushButton");
-let resetuButton = document.getElementById("resetId");
 let objectVariable,
   objectArray = [],
   iteration = 0;

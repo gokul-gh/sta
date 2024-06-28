@@ -20,7 +20,7 @@ let objectVariable,
   iteration = 0;
 
 //Function to add key values
-function addItems() {
+let addItems = () => {
   let objectKey = parseInt(objectKeyId.value);
   let objectValue = parseInt(objectValueId.value);
 
@@ -32,25 +32,25 @@ function addItems() {
 
   objectArray[iteration] = objectVariable;
   iteration++;
-}
+};
 
-//Function to convert array into objects
-function convertObject() {
+//Function to convert objects to array
+let convertObject = () => {
   arrayOutputArea.value = "";
   objectArray.forEach((position) => {
     arrayOutputArea.value += `${Object.values(position)}\n`;
   });
-}
+};
 
 //Reset function to clear values
-function reset() {
+let reset = () => {
   objectKeyId.value = "";
   objectValueId.value = "";
   objectOutputArea.value = "";
   arrayOutputArea.value = "";
   objectArray = [];
   iteration = 0;
-}
+};
 
 // Screen date and time declaration.
 //Modal

@@ -5,7 +5,37 @@
  *     Maintenance history:                  Ticket No:      *
  *************************************************************  */
 
-// Declaration
+//Varibales Declaration
+let arrayInputItemId = document.getElementById("arrayItems");
+let displayArray = document.getElementById("displayArray");
+let displayDuplictesId = document.getElementById("orderId");
+let arrayElements = [];
+
+//Function to get input elements
+let addItems = () => {
+  displayArray.value = "";
+  let arrayInputItem = parseInt(arrayInputItemId.value);
+  arrayElements.push(arrayInputItem);
+  displayArray.value += arrayElements;
+};
+
+//Function to display duplicate in a array
+let duplicates = () => {
+  arrayElements.reduce(function (accumulator, currentValue, index, array) {
+    if (array.indexOf(currentValue) != index) {
+      displayDuplictesId.value += `${array[index]} `;
+    }
+  }, 0);
+};
+
+//Reset function to clear values
+let reset = () => {
+  arrayInputItemId.value = "";
+  displayArray.value = "";
+  displayDuplictesId.value = "";
+  arrayElements = [];
+};
+
 // Screen date and time declaration.
 let displayDate = new Date();
 

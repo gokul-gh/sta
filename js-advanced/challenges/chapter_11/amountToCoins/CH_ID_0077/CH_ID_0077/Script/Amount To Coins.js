@@ -20,6 +20,7 @@ let addItems = () => {
   let coinElementInput = parseInt(coinElementInputId.value);
   coinArray.push(coinElementInput);
   coinsArrayDisplay.value = coinArray;
+  coinElementInputId.value = "";
 };
 
 //Function to calculate amount to coins

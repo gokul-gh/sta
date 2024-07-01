@@ -21,11 +21,10 @@ let addItems = () => {
   let objectValue = parseInt(objectValueId.value);
 
   objectVariable = {
-    objectKey: objectKey,
-    objectValue: objectValue,
+    [objectKey]: objectValue,
   };
-  objectOutputArea.value += JSON.stringify(objectVariable);
 
+  objectOutputArea.value += `${JSON.stringify(objectVariable)}\n`;
   objectArray[iteration] = objectVariable;
   iteration++;
 };
@@ -33,8 +32,8 @@ let addItems = () => {
 //Function to convert objects to array
 let convertObject = () => {
   arrayOutputArea.value = "";
-  objectArray.forEach((position) => {
-    arrayOutputArea.value += `${Object.values(position)}\n`;
+  objectArray.forEach((element) => {
+    arrayOutputArea.value += `${Object.entries(element)}\n`;
   });
 };
 

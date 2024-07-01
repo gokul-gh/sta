@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:ital@1&family=Roboto:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik&display=swap"
+      rel="stylesheet"
+    />
+    <title>Bubble Sort</title>
+    <link href="Stylesheet/Bubble sort.css" type="text/css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <div class="mainWebpage">
+      <div class="topHeader">
+        <div class="headerContent">
+          <div>
+            <img src="Images/Logo_03.png" style="width: 30px; height: 35px" />
+          </div>
+          <div id="headerimageContent">Soft Tech Ashram</div>
+        </div>
+        <div id="heading">JAVASCRIPT TRAINING PROGRAM</div>
+        <div class="dateTime"></div>
+      </div>
+      <div class="mainBody">
+        <div class="outputWindow">
+          <div class="outputContent">
+            <br />
+            <span id="exerciseHeading">
+              <span id="inputId">Bubble Sort</span>
+            </span>
+            <hr width="100%" />
+
+            <div class="main1">
+              <div><label>Enter the array items</label><br /></div>
+
+              <div><input type="number" id="arrayItems" /><br /></div>
+              <div>
+                <button onclick="addItems()" id="addButton">Add</button><br />
+              </div>
+            </div>
+
+            <hr />
+            <div class="main4">
+              <div><label>Array </label></div>
+              <div><textarea id="displayArray"></textarea></div>
+            </div>
+            <label style="color: blue; margin-left: 30px"
+              ><u>Non-Array method</u>
+            </label>
+            <div class="main3">
+              <div class="bubble">
+                <div>
+                  <label style="margin-left: 30px">Ascending order</label>
+                </div>
+                <div><textarea rows="5" cols="20" id="orderId"></textarea></div>
+              </div>
+              <div class="bubble">
+                <div>
+                  <label style="margin-left: 30px">Descending order</label>
+                </div>
+                <div><textarea rows="5" cols="20" id="descId"></textarea></div>
+              </div>
+            </div>
+            <label style="color: blue; margin-left: 30px"
+              ><u>Array method</u></label
+            >
+            <div class="main3">
+              <div class="bubble">
+                <div>
+                  <label style="margin-left: 30px">Ascending order</label>
+                </div>
+                <div>
+                  <textarea rows="5" cols="20" id="arrayorderId"></textarea>
+                </div>
+              </div>
+              <div class="bubble">
+                <div>
+                  <label style="margin-left: 30px">Descending order</label>
+                </div>
+                <div>
+                  <textarea rows="5" cols="20" id="arraydescId"></textarea>
+                </div>
+              </div>
+            </div>
+            <br />
+            <div class="main4">
+              <div>
+                <button onclick="bubbleSort()" id="displayButton">
+                  Bubble Sort
+                </button>
+              </div>
+              <div>
+                <button onclick="arraySort()" id="arrayButton">
+                  Array Sort
+                </button>
+              </div>
+
+              <div><button onclick="reset()" id="resetId">Reset</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button id="successBtn" onclick="toggleSuccessModal()">Success</button>
+
+      <div class="modal" id="successModal">
+        <div class="modalBox">
+          <h2>Success Code</h2>
+          <div>
+            <input id="successCode" readonly />
+            <button id="copy">
+              <span>&#128203; </span>
+              Copy
+            </button>
+          </div>
+          <button id="okay" onclick="toggleSuccessModal()">OK</button>
+        </div>
+      </div>
+
+      <button id="errorBtn" onclick="toggleErrorModal()">Error</button>
+
+      <div class="modal" id="errorModal">
+        <div class="modalBox" id="errorBox">
+          <h1 style="margin: 0">OOPs! Error(s)</h1>
+          <button id="close" onclick="toggleErrorModal()">Close</button>
+        </div>
+      </div>
+
+      <div class="footerContent">
+        <div style="font-size: 18px">
+          <i>Learning Objective :&nbsp;Sorting method</i>
+        </div>
+        <div class="logoContent" style="color: blue; font-size: 24px">
+          SoftTechAshram.com
+        </div>
+      </div>
+    </div>
+    <script src="Script files/Bubble sort.js"></script>
+  </body>
+</html>

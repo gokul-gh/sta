@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:ital@1&family=Roboto:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik&display=swap"
+      rel="stylesheet"
+    />
+    <title>Chocolates</title>
+    <link href="Stylesheet/Chocolates.css" type="text/css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <div class="mainWebpage">
+      <div class="topHeader">
+        <div class="headerContent">
+          <div>
+            <img src="Images/Logo_03.png" style="width: 30px; height: 35px" />
+          </div>
+          <div id="headerimageContent">Soft Tech Ashram</div>
+        </div>
+        <div id="heading">JavaScript Training Program</div>
+        <div class="dateTime"></div>
+      </div>
+      <div class="mainBody">
+        <div class="outputWindow">
+          <div class="outputContent">
+            <span id="exerciseHeading">
+              <span id="inputId">Reduce Method</span>
+            </span>
+            <hr />
+            <div class="emp">
+              <div style="width: 30%"><label>First Sister</label></div>
+              <div>
+                <input type="number" id="firstLength" min="0" max="50" /><br />
+              </div>
+              <div>
+                <input type="number" id="firstWidth" min="0" max="50" /><br />
+              </div>
+            </div>
+            <div class="emp">
+              <div style="width: 30%"><label>Second Sister</label></div>
+              <div>
+                <input type="number" id="secondLength" min="0" max="50" /><br />
+              </div>
+              <div>
+                <input type="number" id="secondWidth" min="0" max="50" /><br />
+              </div>
+            </div>
+
+            <div class="emp">
+              <div></div>
+              <button id="addId" onclick="addElements()">Add</button>
+            </div>
+            <br />
+            <div class="emp">
+              <div style="width: 30%"><label>Chocolate Array</label></div>
+              <textarea id="chocolateArray" cols="30" rows="10"></textarea>
+            </div>
+
+            <div class="main2">
+              <div></div>
+              <div>
+                <button id="calculateId" onclick="calculate()">Calculate</button
+                ><br />
+              </div>
+            </div>
+            <hr />
+
+            <div class="main2">
+              <div><label>Equal/Not</label></div>
+              <div><input type="text" id="arrayId" readonly /><br /></div>
+            </div>
+            <div class="main2">
+              <div></div>
+              <div>
+                <button id="resetId" onclick="reset()">Reset</button><br />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button id="successBtn" onclick="toggleSuccessModal()">Success</button>
+
+      <div class="modal" id="successModal">
+        <div class="modalBox">
+          <h2>Success Code</h2>
+          <div>
+            <input id="successCode" readonly />
+            <button id="copy">
+              <span>&#128203; </span>
+              Copy
+            </button>
+          </div>
+          <button id="okay" onclick="toggleSuccessModal()">OK</button>
+        </div>
+      </div>
+
+      <button id="errorBtn" onclick="toggleErrorModal()">Error</button>
+
+      <div class="modal" id="errorModal">
+        <div class="modalBox" id="errorBox">
+          <h1 style="margin: 0">OOPs! Error(s)</h1>
+          <button id="close" onclick="toggleErrorModal()">Close</button>
+        </div>
+      </div>
+
+      <div class="footerContent">
+        <div style="font-size: 18px">
+          <i>Learning Objective : &nbsp; Reduce method</i>
+        </div>
+        <div class="logoContent">SoftTechAshram.com</div>
+      </div>
+    </div>
+    <script src="Script files/Chocolates.js"></script>
+  </body>
+</html>

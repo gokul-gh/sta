@@ -1,69 +1,86 @@
 //code Statements
 
-  //variable declarations
-  let firstNumber = document.getElementById("firstNumber");
-  let secondNumber = document.getElementById("secondNumber");
-  let resultNumber = document.getElementById("resultId");
- 
-  //Addition operation
-  function addOperation() {
-    let addition = parseInt(firstNumber.value) + parseInt(secondNumber.value);
+//variable declarations
+let firstNumberId = document.getElementById("firstNumber");
+let secondNumberId = document.getElementById("secondNumber");
+let resultNumber = document.getElementById("resultId");
+
+//Addition operation
+function addOperation() {
+  let firstNumber = parseInt(firstNumberId.value);
+  let secondNumber = parseInt(secondNumberId.value);
+  if (!isNaN(firstNumber) && !isNaN(secondNumber)) {
+    let addition = parseInt(firstNumber) + parseInt(secondNumber);
     resultNumber.value = addition;
+  } else {
+    alert("Enter valid inputs");
   }
- 
-  //Subtraction operation
-  function subOperation() {
-    let subtraction = parseInt(firstNumber.value) - parseInt(secondNumber.value);
+}
+
+//Subtraction operation
+function subOperation() {
+  let firstNumber = parseInt(firstNumberId.value);
+  let secondNumber = parseInt(secondNumberId.value);
+  if (!isNaN(firstNumber) && !isNaN(secondNumber)) {
+    let subtraction = parseInt(firstNumber) - parseInt(secondNumber);
     resultNumber.value = subtraction;
+  } else {
+    alert("Enter valid inputs");
   }
- 
-  //Multiplication operation
-  function multiplyOperation() {
-    let multiplication = parseInt(firstNumber.value) * parseInt(secondNumber.value);
+}
+
+//Multiplication operation
+function multiplyOperation() {
+  let firstNumber = parseInt(firstNumberId.value);
+  let secondNumber = parseInt(secondNumberId.value);
+  if (!isNaN(firstNumber) && !isNaN(secondNumber)) {
+    let multiplication = parseInt(firstNumber) * parseInt(secondNumber);
     resultNumber.value = multiplication;
+  } else {
+    alert("Enter valid inputs");
   }
- 
-  //Division operation
-  function divideOperation() {
-    let division = parseInt(firstNumber.value) / parseInt(secondNumber.value);
+}
+
+//Division operation
+function divideOperation() {
+  let firstNumber = parseInt(firstNumberId.value);
+  let secondNumber = parseInt(secondNumberId.value);
+  if (!isNaN(firstNumber) && !isNaN(secondNumber)) {
+    let division = parseInt(firstNumber) / parseInt(secondNumber);
     resultNumber.value = division;
+  } else {
+    alert("Enter valid inputs");
   }
+}
 
-  //Resetting fields
-  function reset() {
-    firstNumber.value = "";
-    secondNumber.value = "";
-    resultNumber.value = "";
-  }
- 
- 
- 
- 
- 
- //Date and Time declaration
- let displayDate = new Date();
- document.getElementById("dateOutput").innerHTML =
-   displayDate.toLocaleDateString();
- document.getElementById("timeOutput").innerHTML =
-   displayDate.toLocaleTimeString();
+//Resetting fields
+function reset() {
+  firstNumber.value = "";
+  secondNumber.value = "";
+  resultNumber.value = "";
+}
 
- //copy to clipboard
- const copyText = document.querySelector("#copy");
- copyText.addEventListener("click", () => {
-   navigator.clipboard.writeText(
-     document.querySelector("#successCode").value,
-   );
-   copyText.textContent = "copied";
-   setTimeout(() => {
-     copyText.innerHTML = `<span>&#128203; </span>copy`;
-   }, 2000);
- });
+//Date and Time declaration
+let displayDate = new Date();
+document.getElementById("dateOutput").innerHTML =
+  displayDate.toLocaleDateString();
+document.getElementById("timeOutput").innerHTML =
+  displayDate.toLocaleTimeString();
 
- //Modal
- const toggleSuccessModal = () => successModal.classList.toggle("active");
- const toggleErrorModal = () => errorModal.classList.toggle("active");
- window.addEventListener("click", function (event) {
-   if (event.target === successModal)
-     successModal.classList.remove("active");
-   if (event.target === errorModal) errorModal.classList.remove("active");
- });
+//copy to clipboard
+const copyText = document.querySelector("#copy");
+copyText.addEventListener("click", () => {
+  navigator.clipboard.writeText(document.querySelector("#successCode").value);
+  copyText.textContent = "copied";
+  setTimeout(() => {
+    copyText.innerHTML = `<span>&#128203; </span>copy`;
+  }, 2000);
+});
+
+//Modal
+const toggleSuccessModal = () => successModal.classList.toggle("active");
+const toggleErrorModal = () => errorModal.classList.toggle("active");
+window.addEventListener("click", function (event) {
+  if (event.target === successModal) successModal.classList.remove("active");
+  if (event.target === errorModal) errorModal.classList.remove("active");
+});

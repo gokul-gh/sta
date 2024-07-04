@@ -1,31 +1,43 @@
 /*            *************************************************************
-              *  Name of the challenge   : Array Of Multiples               *
-              *  Developed for           : VHITECH Training Program         *
-              *               Maintenance History                          *
-              *  Developer               :                                  *
-              *  Creation date           :               Ticket No:        *
-              ************************************************************ */
-
+ *  Name of the challenge   : Array Of Multiples               *
+ *  Developed for           : VHITECH Training Program         *
+ *               Maintenance History                          *
+ *  Developer               :                                  *
+ *  Creation date           :               Ticket No:        *
+ ************************************************************ */
 
 // Declaration
 
 //Variable declaration
-let firstNumber = document.getElementById("firstNumber");
-let secondNumber = document.getElementById("secondNumber");
+let firstNumberId = document.getElementById("firstNumber");
+let secondNumberId = document.getElementById("secondNumber");
 let result = document.getElementById("resultId");
 
 //Function for creating the multiples of a number
 function multiple() {
-  for(let startValue = 1; startValue <= secondNumber.value; startValue++) {
-    result.innerHTML += firstNumber.value * startValue + " ";
+  let firstNumber = firstNumberId.valueAsNumber;
+  let secondNumber = secondNumberId.valueAsNumber;
+  if (
+    !isNaN(firstNumber) &&
+    !isNaN(secondNumber) &&
+    firstNumber > 0 &&
+    firstNumber <= 100 &&
+    secondNumber > 0 &&
+    secondNumber <= 100
+  ) {
+    for (let startValue = 1; startValue <= secondNumber; startValue++) {
+      result.value += firstNumber * startValue + " ";
+    }
+  } else {
+    alert("Enter valid inputs");
   }
 }
 
 //Reset function for clearing the output
 function reset() {
-  firstNumber.value = "";
-  secondNumber.value = "";
-  result.innerHTML = "";
+  firstNumberId.value = "";
+  secondNumberId.value = "";
+  result.value = "";
 }
 
 // Screen date and time declaration.

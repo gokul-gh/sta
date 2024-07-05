@@ -16,11 +16,13 @@ let addItems = () => {
   displayArray.value = "";
   let arrayInputItem = parseInt(arrayInputItemId.value);
   arrayElements.push(arrayInputItem);
-  displayArray.value += arrayElements;
+  displayArray.value = arrayElements;
+  arrayInputItemId.value = "";
 };
 
 //Function to display duplicate in a array
 let duplicates = () => {
+  displayDuplictesId.value = "";
   arrayElements.reduce(function (accumulator, currentValue, index, array) {
     if (array.indexOf(currentValue) != index) {
       displayDuplictesId.value += `${array[index]} `;

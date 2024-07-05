@@ -8,20 +8,24 @@ let eligiblity = document.getElementById("result");
 function findEligiblity() {
   let degree = degreeOption.value;
 
-  if (
-    degree == "bca" ||
-    degree == "bscCs" ||
-    degree == "beCs" ||
-    degree == "beIt"
-  ) {
-    eligiblity.innerHTML = "Jr. Software developer";
-  } else if (
-    degree == "mca" ||
-    degree == "mscCs" ||
-    degree == "meCs" ||
-    degree == "meIt"
-  ) {
-    eligiblity.innerHTML = "Sr. Software developer";
+  if (degree != "") {
+    if (
+      degree == "bca" ||
+      degree == "bscCs" ||
+      degree == "beCs" ||
+      degree == "beIt"
+    ) {
+      eligiblity.innerHTML = "Jr. Software developer";
+    } else if (
+      degree == "mca" ||
+      degree == "mscCs" ||
+      degree == "meCs" ||
+      degree == "meIt"
+    ) {
+      eligiblity.innerHTML = "Sr. Software developer";
+    }
+  } else {
+    alert("Select any dropdown option");
   }
 }
 

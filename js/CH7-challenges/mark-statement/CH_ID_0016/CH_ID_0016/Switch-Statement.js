@@ -1,7 +1,7 @@
 //code statements
 
 //Variables declaration
-let studentName = document.getElementById("nameId");
+let studentNameId = document.getElementById("nameId");
 let languageSubject = document.getElementById("langId");
 let physicsSubject = document.getElementById("physicsId");
 let mathsSubject = document.getElementById("mathsId");
@@ -20,6 +20,7 @@ const MIN_MARK = 0;
 
 //Function to calculate mark statement
 function calculate() {
+  let studentName = studentNameId.value;
   let languageMark = parseInt(languageSubject.value);
   let physicsMark = parseInt(physicsSubject.value);
   let mathsMark = parseInt(mathsSubject.value);
@@ -39,7 +40,8 @@ function calculate() {
     chemistryMark >= MIN_MARK &&
     chemistryMark <= MAX_MARK &&
     biologyMark >= MIN_MARK &&
-    biologyMark <= MAX_MARK
+    biologyMark <= MAX_MARK &&
+    studentName != ""
   ) {
     totalMark =
       languageMark + physicsMark + mathsMark + chemistryMark + biologyMark;
@@ -54,13 +56,18 @@ function calculate() {
       case averageMark > 60 && averageMark <= 90:
         grade.value = "B";
         break;
-      case averageMark > 40 && averageMark <= 60:
+      case averageMark >= 40 && averageMark <= 60:
         grade.value = "C";
+        break;
+      case averageMark >= 0 && average < 40:
+        grade.value = "F";
         break;
     }
 
     cutoffMark = mathsMark + physicsMark / 2 + chemistryMark / 2;
-
+    if (cutoffMark != 0) {
+      cutoff.value = cutoffMark;
+    }
     if (
       languageMark > 40 &&
       physicsMark > 40 &&
@@ -69,8 +76,6 @@ function calculate() {
       biologyMark > 40
     ) {
       pass.value = "Pass";
-      cutoff.value = cutoffMark;
-
       if (cutoffMark >= 180) {
         eligiblity.value = "Medicine";
       } else if (cutoffMark < 180 && cutoffMark > 160) {
@@ -78,15 +83,18 @@ function calculate() {
       }
     } else {
       pass.value = "Fail";
+      if (cutoffMark >= 80) {
+        eligiblity.value = "Not eligible for both";
+      }
     }
   } else {
-    alert("Enter marks value only ranging from 0 to 100");
+    alert("Enter all input fields and marks value only ranging from 0 to 100");
   }
 }
 
 //Reset function to clear input values
 function reset() {
-  studentName.value = "";
+  studentNameId.value = "";
   languageSubject.value = "";
   physicsSubject.value = "";
   mathsSubject.value = "";

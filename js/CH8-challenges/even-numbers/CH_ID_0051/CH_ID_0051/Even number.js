@@ -7,46 +7,70 @@ let whileLoopOutput = document.getElementById("showWhile");
 let dowhileLoopOutput = document.getElementById("showDowhile");
 let initialize;
 
+const MIN_INPUT = 0;
+
 //Function to print even numbers in a range
 function evaluvate() {
-  let firstNumber = firstNumberId.value;
-  let secondNumber = secondNumberId.value;
+  let firstNumber = Number(firstNumberId.value);
+  let secondNumber = Number(secondNumberId.value);
   let dropdown = dropdownId.value;
-
-  switch (dropdown) {
-    case "forLoop":
-      for (initialize = firstNumber; initialize <= secondNumber; initialize++) {
-        if (initialize % 2 == 0) {
-          forLoopOutput.value += `${initialize} `;
+  //Check conditions
+  if (
+    //Check if input is within the range of 1 to 50
+    firstNumber > MIN_INPUT &&
+    secondNumber > MIN_INPUT &&
+    firstNumber <= 50 &&
+    secondNumber <= 50 &&
+    //Check for empty and invalid inputs
+    firstNumberId.value != "" &&
+    secondNumberId.value != "" &&
+    firstNumber == parseInt(firstNumberId.value) &&
+    secondNumber == parseInt(secondNumberId.value) &&
+    //Check if first number is greater than second number
+    firstNumber < secondNumber
+  ) {
+    switch (dropdown) {
+      case "forLoop":
+        for (
+          initialize = firstNumber;
+          initialize <= secondNumber;
+          initialize++
+        ) {
+          if (initialize % 2 == 0) {
+            forLoopOutput.value += `${initialize} `;
+          }
         }
-      }
-      whileLoopOutput.value = "";
-      dowhileLoopOutput.value = "";
-      break;
+        whileLoopOutput.value = "";
+        dowhileLoopOutput.value = "";
+        break;
 
-    case "whileLoop":
-      initialize = firstNumber;
-      while (initialize <= secondNumber) {
-        if (initialize % 2 == 0) {
-          whileLoopOutput.value += `${initialize} `;
+      case "whileLoop":
+        initialize = firstNumber;
+        while (initialize <= secondNumber) {
+          if (initialize % 2 == 0) {
+            whileLoopOutput.value += `${initialize} `;
+          }
+          initialize++;
         }
-        initialize++;
-      }
-      forLoopOutput.value = "";
-      dowhileLoopOutput.value = "";
-      break;
+        forLoopOutput.value = "";
+        dowhileLoopOutput.value = "";
+        break;
 
-    case "doWhileLoop":
-      initialize = firstNumber;
-      do {
-        if (initialize % 2 == 0) {
-          dowhileLoopOutput.value += `${initialize} `;
-        }
-        initialize++;
-      } while (initialize <= secondNumber);
-      forLoopOutput.value = "";
-      whileLoopOutput.value = "";
-      break;
+      case "doWhileLoop":
+        initialize = firstNumber;
+        do {
+          if (initialize % 2 == 0) {
+            dowhileLoopOutput.value += `${initialize} `;
+          }
+          initialize++;
+        } while (initialize <= secondNumber);
+        forLoopOutput.value = "";
+        whileLoopOutput.value = "";
+        break;
+    }
+  } else {
+    alert("Enter valid inputs");
+    dropdownId.value = "";
   }
 }
 

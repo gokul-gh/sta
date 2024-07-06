@@ -6,6 +6,9 @@ let forOutputArea = document.getElementById("showFor");
 let whileOutputArea = document.getElementById("showWhile");
 let dowhileOutputArea = document.getElementById("showDowhile");
 
+const MIN_VALUE = 0,
+  MAX_VALUE = 1000;
+
 //Futction to list armstrong numbers within the input range
 function armstrong() {
   let firstNumberValue = parseInt(firstNumberId.value);
@@ -20,75 +23,91 @@ function armstrong() {
   whileOutputArea.value = "";
   dowhileOutputArea.value = "";
 
-  switch (dropdownValue) {
-    //logic implemented by for loop
-    case "forLoop":
-      for (; iterate <= secondNumberValue; iterate++) {
-        let count = 0,
-          sum = 0;
-        for (number = iterate; number > 0; number = Math.floor(number / 10)) {
-          ++count;
-        }
-        for (number = iterate; number > 0; number = Math.floor(number / 10)) {
-          lastDigit = number % 10;
-          sum += lastDigit ** count;
-        }
+  if (
+    //Check for minimum and maximum  range of values
+    firstNumberValue > MIN_VALUE &&
+    secondNumberValue > MIN_VALUE &&
+    firstNumberValue <= MAX_VALUE &&
+    secondNumberValue <= MAX_VALUE &&
+    //Check for valid inputs
+    //3.4, 3e4 of parseint returns 3, whereas Number() and valueAsNumber converts as 3.4, 3000
+    firstNumberValue == Number(firstNumberId.value) &&
+    secondNumberValue == Number(secondNumberId.value)
+  ) {
+    switch (dropdownValue) {
+      //logic implemented by for loop
+      case "forLoop":
+        for (; iterate <= secondNumberValue; iterate++) {
+          let count = 0,
+            sum = 0;
+          for (number = iterate; number > 0; number = Math.floor(number / 10)) {
+            ++count;
+          }
+          for (number = iterate; number > 0; number = Math.floor(number / 10)) {
+            lastDigit = number % 10;
+            sum += lastDigit ** count;
+          }
 
-        if (sum == iterate) {
-          forOutputArea.value += `${sum}\n`;
+          if (sum == iterate) {
+            forOutputArea.value += `${sum}\n`;
+          }
         }
-      }
-      break;
+        break;
 
-    //logic implemented by while loop
-    case "whileLoop":
-      while (iterate <= secondNumberValue) {
-        let count = 0,
-          sum = 0;
-        number = iterate;
-        while (number > 0) {
-          ++count;
-          number = Math.floor(number / 10);
-        }
-        number = iterate;
-        while (number > 0) {
-          lastDigit = number % 10;
-          sum += lastDigit ** count;
-          number = Math.floor(number / 10);
-        }
+      //logic implemented by while loop
+      case "whileLoop":
+        while (iterate <= secondNumberValue) {
+          let count = 0,
+            sum = 0;
+          number = iterate;
+          while (number > 0) {
+            ++count;
+            number = Math.floor(number / 10);
+          }
+          number = iterate;
+          while (number > 0) {
+            lastDigit = number % 10;
+            sum += lastDigit ** count;
+            number = Math.floor(number / 10);
+          }
 
-        if (sum == iterate) {
-          whileOutputArea.value += `${sum}\n`;
+          if (sum == iterate) {
+            whileOutputArea.value += `${sum}\n`;
+          }
+          iterate++;
         }
-        iterate++;
-      }
-      break;
+        break;
 
-    //logic implemented by do while loop
-    case "dowhileLoop":
-      do {
-        let count = 0,
-          sum = 0;
-        number = iterate;
+      //logic implemented by do while loop
+      case "dowhileLoop":
         do {
-          ++count;
-          number = Math.floor(number / 10);
-        } while (number > 0);
-        number = iterate;
-        do {
-          lastDigit = number % 10;
-          sum += lastDigit ** count;
-          number = Math.floor(number / 10);
-        } while (number > 0);
+          let count = 0,
+            sum = 0;
+          number = iterate;
+          do {
+            ++count;
+            number = Math.floor(number / 10);
+          } while (number > 0);
+          number = iterate;
+          do {
+            lastDigit = number % 10;
+            sum += lastDigit ** count;
+            number = Math.floor(number / 10);
+          } while (number > 0);
 
-        if (sum == iterate) {
-          dowhileOutputArea.value += `${sum}\n`;
-        }
-        iterate++;
-      } while (iterate <= secondNumberValue);
+          if (sum == iterate) {
+            dowhileOutputArea.value += `${sum}\n`;
+          }
+          iterate++;
+        } while (iterate <= secondNumberValue);
+    }
+  } else {
+    alert("Enter valid inputs");
+    dropdownId.value = "";
   }
 }
 
+//Reset function to clear all values
 function reset() {
   firstNumberId.value = "";
   secondNumberId.value = "";

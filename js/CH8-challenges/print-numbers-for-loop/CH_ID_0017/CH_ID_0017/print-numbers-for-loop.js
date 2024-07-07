@@ -2,18 +2,35 @@
 let firstNumberId = document.getElementById("firstNumber");
 let secondNumberId = document.getElementById("secondNumber");
 let outputResult = document.getElementById("resultId");
+//Constant declaration
+const MIN_VALUE = 0,
+  MAX_VALUE = 500;
 
 function forLoop() {
   // Code statements
-  let firstNumberValue = firstNumberId.value;
-  let secondNumberValue = secondNumberId.value;
+  let firstNumberValue = parseInt(firstNumberId.value);
+  let secondNumberValue = parseInt(secondNumberId.value);
 
-  for (
-    let iteration = firstNumberValue;
-    iteration <= secondNumberValue;
-    iteration++
+  if (
+    firstNumberId.value != "" &&
+    secondNumberId.value != "" &&
+    firstNumberValue >= MIN_VALUE &&
+    secondNumberValue >= MIN_VALUE &&
+    firstNumberValue <= MAX_VALUE &&
+    secondNumberValue <= MAX_VALUE &&
+    firstNumberValue < secondNumberValue
   ) {
-    outputResult.value += `${iteration}\n`;
+    for (
+      let iteration = firstNumberValue;
+      iteration <= secondNumberValue;
+      iteration++
+    ) {
+      iteration < secondNumberValue
+        ? (outputResult.value += `${iteration},`)
+        : (outputResult.value += `${iteration}`);
+    }
+  } else {
+    alert("Fill only valid inputs");
   }
 }
 

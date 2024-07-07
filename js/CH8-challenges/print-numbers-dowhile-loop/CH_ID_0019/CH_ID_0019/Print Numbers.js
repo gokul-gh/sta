@@ -29,7 +29,6 @@ function dowhileLoop() {
       }
       iteration++;
     } while (iteration <= secondNumberValue);
-    outputArea.value.trim();
   } else {
     alert("Fill only valid inputs");
   }

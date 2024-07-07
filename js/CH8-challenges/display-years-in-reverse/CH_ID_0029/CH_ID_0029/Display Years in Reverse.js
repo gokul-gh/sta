@@ -20,7 +20,8 @@ const MIN_YEAR = 1900;
 const MAX_YEAR = 2500;
 
 //Error message declaration
-const ERR_MESSAGE = "Enter year value only from 1900 to 2500";
+const ERR_MESSAGE =
+  "Enter year value only from 1900 to 2500 or Enter valid inputs";
 
 //Function to display year by the given requirement
 function year() {
@@ -43,7 +44,11 @@ function year() {
   dowhileLeapYearOutput.value = "";
   dowhileLeapCountOutput.value = "";
 
-  if (startYear >= MIN_YEAR && endYear <= MAX_YEAR) {
+  if (
+    startYear >= MIN_YEAR &&
+    endYear <= MAX_YEAR &&
+    secondDateValue - firstDateValue >= 0
+  ) {
     switch (dropDownValue) {
       case "forLoop":
         for (iteration = endYear; iteration >= startYear; iteration--) {
@@ -95,6 +100,7 @@ function year() {
   //Display error message if the input year is not between the range
   else {
     alert(ERR_MESSAGE);
+    dropDownValueId.value = "";
   }
 }
 

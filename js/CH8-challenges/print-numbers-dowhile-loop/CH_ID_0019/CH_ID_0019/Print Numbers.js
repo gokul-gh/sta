@@ -2,19 +2,37 @@
 let firstNumberId = document.getElementById("firstNumber");
 let secondNumberId = document.getElementById("secondNumber");
 let outputArea = document.getElementById("resultId");
+const MIN_VALUE = 0,
+  MAX_VALUE = 500;
 
 function dowhileLoop() {
   // Code statements
-  let firstNumberValue = firstNumberId.value;
-  let secondNumberValue = secondNumberId.value;
+  let firstNumberValue = parseInt(firstNumberId.value);
+  let secondNumberValue = parseInt(secondNumberId.value);
   let iteration = firstNumberValue;
 
   outputArea.value = "";
-
-  do {
-    outputArea.value += `${iteration}\n`;
-    iteration++;
-  } while (iteration <= secondNumberValue);
+  if (
+    firstNumberId.value != "" &&
+    secondNumberId.value != "" &&
+    firstNumberValue >= MIN_VALUE &&
+    secondNumberValue >= MIN_VALUE &&
+    firstNumberValue <= MAX_VALUE &&
+    secondNumberValue <= MAX_VALUE &&
+    firstNumberValue < secondNumberValue
+  ) {
+    do {
+      if (iteration >= secondNumberValue) {
+        outputArea.value += `${iteration}`;
+      } else {
+        outputArea.value += `${iteration},`;
+      }
+      iteration++;
+    } while (iteration <= secondNumberValue);
+    outputArea.value.trim();
+  } else {
+    alert("Fill only valid inputs");
+  }
 }
 
 let displayDate = new Date();

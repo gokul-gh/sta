@@ -6,6 +6,9 @@ let forOutputArea = document.getElementById("showFor");
 let whileOutputArea = document.getElementById("showWhile");
 let dowhileOutputArea = document.getElementById("showDowhile");
 
+const MIN_VALUE = 0,
+  MAX_VALUE = 51;
+
 //Futction to list palindrome numbers within the input range
 function palindrome() {
   let firstNumberValue = parseInt(firstNumberId.value);
@@ -20,56 +23,68 @@ function palindrome() {
   whileOutputArea.value = "";
   dowhileOutputArea.value = "";
 
-  switch (dropdownValue) {
-    //logic implemented by for loop
-    case "forLoop":
-      for (; iterate <= secondNumberValue; iterate++) {
-        let sum = 0;
-        for (number = iterate; number > 0; number = Math.floor(number / 10)) {
-          lastDigit = number % 10;
-          sum = sum * 10 + lastDigit;
-        }
+  if (
+    firstNumberId.value != "" &&
+    secondNumberId.value != "" &&
+    firstNumberValue > MIN_VALUE &&
+    secondNumberValue > MIN_VALUE &&
+    firstNumberValue < MAX_VALUE &&
+    secondNumberValue < MAX_VALUE
+  ) {
+    switch (dropdownValue) {
+      //logic implemented by for loop
+      case "forLoop":
+        for (; iterate <= secondNumberValue; iterate++) {
+          let sum = 0;
+          for (number = iterate; number > 0; number = Math.floor(number / 10)) {
+            lastDigit = number % 10;
+            sum = sum * 10 + lastDigit;
+          }
 
-        if (sum == iterate) {
-          forOutputArea.value += `${sum}\n`;
+          if (sum == iterate) {
+            forOutputArea.value += `${sum}\n`;
+          }
         }
-      }
-      break;
+        break;
 
-    //logic implemented by while loop
-    case "whileLoop":
-      while (iterate <= secondNumberValue) {
-        let sum = 0;
-        number = iterate;
-        while (number > 0) {
-          lastDigit = number % 10;
-          sum = sum * 10 + lastDigit;
-          number = Math.floor(number / 10);
+      //logic implemented by while loop
+      case "whileLoop":
+        while (iterate <= secondNumberValue) {
+          let sum = 0;
+          number = iterate;
+          while (number > 0) {
+            lastDigit = number % 10;
+            sum = sum * 10 + lastDigit;
+            number = Math.floor(number / 10);
+          }
+
+          if (sum == iterate) {
+            whileOutputArea.value += `${sum}\n`;
+          }
+          iterate++;
         }
+        break;
 
-        if (sum == iterate) {
-          whileOutputArea.value += `${sum}\n`;
-        }
-        iterate++;
-      }
-      break;
-
-    //logic implemented by do while loop
-    case "dowhileLoop":
-      do {
-        let sum = 0;
-        number = iterate;
+      //logic implemented by do while loop
+      case "dowhileLoop":
         do {
-          lastDigit = number % 10;
-          sum = sum * 10 + lastDigit;
-          number = Math.floor(number / 10);
-        } while (number > 0);
+          let sum = 0;
+          number = iterate;
+          do {
+            lastDigit = number % 10;
+            sum = sum * 10 + lastDigit;
+            number = Math.floor(number / 10);
+          } while (number > 0);
 
-        if (sum == iterate) {
-          dowhileOutputArea.value += `${sum}\n`;
-        }
-        iterate++;
-      } while (iterate <= secondNumberValue);
+          if (sum == iterate) {
+            dowhileOutputArea.value += `${sum}\n`;
+          }
+          iterate++;
+        } while (iterate <= secondNumberValue);
+    }
+  } else {
+    alert("Enter valid inputs");
+    dropdownId.value = "";
   }
 }
 

@@ -2,16 +2,36 @@
 let firstNumberId = document.getElementById("firstNumber");
 let secondNumberId = document.getElementById("secondNumber");
 let outputArea = document.getElementById("resultId");
+//Constant declaration
+const MIN_VALUE = 0,
+  MAX_VALUE = 500;
 
 function whileLoop() {
   // Code statements
   outputArea.value = "";
-  let firstNumberValue = firstNumberId.value;
-  let secondNumberValue = secondNumberId.value;
+  let firstNumberValue = parseInt(firstNumberId.value);
+  let secondNumberValue = parseInt(secondNumberId.value);
   let iteration = firstNumberValue;
-  while (iteration <= secondNumberValue) {
-    outputArea.value += `${iteration}\n`;
-    iteration++;
+
+  if (
+    firstNumberId.value != "" &&
+    secondNumberId.value != "" &&
+    firstNumberValue >= MIN_VALUE &&
+    secondNumberValue >= MIN_VALUE &&
+    firstNumberValue <= MAX_VALUE &&
+    secondNumberValue <= MAX_VALUE &&
+    firstNumberValue < secondNumberValue
+  ) {
+    while (iteration <= secondNumberValue) {
+      if (iteration < secondNumberValue) {
+        outputArea.value += `${iteration},`;
+      } else {
+        outputArea.value += `${iteration}`;
+      }
+      iteration++;
+    }
+  } else {
+    alert("Fill only valid inputs");
   }
 }
 

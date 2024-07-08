@@ -14,15 +14,12 @@ let eligiblity = document.getElementById("result");
 const MIN_MARK = 0;
 const MAX_MARK = 100;
 
-//Function to find the eligible college based on cutoff mark 
+//Function to find the eligible college based on cutoff mark
 function findCutOff() {
   let mathsMark = parseInt(maths.value);
   let physicsMark = parseInt(physics.value);
   let chemistryMark = parseInt(chemistry.value);
   let cutoffMark;
-
-  cutoffMark = mathsMark + physicsMark + chemistryMark;
-  cutoff.value = cutoffMark;
 
   if (
     mathsMark >= MIN_MARK &&
@@ -32,6 +29,13 @@ function findCutOff() {
     chemistryMark >= MIN_MARK &&
     chemistryMark <= MAX_MARK
   ) {
+    cutoffMark = mathsMark + physicsMark + chemistryMark;
+    if (mathsMark == 0 && physicsMark == 0 && chemistryMark == 0) {
+      cutoff.value = 0;
+    }
+    if (mathsMark >= 50 && physicsMark >= 50 && chemistryMark >= 50) {
+      cutoff.value = cutoffMark;
+    }
     switch (true) {
       case oc.checked:
         if (cutoffMark >= 195) {
@@ -76,14 +80,14 @@ function findCutOff() {
 
 //Function to clear the input values
 function reset() {
-    maths.value = "";
-    physics.value = "";
-    chemistry.value = "";
-    cutoff.value = "";
-    oc.checked = false;
-    bc.checked = false;
-    sc.checked = false;
-    eligiblity.innerHTML = "";
+  maths.value = "";
+  physics.value = "";
+  chemistry.value = "";
+  cutoff.value = "";
+  oc.checked = false;
+  bc.checked = false;
+  sc.checked = false;
+  eligiblity.innerHTML = "";
 }
 
 let displayDate = new Date();

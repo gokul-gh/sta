@@ -1,36 +1,38 @@
 //Variables declaration
-let age = document.getElementById("ageId");
+let ageId = document.getElementById("ageId");
 let male = document.getElementById("maleGender");
 let female = document.getElementById("femaleGender");
 let output = document.getElementById("checkId");
 
+const MIN_AGE = 0,
+  MAX_AGE = 100;
+
 //Function for age validation
 function validate() {
   //Code Statements
-  if (
-    (male.checked && age.value >= 21) ||
-    (female.checked && age.value >= 18)
-  ) {
-    output.innerHTML = "Eligible for marriage";
-  } else if (
-    (male.checked && age.value < 21) ||
-    (female.checked && age.value < 18)
-  ) {
-    output.innerHTML = "Not eligible";
-  } 
+  let age = parseInt(ageId.value);
+  if (age >= MIN_AGE && age <= MAX_AGE) {
+    if (male.checked && age >= 21) {
+      output.value = "He is eligible for marriage";
+    } else if (female.checked && age >= 18) {
+      output.value = "She is eligible for marriage";
+    } else if (male.checked && age < 21) {
+      output.value = "He is eligible for marriage";
+    } else if (female.checked && age < 18) {
+      output.innerHTML = "She is not eligible for marriage";
+    }
+  } else {
+    alert("fill all values");
+  }
 }
 
 //Reset function to default
 function reset() {
-    age.value = "";
-    male.checked = false;
-    female.checked = false;
-    output.innerHTML = "";
+  ageId.value = "";
+  male.checked = false;
+  female.checked = false;
+  output.innerHTML = "";
 }
-
-
-
-
 
 // Screen date and time declaration.
 let displayDate = new Date();

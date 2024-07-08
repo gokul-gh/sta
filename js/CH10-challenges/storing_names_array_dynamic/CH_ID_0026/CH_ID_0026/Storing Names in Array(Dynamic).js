@@ -20,7 +20,15 @@ function printActorNames() {
   let actorName2 = actorNameId2.value;
   let actorName3 = actorNameId3.value;
 
-  variableOutput.innerHTML = `${actorName1}\n ${actorName2}\n ${actorName3}\n`;
+  if (
+    actorNameId1.value != "" &&
+    actorNameId2.value != "" &&
+    actorNameId3.value != ""
+  ) {
+    variableOutput.innerHTML = `${actorName1}\n ${actorName2}\n ${actorName3}\n`;
+  } else {
+    alert("Enter valid inputs in variables method");
+  }
 }
 
 //Reset values in inputs using variables method
@@ -35,14 +43,19 @@ function resetVariableInputs() {
 let actorsArray = [];
 let iteration = 0;
 function addActorsName() {
-  actorsArray[iteration] = actorNameInputId.value;
-  iteration++;
-  numberOfActorsAdded.innerHTML = `No. of Actors added : ${iteration}`;
+  if (actorNameInputId.value != "") {
+    actorsArray[iteration] = actorNameInputId.value;
+    iteration++;
+    numberOfActorsAdded.innerHTML = `No. of Actors added : ${iteration}`;
+  } else {
+    alert("Enter valid input in array method");
+  }
 }
 
 //Reset function to clear values using array method
 function printArrayActorNames() {
   actorNameOutput.innerHTML = "";
+
   for (let index = 0; index < iteration; index++) {
     actorNameOutput.innerHTML += actorsArray[index] + "<br>";
   }

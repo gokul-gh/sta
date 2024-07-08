@@ -95,7 +95,7 @@ function compareAge() {
       }
     }
   } else {
-    alert("Enter age from the limit 0 to 110");
+    alert("fill age from the limit 0 to 110");
   }
 }
 

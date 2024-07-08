@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -68,8 +68,10 @@
                   </div>
                 </div>
                 <div>
-                  <button onclick="printNames()">Print Names</button>
-                  <button onclick="reset()">Reset</button>
+                  <button onclick="printNames()" id="buttonId">
+                    Print Names
+                  </button>
+                  <button onclick="reset()" id="resetId">Reset</button>
                   <div class="resultContainer">
                     <b>Result :</b>
                     <span id="variableResultsId"></span>

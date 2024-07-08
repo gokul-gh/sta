@@ -12,7 +12,15 @@ function printNames() {
   let actorName2 = actorNameId2.value;
   let actorName3 = actorNameId3.value;
 
-  resultOutput.innerHTML += `${actorName1}  ${actorName2}  ${actorName3}`;
+  if (
+    actorNameId1.value != "" &&
+    actorNameId2.value != "" &&
+    actorNameId3.value != ""
+  ) {
+    resultOutput.innerHTML += `${actorName1}  ${actorName2}  ${actorName3}`;
+  } else {
+    alert("Enter valid inputs");
+  }
 }
 
 //Function to reset all

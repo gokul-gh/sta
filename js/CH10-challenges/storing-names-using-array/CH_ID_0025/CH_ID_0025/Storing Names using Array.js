@@ -19,7 +19,15 @@ function printActorNames() {
   let actorName2 = actorNameId2.value;
   let actorName3 = actorNameId3.value;
 
-  outputusingVariables.innerHTML += `${actorName1}  ${actorName2} ${actorName3}`;
+  if (
+    actorNameId1.value != "" &&
+    actorNameId2.value != "" &&
+    actorNameId3.value != ""
+  ) {
+    outputusingVariables.innerHTML += `${actorName1}  ${actorName2} ${actorName3}`;
+  } else {
+    alert("Enter valid inputs");
+  }
 }
 
 //Reset variables type function values
@@ -38,8 +46,16 @@ function printArrayActorNames() {
     actorArrayNameId2.value,
     actorArrayNameId3.value,
   ];
-  for (let iteration = 0; iteration < actorArrayName.length; iteration++) {
-    outputusingArrays.innerHTML += actorArrayName[iteration] + "  ";
+  if (
+    actorArrayNameId1.value != "" &&
+    actorArrayNameId2.value != "" &&
+    actorArrayNameId3.value != ""
+  ) {
+    for (let iteration = 0; iteration < actorArrayName.length; iteration++) {
+      outputusingArrays.innerHTML += actorArrayName[iteration] + "  ";
+    }
+  } else {
+    alert("Enter valid input");
   }
 }
 

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -68,8 +68,10 @@
                   </div>
                 </div>
                 <div>
-                  <button onclick="printActorNames()">Print Names</button>
-                  <button onclick="resetVariableInputs()">Reset</button>
+                  <button onclick="printActorNames()" id="buttonId">
+                    Print Names
+                  </button>
+                  <button onclick="resetVariableInputs()" id="resetId">Reset</button>
                   <div class="resultContainer">
                     <b>Result :</b>
                     <span id="variableResultsId"></span>
@@ -94,8 +96,10 @@
                   </div>
                 </div>
                 <div>
-                  <button onclick="printArrayActorNames()">Print Names</button>
-                  <button onclick="resetArrayInputs()">Reset</button>
+                  <button onclick="printArrayActorNames()" id="buttonArrayId">
+                    Print Names
+                  </button>
+                  <button onclick="resetArrayInputs()" id="resetArrayId">Reset</button>
                   <div class="resultContainer">
                     <b>Result :</b>
                     <span id="arrayResultId"></span>

@@ -4,22 +4,32 @@ let indexPositionId = document.getElementById("searchResult");
 
 function stringFunction() {
   let inputString = inputStringId.value;
+  let isVowelPresent = false;
+  indexPositionId.value = "";
 
-  for (let iteration = 0; iteration < inputString.length; iteration++) {
-    if (
-      inputString[iteration] == "a" ||
-      inputString[iteration] == "e" ||
-      inputString[iteration] == "i" ||
-      inputString[iteration] == "o" ||
-      inputString[iteration] == "u" ||
-      inputString[iteration] == "A" ||
-      inputString[iteration] == "E" ||
-      inputString[iteration] == "I" ||
-      inputString[iteration] == "O" ||
-      inputString[iteration] == "U"
-    ) {
-      indexPositionId.value += `${iteration} `;
+  if (inputStringId.value != "") {
+    for (let iteration = 0; iteration < inputString.length; iteration++) {
+      if (
+        inputString[iteration] == "a" ||
+        inputString[iteration] == "e" ||
+        inputString[iteration] == "i" ||
+        inputString[iteration] == "o" ||
+        inputString[iteration] == "u" ||
+        inputString[iteration] == "A" ||
+        inputString[iteration] == "E" ||
+        inputString[iteration] == "I" ||
+        inputString[iteration] == "O" ||
+        inputString[iteration] == "U"
+      ) {
+        indexPositionId.value += `${iteration} `;
+        isVowelPresent = true;
+      }
     }
+    if (isVowelPresent == false) {
+      indexPositionId.value = "No vowel found";
+    }
+  } else {
+    alert("Enter valid inputs");
   }
 }
 

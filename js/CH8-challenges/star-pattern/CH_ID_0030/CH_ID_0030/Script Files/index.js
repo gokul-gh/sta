@@ -19,7 +19,8 @@ let whileOutput = document.getElementById("showWhile");
 let dowhileOutput = document.getElementById("showDowhile");
 
 //Constant declaration
-const MAX_ROW = 10;
+const MAX_ROW = 10,
+  MIN_ROW = 1;
 
 //Error message declaration
 const ERR_MESSAGE = "No.of.rows value is greater than 10. Enter less than 10.";
@@ -37,7 +38,14 @@ function repeat() {
   whileOutput.value = "";
   dowhileOutput.value = "";
 
-  if (noOfRows <= MAX_ROW) {
+  if (
+    noOfRowsId.value != "" &&
+    textChoiceId.value != "" &&
+    repeatId.value != "" &&
+    loopId.value != "" &&
+    noOfRows >= MIN_ROW &&
+    noOfRows <= MAX_ROW
+  ) {
     switch (loopOption) {
       case "forLoop":
         //print top part of star pattern
@@ -192,6 +200,7 @@ function repeat() {
     }
   } else {
     alert(ERR_MESSAGE);
+    loopId.value = "";
   }
 }
 

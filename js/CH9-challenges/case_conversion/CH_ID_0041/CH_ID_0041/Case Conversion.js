@@ -12,16 +12,22 @@
 let stringInputId = document.getElementById("stringId");
 let resultId = document.getElementById("resultId");
 
+const VALID_CHARACTERS = /^[a-zA-Z\s]+$/;
+
 //Function to invert case
 function caseConvert() {
   let stringInput = stringInputId.value;
 
-  for (let iteration = 0; iteration < stringInput.length; iteration++) {
-    if (stringInput[iteration] == stringInput[iteration].toLowerCase()) {
-      resultId.value += stringInput[iteration].toUpperCase();
-    } else {
-      resultId.value += stringInput[iteration].toLowerCase();
+  if (stringInput.value != "" && VALID_CHARACTERS.test(stringInput)) {
+    for (let iteration = 0; iteration < stringInput.length; iteration++) {
+      if (stringInput[iteration] == stringInput[iteration].toLowerCase()) {
+        resultId.value += stringInput[iteration].toUpperCase();
+      } else {
+        resultId.value += stringInput[iteration].toLowerCase();
+      }
     }
+  } else {
+    alert("Enter valid inputs");
   }
 }
 

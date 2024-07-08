@@ -15,11 +15,15 @@ function stringFunction() {
 
   let isSearchtrue = inputString.includes(searchString);
 
-  if (isSearchtrue == true) {
+  if (
+    isSearchtrue == true &&
+    inputStringId.value != "" &&
+    searchStringId.value != ""
+  ) {
     searchOutputId.value = searchString;
 
-    for (let iteration = searchString.length - 1; iteration >= 0; iteration--) {
-      reverseString += searchString[iteration];
+    for (let iteration = inputString.length - 1; iteration >= 0; iteration--) {
+      reverseString += inputString[iteration];
     }
 
     if (searchString == reverseString) {
@@ -28,6 +32,8 @@ function stringFunction() {
       palindromeOutputId.value = "Not a palindrome";
     }
     reverseOutputId.value = reverseString;
+  } else {
+    alert("Enter valid inputs");
   }
 }
 

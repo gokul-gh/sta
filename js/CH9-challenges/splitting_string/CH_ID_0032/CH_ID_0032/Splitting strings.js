@@ -1,12 +1,18 @@
 //Variables declaration
 let inputStringId = document.getElementById("stringId");
 let splitStringId = document.getElementById("searchResult");
+//Constant declaration
+const MAX_VALUE = 55;
 
 //Function to perform split method in a given string
 function stringFunction() {
   let inputString = inputStringId.value;
 
-  splitStringId.value = inputString.split("");
+  if (inputStringId.value != "" && inputString.length < MAX_VALUE) {
+    splitStringId.value = inputString.split(" ");
+  } else {
+    alert("Enter valid inputs");
+  }
 }
 
 //Function to clear input values

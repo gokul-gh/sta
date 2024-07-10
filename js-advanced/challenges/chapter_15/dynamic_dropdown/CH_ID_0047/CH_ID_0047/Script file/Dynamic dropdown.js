@@ -1,12 +1,13 @@
 /*            *************************************************************
-              *  Name of the challenge  : Dynamic Dropdown                  *
-              *  Developed for          : VHITECH Training Program          *
-              *               Maintenance History                           *
-              *  Developer              :                                   *
-              *  Creation date           :                 Ticket No:       *
-              ************************************************************* */
+ *  Name of the challenge  : Dynamic Dropdown                  *
+ *  Developed for          : VHITECH Training Program          *
+ *               Maintenance History                           *
+ *  Developer              :                                   *
+ *  Creation date           :                 Ticket No:       *
+ ************************************************************* */
 
 // Declaration
+
 // Date and time declaration.
 let displayDate = new Date();
 //Modal
@@ -17,19 +18,14 @@ window.addEventListener("click", function (event) {
   if (event.target === errorModal) errorModal.classList.remove("active");
 });
 
-     //copy to clipboard
+//copy to clipboard
 const copyText = document.querySelector("#copy");
-      copyText.addEventListener("click", () => {
-        navigator.clipboard.writeText(
-          document.querySelector("#successCode").value
-        );
-        copyText.textContent = "copied";
-        setTimeout(() => {
-          copyText.innerHTML = `<span>&#128203; </span>copy`;
-        }, 2000);
-      });
-
-
-
+copyText.addEventListener("click", () => {
+  navigator.clipboard.writeText(document.querySelector("#successCode").value);
+  copyText.textContent = "copied";
+  setTimeout(() => {
+    copyText.innerHTML = `<span>&#128203; </span>copy`;
+  }, 2000);
+});
 
 //Code Logic

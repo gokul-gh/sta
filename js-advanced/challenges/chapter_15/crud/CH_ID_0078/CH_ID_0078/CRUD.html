@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:ital@1&family=Roboto:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik&display=swap"
+      rel="stylesheet"
+    />
+    <title>CRUD</title>
+    <link href="Stylesheet/CRUD.css" type="text/css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <div class="mainWebpage">
+      <div class="topHeader">
+        <div class="headerContent">
+          <div>
+            <img src="Images/Logo_03.png" style="width: 30px; height: 35px" />
+          </div>
+          <div id="headerimageContent">Soft Tech Ashram</div>
+        </div>
+        <div id="heading">JavaScript Training Program</div>
+        <div class="dateTime"></div>
+      </div>
+      <div class="mainBody">
+        <div class="outputWindow">
+          <div class="outputContent">
+            <br />
+            <span id="exerciseHeading">
+              <span id="inputId">CRUD</span>
+            </span>
+            <hr width="100%" />
+
+            <div class="wrapper">
+              <form>
+                <div id="personalDetails">
+                  <div id="firstColumn">
+                    <div id="photo">
+                      <div><img id="photoId" /></div>
+
+                      <input
+                        type="file"
+                        name="image"
+                        id="uploadButton"
+                        style="display: none"
+                      />
+                      <label for="uploadButton" style="cursor: pointer">
+                        <p style="margin-left: 25px">Upload</p>
+                      </label>
+                      <span id="imgError"></span>
+                      <div class="required"></div>
+                    </div>
+
+                    <div>
+                      <label class="required">Date of Birth</label><br />
+                      <input id="dob" type="date" /><br />
+                      <span id="dateError"></span>
+                    </div>
+                    <div>
+                      <label class="required">Select Country</label><br />
+                      <select id="country">
+                        <option value="">Select</option></select
+                      ><br />
+                      <span id="countryError"></span><br />
+                    </div>
+                  </div>
+                  <div id="secondColumn">
+                    <div id="organizations">
+                      <label class="required">Select organization</label><br />
+                      <select id="organization">
+                        <option value="">Select</option>
+                        <!-- Enter options --></select
+                      ><br />
+                      <span id="compError"></span>
+                    </div>
+                    <div id="lastName">
+                      <label class="required">Last name</label><br />
+                      <input id="enterLast" type="text" /><br />
+                      <span id="lastError"></span>
+                    </div>
+                    <div id="mobileNo">
+                      <label class="required errorColor">Mobile Number</label
+                      ><br />
+                      <input id="enterMobile" type="number" /><br />
+                      <span id="mobileError"></span>
+                    </div>
+                    <div id="selectState">
+                      <label>Select state</label><br />
+                      <select id="state"></select>
+                    </div>
+                  </div>
+                  <div id="thirdColumn">
+                    <div>
+                      <label class="required">First Name</label><br />
+                      <input type="text" id="firstName" /><br /><br />
+                      <span id="firstError"></span>
+                    </div>
+                    <div>
+                      <label class="required">Gender</label><br />
+                      <input
+                        type="radio"
+                        name="gender"
+                        id="male"
+                        value="Male"
+                        checked="checked"
+                      />Male
+                      <input
+                        type="radio"
+                        name="gender"
+                        id="female"
+                        value="Female"
+                      />Female
+                    </div>
+                    <div id="mailId">
+                      <label class="required">Email</label><br />
+                      <input id="email" type="text" /><br />
+                      <span id="mailError"></span>
+                    </div>
+                    <div id="cities">
+                      <label class="required">City</label><br />
+                      <input id="city" type="text" /><br />
+                      <span id="cityError"></span><br />
+                    </div>
+                  </div>
+                </div>
+                <div id="address">
+                  <div id="communicationAddress">
+                    <label class="required">Communication Address</label><br />
+                    <textarea id="commAddress" rows="7" cols="20"></textarea
+                    ><br />
+                    <span id="commAddr"></span>
+                  </div>
+                  <div id="permanentAddress">
+                    <label class="required">Permanent Address</label><br />
+                    <textarea id="perAddress" rows="7" cols="20"></textarea
+                    ><br />
+                    <span id="permAddr"></span>
+                  </div>
+                </div>
+                <div id="checkBox">
+                  <input type="checkbox" id="checkedBox" /><label
+                    for="checkedBox"
+                    >Communication address same as permanentAddress</label
+                  >
+                </div>
+                <br />
+                <div id="pinCode">
+                  <label class="required">Pincode</label><br />
+                  <input type="number" maxlength="6" id="pinNumber" /><br />
+                  <span id="pinError"></span>
+                  <!-- </div> -->
+                  <div id="register">
+                    <input
+                      type="submit"
+                      id="regBtn"
+                      value="Register"
+                      onclick="validateForm()"
+                    />
+                    <input
+                      type="submit"
+                      id="update"
+                      value="Update"
+                      onclick="updateForm(this)"
+                    />
+                    <input type="reset" id="resetBtn" onclick="clearFields()" />
+                  </div>
+                </div>
+              </form>
+            </div>
+            <hr />
+            <h3 style="text-align: center">Table</h3>
+            <div id="crudTable"></div>
+            <!-- </div>                -->
+
+            <!-- </div> -->
+          </div>
+        </div>
+      </div>
+
+      <button id="successBtn" onclick="toggleSuccessModal()">Success</button>
+
+      <div class="modal" id="successModal">
+        <div class="modalBox">
+          <h2>Success Code</h2>
+          <div>
+            <input id="successCode" readonly />
+            <button id="copy">
+              <span>&#128203; </span>
+              Copy
+            </button>
+          </div>
+          <button id="okay" onclick="toggleSuccessModal()">OK</button>
+        </div>
+      </div>
+
+      <button id="errorBtn" onclick="toggleErrorModal()">Error</button>
+
+      <div class="modal" id="errorModal">
+        <div class="modalBox" id="errorBox">
+          <h1 style="margin: 0">OOPs! Error(s)</h1>
+          <button id="close" onclick="toggleErrorModal()">Close</button>
+        </div>
+      </div>
+
+      <div class="footerContent">
+        <div style="font-size: 18px">
+          <i
+            >Learning Objective : Create,Fetch,Update,Delete Data from Local
+            Storage</i
+          >
+        </div>
+        <div class="logoContent">SoftTechAshram.com</div>
+      </div>
+    </div>
+    <script src="Script/CRUD.js"></script>
+  </body>
+</html>

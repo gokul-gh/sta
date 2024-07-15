@@ -16,10 +16,12 @@ function stringFunction() {
   let pinCode = pinCodeId.value;
   let pinCodePattern = /^\d{6}$/;
 
-  if (pinCodePattern.test(pinCode)) {
-    result.value = "Pincode is valid";
+  if (pinCodeId.value != "") {
+    pinCodePattern.test(pinCode)
+      ? (result.value = "Pincode is valid")
+      : (result.value = "Invalid pincode");
   } else {
-    result.value = "Invalid pincode";
+    alert("Enter valid inputs");
   }
 }
 

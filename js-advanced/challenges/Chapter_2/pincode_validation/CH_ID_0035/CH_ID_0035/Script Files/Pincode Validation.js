@@ -13,10 +13,10 @@ let result = document.getElementById("resultId");
 
 //Function to validate pincode
 function stringFunction() {
-  let pinCode = pinCodeId.value;
+  let pinCode = parseInt(pinCodeId.value);
   let pinCodePattern = /^\d{6}$/;
 
-  if (pinCodeId.value != "") {
+  if (pinCodeId.value != "" && pinCode == Number(pinCodeId.value)) {
     pinCodePattern.test(pinCode)
       ? (result.value = "Pincode is valid")
       : (result.value = "Invalid pincode");

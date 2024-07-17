@@ -11,11 +11,24 @@ let displayArray = document.getElementById("displayArray");
 let displayDuplictesId = document.getElementById("orderId");
 let arrayElements = [];
 
+//Constant declaration
+const ERR_MESSAGE = "Enter valid input";
+const MAX_VALUE = 1000;
+const MIN_VALUE = -1000;
+
 //Function to get input elements
 let addItems = () => {
   displayArray.value = "";
-  let arrayInputItem = parseInt(arrayInputItemId.value);
-  arrayElements.push(arrayInputItem);
+  let arrayInputItem = Number(arrayInputItemId.value);
+  if (
+    arrayInputItemId.value != "" &&
+    arrayInputItem >= MIN_VALUE &&
+    arrayInputItem <= MAX_VALUE
+  ) {
+    arrayElements.push(arrayInputItem);
+  } else {
+    alert(ERR_MESSAGE);
+  }
   displayArray.value = arrayElements;
   arrayInputItemId.value = "";
 };
@@ -23,11 +36,15 @@ let addItems = () => {
 //Function to display duplicate in a array
 let duplicates = () => {
   displayDuplictesId.value = "";
-  arrayElements.reduce(function (accumulator, currentValue, index, array) {
-    if (array.indexOf(currentValue) != index) {
-      displayDuplictesId.value += `${array[index]} `;
-    }
-  }, 0);
+  if (arrayElements.length != 0) {
+    arrayElements.reduce(function (accumulator, currentValue, index, array) {
+      if (array.indexOf(currentValue) != index) {
+        displayDuplictesId.value += `${array[index]} `;
+      }
+    }, 0);
+  } else {
+    alert(ERR_MESSAGE);
+  }
 };
 
 //Reset function to clear values

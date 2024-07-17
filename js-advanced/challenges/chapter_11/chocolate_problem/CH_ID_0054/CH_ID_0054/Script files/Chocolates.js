@@ -13,63 +13,76 @@ let secondChocolateWidthId = document.getElementById("secondWidth");
 
 let chocolateArrayOutput = document.getElementById("chocolateArray");
 let isEqualOutput = document.getElementById("arrayId");
-
 let getAllInputs = document.querySelectorAll("input");
-
 let firstArray = [],
   secondArray = [];
 
+//Constant declaration
+const ERROR_MESSAGE = "Enter valid input";
+const MIN_VALUE = 0;
+const MAX_VALUE = 1000;
+
 //Function to add inputs to array
 const addElements = () => {
-  let firstChocolateLength = parseInt(firstChocolateLengthId.value);
-  let firstChocolateWidth = parseInt(firstChocolateWidthId.value);
-  let secondChocolateLength = parseInt(secondChocolateLengthId.value);
-  let secondChocolateWidth = parseInt(secondChocolateWidthId.value);
+  let firstChocolateLength = Number(firstChocolateLengthId.value);
+  let firstChocolateWidth = Number(firstChocolateWidthId.value);
+  let secondChocolateLength = Number(secondChocolateLengthId.value);
+  let secondChocolateWidth = Number(secondChocolateWidthId.value);
 
+  if (
+    firstChocolateLengthId.value != "" &&
+    firstChocolateWidthId.value != "" &&
+    firstChocolateLength >= MIN_VALUE &&
+    firstChocolateLength <= MAX_VALUE &&
+    firstChocolateWidth >= MIN_VALUE &&
+    firstChocolateWidth <= MAX_VALUE &&
+    secondChocolateLengthId.value != "" &&
+    secondChocolateWidthId.value != "" &&
+    secondChocolateLength >= MIN_VALUE &&
+    secondChocolateLength <= MAX_VALUE &&
+    secondChocolateWidth >= MIN_VALUE &&
+    secondChocolateWidth <= MAX_VALUE
+  ) {
+    firstArray.push([firstChocolateLength, firstChocolateWidth]);
+    chocolateArrayOutput.value = `First Sister:\n${firstArray}\nSecond Sister:\n${secondArray}`;
+
+    secondArray.push([secondChocolateLength, secondChocolateWidth]);
+    chocolateArrayOutput.value = `First Sister:\n${firstArray}\nSecond Sister:\n${secondArray}`;
+  } else {
+    alert(ERROR_MESSAGE);
+  }
+
+  //Clear all inputs each time
   getAllInputs.forEach((element) => {
     if (element.type == "number") {
       element.value = "";
     }
   });
-
-  if (
-    !isNaN(firstChocolateLength) &&
-    !isNaN(firstChocolateWidth) &&
-    firstChocolateLength != 0 &&
-    firstChocolateWidth != 0
-  ) {
-    firstArray.push([firstChocolateLength, firstChocolateWidth]);
-  }
-  if (
-    !isNaN(secondChocolateLength) &&
-    !isNaN(secondChocolateWidth) &&
-    secondChocolateLength != 0 &&
-    secondChocolateWidth != 0
-  ) {
-    secondArray.push([secondChocolateLength, secondChocolateWidth]);
-  }
-
-  chocolateArrayOutput.value = `First Sister:\n${JSON.stringify(firstArray)}\nSecond Sister:\n${JSON.stringify(secondArray)}`;
 };
 
 //Function to calculate if chocolate area is equal
 const calculate = () => {
-  let firstArea = firstArray.reduce(
-    (accumulator, currentValue) =>
-      accumulator + currentValue[0] * currentValue[1],
-    0
-  );
+  if (firstArray != "" && secondArray != "") {
+    let firstArea = firstArray.reduce(
+      (accumulator, currentValue) =>
+        accumulator + currentValue[0] * currentValue[1],
+      0
+    );
 
-  let secondArea = secondArray.reduce(
-    (accumulator, currentValue) =>
-      accumulator + currentValue[0] * currentValue[1],
-    0
-  );
+    let secondArea = secondArray.reduce(
+      (accumulator, currentValue) =>
+        accumulator + currentValue[0] * currentValue[1],
+      0
+    );
 
-  if (firstArea == secondArea) {
-    isEqualOutput.value = "True";
-  } else if (firstArea != secondArea) {
-    isEqualOutput.value = "Not true";
+    //Did 1 and 2 because of cypress, originally was true and false
+    if (firstArea == secondArea) {
+      isEqualOutput.value = 1;
+    } else if (firstArea != secondArea) {
+      isEqualOutput.value = 2;
+    }
+  } else {
+    alert(ERROR_MESSAGE);
   }
 };
 

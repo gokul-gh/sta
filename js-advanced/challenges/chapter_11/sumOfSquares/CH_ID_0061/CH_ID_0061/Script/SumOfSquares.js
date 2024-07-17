@@ -9,32 +9,43 @@
 let inputElementId = document.getElementById("arrayItems");
 let displayArrayId = document.getElementById("displayArray");
 let displaySquaresSum = document.getElementById("orderId");
-
 let inputElement,
   arrayElement = [],
   sum = 0;
 
+//Constant declaration
+const ERR_MESSAGE = "Enter valid input";
+const MIN_VALUE = -1000;
+const MAX_VALUE = 1000;
+
 //Function to add input element to array
 let addItems = () => {
   displayArrayId.value = "";
-  inputElement = parseInt(inputElementId.value);
-  arrayElement.push(inputElement);
-
-  displayArrayId.value += `[${arrayElement}]`;
+  inputElement = Number(inputElementId.value);
+  if (
+    inputElementId.value != "" &&
+    inputElement >= MIN_VALUE &&
+    inputElement <= MAX_VALUE
+  ) {
+    arrayElement.push(inputElement);
+    inputElementId.value = "";
+  } else {
+    alert(ERR_MESSAGE);
+  }
+  displayArrayId.value = arrayElement;
 };
 
 //Function to find sum of squares
 let sumOfSquares = () => {
-  arrayElement.reduce(function (
-    accumulator,
-    currentValue,
-    currentIndex,
-    array,
-  ) {
-    sum += Math.pow(currentValue, 2);
-  }, 0);
+  if (arrayElement.length != 0) {
+    arrayElement.reduce(function (accumulator, currentValue) {
+      sum += Math.pow(currentValue, 2);
+    }, 0);
 
-  displaySquaresSum.value = sum;
+    displaySquaresSum.value = sum;
+  } else {
+    alert(ERR_MESSAGE);
+  }
 };
 
 //Reset function to clear input values

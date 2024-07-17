@@ -19,7 +19,7 @@ function stringFunction() {
   if (pinCodeId.value != "" && pinCode == Number(pinCodeId.value)) {
     pinCodePattern.test(pinCode)
       ? (result.value = "Pincode is valid")
-      : (result.value = "Invalid pincode");
+      : alert("Invalid inputs");
   } else {
     alert("Enter valid inputs");
   }

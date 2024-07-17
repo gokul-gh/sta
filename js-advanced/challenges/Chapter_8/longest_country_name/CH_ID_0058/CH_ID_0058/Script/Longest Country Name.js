@@ -17,21 +17,32 @@ let countryArray = [],
 
 function addItems() {
   let inputCountryName = inputCountryNameId.value;
+  const countryPattern = /^[a-zA-Z]+[ a-zA-z]+$/;
 
-  displayCountryList.value += `${inputCountryName}\n`;
-  countryArray[iteration] = inputCountryName;
-  iteration++;
+  if (inputCountryNameId.value != "" && countryPattern.test(inputCountryName)) {
+    displayCountryList.value += `${inputCountryName}\n`;
+    countryArray[iteration] = inputCountryName;
+    iteration++;
+    inputCountryNameId.value = "";
+  } else {
+    alert("Enter valid inputs");
+  }
 }
 
 function longestName() {
-  for (countryName of countryArray) {
-    if (countryName.length > maxlength) {
-      longestCountryName = countryName;
-      maxlength = countryName.length;
+  if (countryArray.length != 0) {
+    for (countryName of countryArray) {
+      if (countryName.length > maxlength) {
+        longestCountryName = countryName;
+        maxlength = countryName.length;
+      }
     }
+    longestCountryName =
+      longestCountryName.charAt(0).toUpperCase() + longestCountryName.slice(1);
+    longestCountryNameId.value = longestCountryName;
+  } else {
+    alert("Enter valid input. Check if its empty");
   }
-  longestCountryName = longestCountryName.charAt(0).toUpperCase() + longestCountryName.slice(1) ;
-  longestCountryNameId.value = longestCountryName;
 }
 
 function reset() {

@@ -43,11 +43,12 @@ function stringFunction() {
   let panNo = panNoId.value;
   let gstNo = gstNoId.value;
 
-  let namePattern = /^[a-zA-z\s]+$/;
+  let namePattern = /^[a-zA-z]+[ a-zA-z]+$/;
   let emailPattern = /^[a-zA-Z0-9-_.]+@[a-zA-Z0-9-_.]+\.[a-zA-z]{2,4}$/;
-  let creditCardPattern = /^[0-9]{16}$/;
-  let panNoPattern = /^[0-9]{10}$/;
-  let gstNoPattern = /^[0-9]{15}$/;
+  let creditCardPattern = /^[0-9]{13,16}$/;
+  let panNoPattern = /^[A-Z]{3}[P|C|A|F|H|T][A-Z][0-9]{4}$/;
+  let gstNoPattern =
+    /^[0-3][0-9][A-Z]{3}[P|C|A|F|H|T][A-Z][0-9]{4}[A-Z][0-9][A-Z][0-9]$/;
 
   if (
     namePattern.test(name) &&
@@ -66,6 +67,7 @@ function stringFunction() {
     errorMessage.style.display = "none";
   } else {
     errorMessage.style.display = "block";
+    alert("Error in input values.  Recheck it");
   }
 }
 

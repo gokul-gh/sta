@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:ital@1&family=Roboto:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik&display=swap"
+      rel="stylesheet"
+    />
+    <title>Regex Validations</title>
+    <link href="./Stylesheet/Validation.css" type="text/css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <div class="mainWebpage">
+      <div class="topHeader">
+        <div class="headerContent">
+          <div>
+            <img src="Images/Logo_03.png" style="width: 30px; height: 35px" />
+          </div>
+          <div id="headerimageContent">
+            SOFT TECH <br />
+            ASHRAM
+          </div>
+        </div>
+        <div id="heading">JavaScript Training Program</div>
+        <div class="dateTime"></div>
+      </div>
+      <div class="mainBody">
+        <div class="outputWindow">
+          <div class="outputContent">
+            <br />
+            <span id="exerciseHeading">
+              <span id="inputId">Regex Validation</span>
+              <div id="errorValidate">Error in inputs. Check again</div>
+            </span>
+            <hr width="100%" />
+            <div class="main">
+              <div><label>Enter the Name</label><br /></div>
+              <div>
+                <input type="text" id="stringId" /><br />
+                <div id="nameErrorId">Enter valid name</div>
+              </div>
+            </div>
+            <div class="main">
+              <div><label>Enter Email</label></div>
+              <div>
+                <input type="text" id="mailId" />
+                <div id="mailErrorId">Enter valid email format</div>
+              </div>
+            </div>
+
+            <!-- <hr> -->
+            <div class="main">
+              <div><label>Enter Credit Card number</label><br /></div>
+
+              <div>
+                <input type="text" id="creditId" /><br />
+                <div id="creditCardErrorId">Enter valid credit card number</div>
+              </div>
+            </div>
+            <div class="main">
+              <div><label>Enter PAN number</label><br /></div>
+              <div>
+                <input
+                  type="text"
+                  placeholder="Enter 10 digits"
+                  id="panId"
+                /><br />
+                <div id="panCardErrorId">Enter valid PAN number</div>
+              </div>
+            </div>
+            <div class="main">
+              <div><label>Enter GST Number</label><br /></div>
+              <div>
+                <input
+                  type="text"
+                  placeholder="Enter 15 digits"
+                  id="gstId"
+                /><br />
+                <div id="gstErrorId">Enter valid GST number</div>
+              </div>
+            </div>
+          </div>
+          <div class="main">
+            <button onclick="stringFunction()" id="buttonId">Validate</button>
+            <button id="resetId" onclick="reset()">Reset</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal" id="outputModal">
+        <div class="modalBox" id="outputModalId">
+          <div class="titleSection">
+            <h2 class="stackTitle">Regex Validation</h2>
+          </div>
+          <div><span>Name</span> <span id="nameOutput"></span></div>
+          <div><span>Email</span> <span id="mailOutput"></span></div>
+          <div>
+            <span>Credit Card number</span> <span id="creditOutput"></span>
+          </div>
+          <div><span>PAN number</span> <span id="panOutput"></span></div>
+          <div><span>GST Number</span> <span id="gstOutput"></span></div>
+          <button id="output" onclick="toggleOutputModal()">Close</button>
+        </div>
+      </div>
+
+      <div class="footerContent">
+        <div style="font-size: 18px">
+          <i>Learning Objective : Regular expression Validations</i>
+        </div>
+        <div class="logoContent" style="color: blue; font-size: 24px">
+          SoftTechAshram.com
+        </div>
+      </div>
+      <button id="successBtn" onclick="toggleSuccessModal()">Success</button>
+
+      <div class="modal" id="successModal">
+        <div class="modalBox">
+          <h2>Success Code</h2>
+          <div>
+            <input id="successCode" readonly />
+            <button id="copy">
+              <span>&#128203; </span>
+              Copy
+            </button>
+          </div>
+          <button id="okay" onclick="toggleSuccessModal()">OK</button>
+        </div>
+      </div>
+
+      <button id="errorBtn" onclick="toggleErrorModal()">Error</button>
+
+      <div class="modal" id="errorModal">
+        <div class="modalBox" id="errorBox">
+          <h1 style="margin: 0">OOPs! Error(s)</h1>
+          <button id="close" onclick="toggleErrorModal()">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="./Script Files/index.js"></script>
+  </body>
+</html>

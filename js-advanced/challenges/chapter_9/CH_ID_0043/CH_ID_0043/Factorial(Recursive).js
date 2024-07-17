@@ -10,13 +10,26 @@
 let inputNumberId = document.getElementById("numberId");
 let result = document.getElementById("resultId");
 
+//Constant declaration
+const MIN_VALUE = 0;
+const MAX_VALUE = 20;
+
 //Function to calculate factorial of a number
 function recursiveFunction() {
   let factorial = 1,
     iteration = 1;
 
   let inputNumber = parseInt(inputNumberId.value);
-  recursive(inputNumber, factorial, iteration);
+  if (
+    inputNumberId.value != "" &&
+    inputNumber >= MIN_VALUE &&
+    inputNumber <= MAX_VALUE &&
+    inputNumber == Number(inputNumberId.value)
+  ) {
+    recursive(inputNumber, factorial, iteration);
+  } else {
+    alert("Enter valid inputs");
+  }
 }
 
 //Recursive function declaration to find factorial

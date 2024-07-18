@@ -12,25 +12,45 @@ let result = document.getElementById("resultId");
 let calculateButton = document.getElementById("buttonId");
 let getAllInputs = document.querySelectorAll("input");
 
+//Constant declaration
+const ERR_INPUT = "Enter valid input";
+const MIN_VALUE = 0;
+const MAX_VALUE = 20;
+
 //Function to calculate volume of a cylinder using class
 calculateButton.addEventListener("click", function (event) {
   let radiusInput = parseInt(radiusId.value);
   let heightInput = parseInt(heightId.value);
 
-  class Volume {
-    constructor(radius, height) {
-      this.radius = radius;
-      this.height = height;
+  if (
+    radiusId.value != "" &&
+    heightId.value != "" &&
+    radiusInput == Number(radiusId.value) &&
+    heightInput == Number(heightId.value) &&
+    radiusInput >= MIN_VALUE &&
+    radiusInput <= MAX_VALUE &&
+    heightInput >= MIN_VALUE &&
+    heightInput <= MAX_VALUE
+  ) {
+    class Volume {
+      constructor(radius, height) {
+        this.radius = radius;
+        this.height = height;
+      }
+
+      displayOutput() {
+        const calculateVolume =
+          Math.PI * Math.pow(this.radius, 2) * this.height;
+        result.value = Math.round(calculateVolume * 1000) / 1000;
+        console.log(result.value);
+      }
     }
 
-    displayOutput() {
-      const calculateVolume = Math.PI * Math.pow(this.radius, 2) * this.height;
-      result.value = calculateVolume;
-    }
+    const inputObj = new Volume(radiusInput, heightInput);
+    inputObj.displayOutput();
+  } else {
+    alert(ERR_INPUT);
   }
-
-  const inputObj = new Volume(radiusInput, heightInput);
-  inputObj.displayOutput();
 });
 
 //Reset function to clear input fields

@@ -13,11 +13,23 @@ let afterPushOutput = document.getElementById("displayArrayitems");
 let afterShiftOutput = document.getElementById("orderId");
 let arrayValues = [];
 
+//Constant declaration
+const ERR_INPUT = "Enter valid input";
+const MIN_VALUE = -1000;
+const MAX_VALUE = 1000;
+
 //Function to add inputs to array
 let addItems = () => {
   let arrayInput = parseInt(arrayInputId.value);
-  if (arrayValues.length < 10) {
+  if (
+    arrayValues.length < 10 &&
+    arrayInputId.value != "" &&
+    arrayInput >= MIN_VALUE &&
+    arrayInput <= MAX_VALUE
+  ) {
     arrayValues.push(arrayInput);
+  } else {
+    alert(ERR_INPUT);
   }
   arrayOutput.value = "";
   arrayInputId.value = "";
@@ -27,7 +39,11 @@ let addItems = () => {
 //Function to push input to array
 let pushItems = () => {
   let pushInput = parseInt(pushInputId.value);
-  arrayValues.push(pushInput);
+  if (pushInputId.value != "") {
+    arrayValues.push(pushInput);
+  } else {
+    alert(ERR_INPUT);
+  }
   pushInputId.value = "";
   afterPushOutput.value = "";
   afterPushOutput.value = arrayValues;
@@ -35,7 +51,11 @@ let pushItems = () => {
 
 //Function to shift value from array
 let shift = () => {
-  arrayValues.shift();
+  if (arrayValues != "") {
+    arrayValues.shift();
+  } else {
+    alert(ERR_INPUT);
+  }
   afterShiftOutput.value = "";
   afterShiftOutput.value = arrayValues;
 };

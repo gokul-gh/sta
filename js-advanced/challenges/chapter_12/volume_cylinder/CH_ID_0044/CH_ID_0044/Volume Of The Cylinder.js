@@ -42,7 +42,6 @@ calculateButton.addEventListener("click", function (event) {
         const calculateVolume =
           Math.PI * Math.pow(this.radius, 2) * this.height;
         result.value = Math.round(calculateVolume * 1000) / 1000;
-        console.log(result.value);
       }
     }
 

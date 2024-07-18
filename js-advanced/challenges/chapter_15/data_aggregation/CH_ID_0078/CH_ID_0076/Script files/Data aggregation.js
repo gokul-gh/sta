@@ -6,69 +6,59 @@
  *  Creation date           :               Ticket No:        *
  ************************************************************* */
 
-// Declaration
+//Variables Declaration
+let nameArray = [],
+  totalStockUnits = [],
+  totalOrderUnits = [],
+  totalPriceUnits = [];
 let supplierTableId = document.getElementById("supplierTable");
+
+//Create a table and add styles
 let createTable = document.createElement("table");
 supplierTableId.appendChild(createTable);
 createTable.style.border = "2px black solid";
 createTable.style.borderCollapse = "collapse";
 
-let createHead = document.createElement("thead");
-let createTr = document.createElement("tr");
-let headerContents = [
-  "SupplierID",
-  "CompanyName",
-  "ContactName",
-  "Address",
-  "ProductName",
-  "UnitsInStock",
-  "UnitsOnOrder",
-  "UnitPrice",
-];
-let nameArray = [],
-  totalStockUnits = [],
-  totalOrderUnits = [],
-  totalPriceUnits = [];
+//Create thead and header row and append th elements
+createTable.innerHTML = `<thead> <tr> <th>SupplierID</th> <th>CompanyName</th> <th>ContactName</th> <th>Address</th> <th>ProductName</th> <th>UnitsInStock</th> <th>UnitsOnOrder</th> <th>UnitPrice</th> </tr> </thead>`;
 
-headerContents.forEach((element) => {
-  let createTh = document.createElement("th");
-  createTh.textContent = element;
-  createTr.appendChild(createTh);
-});
-
-createHead.appendChild(createTr);
-createTable.appendChild(createHead);
-
-let tableData = (element, createTr) => {
-  let createTd = document.createElement("td");
-  createTd.textContent = element;
-  createTr.appendChild(createTd);
-};
-
+//Get sales info and arrange it into array in terms of supplier
 supplierSales.forEach((element) => {
   if (!nameArray[element.SupplierID - 1]) {
-    nameArray[element.SupplierID - 1] = [];
+    nameArray[element.SupplierID - 1] = []; //Creating empty 2d array
+    //Assigning value 0 initially to arrays that is going to store integer
     totalStockUnits[element.SupplierID - 1] = 0;
     totalOrderUnits[element.SupplierID - 1] = 0;
     totalPriceUnits[element.SupplierID - 1] = 0;
   }
+
   nameArray[element.SupplierID - 1].push(element.ProductName);
   totalStockUnits[element.SupplierID - 1] += element.UnitsInStock;
   totalOrderUnits[element.SupplierID - 1] += element.UnitsOnOrder;
   totalPriceUnits[element.SupplierID - 1] += element.UnitPrice;
 });
 
+//if any supplier has no stock, order and price units, then assign it 0
 if (supplierJson.length > totalStockUnits.length) {
   totalStockUnits.push(0);
   totalOrderUnits.push(0);
   totalPriceUnits.push(0);
 }
 
-let newArr = [];
+//Convert 2d Product name to 1d array, else it cant display in table
+let convertArrayName = [];
 for (let iter = 0; iter < nameArray.length; iter++) {
-  newArr[iter] = nameArray[iter].join(",");
+  convertArrayName[iter] = nameArray[iter].join(",");
 }
 
+//Function to be called when to create a new body element
+let tableData = (element, createTr) => {
+  let createTd = document.createElement("td");
+  createTd.textContent = element;
+  createTr.appendChild(createTd);
+};
+
+//Logic to create table elements
 let createBody = document.createElement("tbody");
 supplierJson.forEach((element) => {
   let createTr = document.createElement("tr");
@@ -76,7 +66,7 @@ supplierJson.forEach((element) => {
   tableData(element.CompanyName, createTr);
   tableData(element.ContactName, createTr);
   tableData(element.Address, createTr);
-  tableData(newArr[element.SupplierID - 1], createTr);
+  tableData(convertArrayName[element.SupplierID - 1], createTr);
   tableData(totalStockUnits[element.SupplierID - 1], createTr);
   tableData(totalOrderUnits[element.SupplierID - 1], createTr);
   tableData(totalPriceUnits[element.SupplierID - 1], createTr);

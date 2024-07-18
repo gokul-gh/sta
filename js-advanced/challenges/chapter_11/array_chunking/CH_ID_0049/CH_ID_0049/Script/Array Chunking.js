@@ -18,30 +18,57 @@ let chunkedArrayOutput = document.getElementById("orderId");
 let arrayValues = [],
   chunkedArray = [];
 
-let addItems = () => {
-  let arrayInput = parseInt(arrayInputId.value);
-  arrayValues.push(arrayInput);
+//Constant Declaration
+const INPUT_ERR = "Enter valid input";
+const MAX_VALUE = 1000;
+const MIN_VALUE = -1000;
+
+//Function to add elements to array
+const addItems = () => {
+  let arrayInput = Number(arrayInputId.value);
+  if (
+    arrayInputId.value != "" &&
+    arrayInput >= MIN_VALUE &&
+    arrayInput <= MAX_VALUE
+  ) {
+    arrayValues.push(arrayInput);
+  } else {
+    alert(INPUT_ERR);
+  }
   arrayInputId.value = "";
   displayArrayArea.value = "";
   displayArrayArea.value += `${arrayValues} `;
 };
 
-let calculate = () => {
+//Function to do array chunk
+const calculate = () => {
   chunkedArray = [];
   let chunkSizeInput = parseInt(chunkSizeInputId.value);
-  for (
-    let iteration = 0;
-    iteration < arrayValues.length;
-    iteration += chunkSizeInput
+  if (
+    chunkSizeInputId.value != "" &&
+    chunkSizeInput > 0 &&
+    chunkSizeInput == Number(chunkSizeInputId.value) &&
+    arrayValues != ""
   ) {
-    chunkedArray.push(arrayValues.slice(iteration, iteration + chunkSizeInput));
+    for (
+      let iteration = 0;
+      iteration < arrayValues.length;
+      iteration += chunkSizeInput
+    ) {
+      chunkedArray.push(
+        arrayValues.slice(iteration, iteration + chunkSizeInput)
+      );
+    }
+    chunkSizeInputId.value = "";
+    chunkedArrayOutput.value = "";
+    chunkedArrayOutput.value += JSON.stringify(chunkedArray);
+  } else {
+    alert(INPUT_ERR);
   }
-  chunkSizeInputId.value = "";
-  chunkedArrayOutput.value = "";
-  chunkedArrayOutput.value += JSON.stringify(chunkedArray);
 };
 
-let reset = () => {
+//Reset function to clear values
+const reset = () => {
   arrayInputId.value = "";
   displayArrayArea.value = "";
   chunkSizeInputId.value = "";

@@ -8,24 +8,23 @@ function stringFunction() {
   indexPositionId.value = "";
 
   if (inputStringId.value != "") {
-    for (let iteration = 0; iteration < inputString.length; iteration++) {
-      if (
-        inputString[iteration] == "a" ||
-        inputString[iteration] == "e" ||
-        inputString[iteration] == "i" ||
-        inputString[iteration] == "o" ||
-        inputString[iteration] == "u" ||
-        inputString[iteration] == "A" ||
-        inputString[iteration] == "E" ||
-        inputString[iteration] == "I" ||
-        inputString[iteration] == "O" ||
-        inputString[iteration] == "U"
-      ) {
-        indexPositionId.value += `${iteration} `;
-        isVowelPresent = true;
-      }
+    if (inputString.indexOf("a") >= 0) {
+      indexPositionId.value += inputString.indexOf("a");
     }
-    if (isVowelPresent == false) {
+    if (inputString.indexOf("e") >= 0) {
+      indexPositionId.value += inputString.indexOf("e");
+    }
+    if (inputString.indexOf("i") >= 0) {
+      indexPositionId.value += inputString.indexOf("i");
+    }
+    if (inputString.indexOf("o") >= 0) {
+      indexPositionId.value += inputString.indexOf("o");
+    }
+    if (inputString.indexOf("u") >= 0) {
+      indexPositionId.value += inputString.indexOf("u");
+    }
+
+    if (indexPositionId.value == "") {
       indexPositionId.value = "No vowel found";
     }
   } else {

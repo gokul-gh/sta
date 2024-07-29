@@ -178,25 +178,33 @@ const validationFunc = () => {
     element.innerHTML = "";
   });
 
-  isInputsFilled = false;
+  isInputsFilled = true;
   allErrorOutputs.forEach((element) => {
     element.innerHTML = "Please fill this field";
   });
 
-  if (maleCheckBox.checked || femaleCheckBox.checked)
+  if (!maleCheckBox.checked && !femaleCheckBox.checked)
     genderValueError.innerHTML = "Please fill this field";
+  else genderValueError.innerHTML = "";
   //element "" for dob, element "Select" for dropdown, element.value for input fields
   allInputFields.forEach((element, index) => {
-    if (
-      element.value != "" &&
-      element.value != "Select" &&
-      (!maleCheckBox.checked || !femaleCheckBox.checked)
-    ) {
-      allErrorOutputs[index].innerHTML = "";
+    if (index != 0 && index != 8) {
+      if (
+        imageOutput.src != "" &&
+        element.value != "" &&
+        element.value != "Select"
+      ) {
+        isInputsFilled = true;
+      } else {
+        isInputsFilled = false;
+      }
+      if (element.value != "" && element.value != "Select")
+        allErrorOutputs[index].innerHTML = "";
+      if (imageOutput.src != "") {
+        allErrorOutputs[0].innerHTML = "";
+      }
     }
   });
-  console.log(allInputFields);
-  console.log(allErrorOutputs);
   if (lastNameInput.value != "" && !lastNamePattern.test(lastNameInput.value)) {
     lastNameError.innerHTML = "Enter valid name";
   }
@@ -253,6 +261,7 @@ form.addEventListener("submit", (event) => {
       pincode: pincode,
     };
     personInfoArray.push(personInfoObj);
+    console.log(personInfoObj);
     localStorage.setItem("personInfo", JSON.stringify(personInfoArray));
   } else {
     event.preventDefault();

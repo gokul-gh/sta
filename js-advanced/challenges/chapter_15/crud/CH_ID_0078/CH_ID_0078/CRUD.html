@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -25,6 +25,10 @@
     />
     <title>CRUD</title>
     <link href="Stylesheet/CRUD.css" type="text/css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
   </head>
 
   <body>
@@ -103,7 +107,9 @@
                     </div>
                     <div id="selectState">
                       <label>Select state</label><br />
-                      <select id="state"></select>
+                      <select id="state"></select
+                      ><br />
+                      <span id="stateError"></span><br />
                     </div>
                   </div>
                   <div id="thirdColumn">
@@ -127,6 +133,7 @@
                         id="female"
                         value="Female"
                       />Female
+                      <br><span id="genderError"></span>
                     </div>
                     <div id="mailId">
                       <label class="required">Email</label><br />
@@ -229,6 +236,7 @@
         <div class="logoContent">SoftTechAshram.com</div>
       </div>
     </div>
+    <script src="countries_states.js"></script>
     <script src="Script/CRUD.js"></script>
   </body>
 </html>

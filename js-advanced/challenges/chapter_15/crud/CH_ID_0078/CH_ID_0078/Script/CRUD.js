@@ -35,6 +35,7 @@ let isSameAdress = document.getElementById("checkedBox");
 let imageOutput = document.getElementById("photoId");
 let registerButton = document.getElementById("regBtn");
 let updateButton = document.getElementById("update");
+let resetButton = document.getElementById("resetBtn");
 let form = document.querySelector("form");
 let getAllInputs = document.querySelectorAll("input");
 let getAllSpan = document.querySelectorAll("span");
@@ -401,10 +402,31 @@ const editFunc = (index) => {
       event.preventDefault();
     }
   });
+
+  resetButton.addEventListener("click", (event) => {
+    const personInfoValue = Object.values(personInfoArray[index]);
+    imageOutput.src = personInfoValue[0];
+    allInputFields.forEach((element, loopIndex) => {
+      if (loopIndex != 0 && loopIndex != 6)
+        element.value = personInfoValue[loopIndex];
+      if (loopIndex == 6) {
+        dropdownData.forEach((element) => {
+          if (element.name == personInfoValue[2]) {
+            dropdownFunc(element.states, stateSelect);
+            stateSelect.value = personInfoValue[6];
+          }
+        });
+      }
+      console.log(element.value)
+    });
+    personInfoValue[8] == "Male"
+      ? (maleCheckBox.checked = true)
+      : (femaleCheckBox.checked = true);
+  });
 };
 
 const updateForm = (element) => {};
-
+const clearFields = () => {};
 const deleteFunc = (index) => {
   let personInfoArray = JSON.parse(localStorage.getItem("personInfo"));
   personInfoArray.splice(index, 1);

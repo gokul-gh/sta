@@ -189,20 +189,17 @@ const validationFunc = () => {
   //element "" for dob, element "Select" for dropdown, element.value for input fields
   allInputFields.forEach((element, index) => {
     if (index != 0 && index != 8) {
-      if (
-        imageOutput.src != "" &&
-        element.value != "" &&
-        element.value != "Select"
-      ) {
-        isInputsFilled = true;
-      } else {
+      if (element.value == "" || element.value == "Select") {
         isInputsFilled = false;
       }
-      if (element.value != "" && element.value != "Select")
-        allErrorOutputs[index].innerHTML = "";
-      if (imageOutput.src != "") {
-        allErrorOutputs[0].innerHTML = "";
-      }
+    }
+  });
+
+  allInputFields.forEach((element, index) => {
+    if (element.value != "" && element.value != "Select")
+      allErrorOutputs[index].innerHTML = "";
+    if (imageOutput.src != "") {
+      allErrorOutputs[0].innerHTML = "";
     }
   });
   if (lastNameInput.value != "" && !lastNamePattern.test(lastNameInput.value)) {
@@ -214,14 +211,14 @@ const validationFunc = () => {
   if (
     firstNameInput.value != "" &&
     !firstNamePattern.test(firstNameInput.value)
-  ) {
+  )
     firstNameError.innerHTML = "Enter valid fist name";
-  }
-  if (emailInput.value != "" && !emailPattern.test(emailInput.value)) {
+  if (emailInput.value != "" && !emailPattern.test(emailInput.value))
     emailIdError.innerHTML = "Enter valid email id";
-  }
   if (cityInput.value != "" && !cityPattern.test(cityInput.value))
     cityNameError.innerHTML = "Enter valid city name";
+
+  return isInputsFilled;
 };
 
 //Register button function to add new info to localStorage
@@ -244,24 +241,49 @@ form.addEventListener("submit", (event) => {
     } else {
       personInfoArray = JSON.parse(localStorage.getItem("personInfo"));
     }
-    let personInfoObj = {
-      personImg: imageOutput.src,
-      dob: dob,
-      country: countrySelect.value,
-      organization: organizationSelect.value,
-      lastName: lastName,
-      mobileNo: mobileNo,
-      state: stateSelect.value,
-      firstName: firstName,
-      gender: gender,
-      email: email,
-      city: cityName,
-      communicationAddress: communicationAddressId.value,
-      permanentAddress: permanentAddressId.value,
-      pincode: pincode,
-    };
-    personInfoArray.push(personInfoObj);
-    console.log(personInfoObj);
+    let existingPersonIndex = personInfoArray.findIndex(
+      (person) =>
+        person.firstName === firstNameInput.value &&
+        person.lastName === lastNameInput.value
+    );
+    if (existingPersonIndex !== -1) {
+      // Update existing person's information
+      personInfoArray[existingPersonIndex] = {
+        personImg: imageOutput.src,
+        dob: dobInput.value,
+        country: countrySelect.value,
+        organization: organizationSelect.value,
+        lastName: lastNameInput.value,
+        mobileNo: mobileNoInput.value,
+        state: stateSelect.value,
+        firstName: firstNameInput.value,
+        gender: gender,
+        email: emailInput.value,
+        city: cityInput.value,
+        communicationAddress: communicationAddressId.value,
+        permanentAddress: permanentAddressId.value,
+        pincode: pincodeInput.value,
+      };
+    } else {
+      // Add new person's information
+      let personInfoObj = {
+        personImg: imageOutput.src,
+        dob: dobInput.value,
+        country: countrySelect.value,
+        organization: organizationSelect.value,
+        lastName: lastNameInput.value,
+        mobileNo: mobileNoInput.value,
+        state: stateSelect.value,
+        firstName: firstNameInput.value,
+        gender: gender,
+        email: emailInput.value,
+        city: cityInput.value,
+        communicationAddress: communicationAddressId.value,
+        permanentAddress: permanentAddressId.value,
+        pincode: pincodeInput.value,
+      };
+      personInfoArray.push(personInfoObj);
+    }
     localStorage.setItem("personInfo", JSON.stringify(personInfoArray));
   } else {
     event.preventDefault();
@@ -319,8 +341,8 @@ const showPersonInfo = () => {
       <td> ${element.communicationAddress} </td>
       <td> ${element.permanentAddress} </td>
       <td> ${element.pincode} </td>
-      <td> <i class="fa-solid fa-pen-to-square" onclick="editFunc(${index})"></i> <br> <br>
-           <i class="fa-solid fa-trash" style="color: #ff0000;" onclick="deleteFunc(${index})"></i> </td>
+      <td> <i class="fa-solid fa-pen-to-square" style="cursor: pointer;" onclick="editFunc(${index})"></i> <br> <br>
+           <i class="fa-solid fa-trash" style="color: #ff0000; cursor: pointer" onclick="deleteFunc(${index})"></i> </td>
       </tr>`;
     });
     tableContent += "</tbody>";
@@ -352,6 +374,33 @@ const editFunc = (index) => {
   personInfoValue[8] == "Male"
     ? (maleCheckBox.checked = true)
     : (femaleCheckBox.checked = true);
+
+  updateButton.addEventListener("click", (event) => {
+    if (validationFunc()) {
+      personInfoArray[index].city = allInputFields[10].value;
+      personInfoArray[index].communicationAddress = allInputFields[11].value;
+      personInfoArray[index].country = allInputFields[2].value;
+      personInfoArray[index].dob = allInputFields[1].value;
+      personInfoArray[index].email = allInputFields[9].value;
+      personInfoArray[index].firstName = allInputFields[7].value;
+      if (maleCheckBox.checked) gender = maleCheckBox.value;
+      else if (femaleCheckBox.checked) gender = femaleCheckBox.value;
+      personInfoArray[index].gender = gender;
+      personInfoArray[index].lastName = allInputFields[4].value;
+      personInfoArray[index].mobileNo = allInputFields[5].value;
+      personInfoArray[index].organization = allInputFields[3].value;
+      personInfoArray[index].permanentAddress = allInputFields[12].value;
+      personInfoArray[index].personImg = imageOutput.src;
+      personInfoArray[index].pincode = allInputFields[13].value;
+      personInfoArray[index].state = allInputFields[6].value;
+
+      localStorage.setItem("personInfo", JSON.stringify(personInfoArray));
+      showPersonInfo();
+    } else {
+      console.log(allInputFields);
+      event.preventDefault();
+    }
+  });
 };
 
 const updateForm = (element) => {};

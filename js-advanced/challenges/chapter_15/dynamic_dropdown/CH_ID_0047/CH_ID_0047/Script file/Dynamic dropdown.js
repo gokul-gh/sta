@@ -6,7 +6,52 @@
  *  Creation date           :                 Ticket No:       *
  ************************************************************* */
 
-// Declaration
+//Variable declaration
+let clickHereButton = document.getElementById("buttonId");
+let selectDiv = document.getElementById("selectDivId");
+let isFristClick = false,
+  count = 0;
+
+const addElements = () => {
+  if (!isFristClick) {
+    dropdownFunc(dropdownData, dropdownData, (level = 1));
+    isFristClick = true;
+  }
+};
+
+const dropdownFunc = (data, dropdownData, level = 1) => {
+  let select = document.createElement("select");
+  data.forEach((element) => {
+    let option = document.createElement("option");
+    option.textContent = element.name;
+    select.appendChild(option);
+  });
+  selectDiv.appendChild(select);
+
+  select.addEventListener("change", (event) => {
+    data.forEach((element) => {
+      if (select.value == element.name) {
+        while (selectDiv.childElementCount > level) {
+          selectDiv.removeChild(selectDiv.lastChild);
+        }
+        console.log(selectDiv.childElementCount);
+        if (element.data) {
+          console.log(`Selected element: ${element.name}, level ${level}`);
+          dropdownFunc(element.data, dropdownData, level + 1);
+        } else {
+          console.log(`Selected element: ${element.name}, level ${level}`);
+        }
+      }
+    });
+  });
+};
+// console.log(selectDiv.childElementCount);
+
+const reset = () => {
+  while (selectDiv.lastChild) selectDiv.removeChild(selectDiv.lastChild);
+  isFristClick = false,
+  count = 0;
+};
 
 // Date and time declaration.
 let displayDate = new Date();
@@ -27,5 +72,3 @@ copyText.addEventListener("click", () => {
     copyText.innerHTML = `<span>&#128203; </span>copy`;
   }, 2000);
 });
-
-//Code Logic

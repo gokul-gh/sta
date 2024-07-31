@@ -43,18 +43,19 @@ let getAllSelect = document.querySelectorAll("select");
 let getAllTextarea = document.querySelectorAll("textarea");
 
 let isInputsFilled = false;
-maleCheckBox.checked = false;
 let lastNamePattern = /^[a-zA-Z]+[\sa-zA-Z]*$/;
-let mobileNoPattern = /^[0-9]{10}$/;
+let mobileNoPattern = /^[6-9][0-9]{9}$/;
 let firstNamePattern = /^[a-zA-Z]+[\sa-zA-Z]+$/;
 let emailPattern = /^[a-zA-Z0-9-_.]+@[a-zA-Z0-9-]+\.[a-zA-z0-9]{2,16}$/;
 let cityPattern = /^[a-zA-Z]+[\sa-zA-Z]*$/;
+let pincodePattern = /^[1-9][0-9]{5}$/;
 let allErrorOutputs = [],
   allInputFields = [],
   organizationOptions = ["Code tech", "Tech ultra", "Coders", "Chip company"];
 let dob, lastName, mobileNo, firstName, email, cityName, pincode;
 let gender = false;
 
+//Get all input fields and push into an array
 allInputFields.push(imageOutput);
 getAllInputs.forEach((element) => {
   if (
@@ -81,6 +82,7 @@ getAllTextarea.forEach((element, index) => {
   if (index == 1) allInputFields.splice(12, 0, element);
 });
 
+//Get all error span fields and push it in an array
 getAllSpan.forEach((element) => {
   if (
     element.id != "exerciseHeading" &&
@@ -91,12 +93,24 @@ getAllSpan.forEach((element) => {
   }
 });
 
+//Event listener to remove error message if user started typing
+allInputFields.forEach((element, index) => {
+  if (index != 8) {
+    element.addEventListener("keydown", (event) => {
+      allErrorOutputs[index].innerHTML = "";
+    });
+    if (index == 1 || index == 2 || index == 3 || index == 6) {
+      element.addEventListener("change", (event) => {
+        allErrorOutputs[index].innerHTML = "";
+      });
+    }
+  }
+});
 //Disable update button
 updateButton.style.display = "none";
 
 //Accept only image type in file selector
 imageInput.setAttribute("accept", "image/*");
-
 //Get image and display it
 imageInput.onchange = (event) => {
   let file = event.target.files[0];
@@ -126,11 +140,10 @@ const dropdownFunc = (data, select) => {
   while (select.firstChild) {
     select.removeChild(select.lastChild);
   }
+  let option = document.createElement("option");
+  option.textContent = "Select";
+  select.appendChild(option);
   if (data.length) {
-    let option = document.createElement("option");
-    option.textContent = "Select";
-    select.appendChild(option);
-
     data.forEach((element) => {
       option = document.createElement("option");
       option.textContent = element.name;
@@ -166,6 +179,7 @@ isSameAdress.addEventListener("change", () => {
   if (isSameAdress.checked) {
     permanentAddressId.value = communicationAddressId.value;
     permanentAddressId.disabled = true;
+    allErrorOutputs[12].innerHTML = "";
   } else if (!isSameAdress.checked) permanentAddressId.disabled = false;
 });
 communicationAddressId.addEventListener("input", () => {
@@ -178,7 +192,6 @@ const validationFunc = () => {
   allErrorOutputs.forEach((element) => {
     element.innerHTML = "";
   });
-
   isInputsFilled = true;
   allErrorOutputs.forEach((element) => {
     element.innerHTML = "Please fill this field";
@@ -195,7 +208,7 @@ const validationFunc = () => {
       }
     }
   });
-
+  //Clear all input error messages if valid input is found
   allInputFields.forEach((element, index) => {
     if (element.value != "" && element.value != "Select")
       allErrorOutputs[index].innerHTML = "";
@@ -203,6 +216,7 @@ const validationFunc = () => {
       allErrorOutputs[0].innerHTML = "";
     }
   });
+  //Regex pattern
   if (lastNameInput.value != "" && !lastNamePattern.test(lastNameInput.value)) {
     lastNameError.innerHTML = "Enter valid name";
   }
@@ -218,7 +232,8 @@ const validationFunc = () => {
     emailIdError.innerHTML = "Enter valid email id";
   if (cityInput.value != "" && !cityPattern.test(cityInput.value))
     cityNameError.innerHTML = "Enter valid city name";
-
+  if (pincodeInput.value != "" && !pincodePattern.test(pincodeInput.value))
+    pincodeError.innerHTML = "Enter valid pincode";
   return isInputsFilled;
 };
 
@@ -248,7 +263,6 @@ form.addEventListener("submit", (event) => {
         person.lastName === lastNameInput.value
     );
     if (existingPersonIndex !== -1) {
-      // Update existing person's information
       personInfoArray[existingPersonIndex] = {
         personImg: imageOutput.src,
         dob: dobInput.value,
@@ -291,7 +305,7 @@ form.addEventListener("submit", (event) => {
     validationFunc();
   }
 });
-
+//Display table
 let crudTableId = document.getElementById("crudTable");
 const showPersonInfo = () => {
   if (localStorage.getItem("personInfo") == "[]") {
@@ -353,6 +367,7 @@ const showPersonInfo = () => {
 };
 document.onload = showPersonInfo();
 
+//Edit function if user clicked the edit button
 const editFunc = (index) => {
   registerButton.style.display = "none";
   updateButton.style.display = "block";
@@ -375,7 +390,7 @@ const editFunc = (index) => {
   personInfoValue[8] == "Male"
     ? (maleCheckBox.checked = true)
     : (femaleCheckBox.checked = true);
-
+  //Update function if user clicks update button
   updateButton.addEventListener("click", (event) => {
     if (validationFunc()) {
       personInfoArray[index].city = allInputFields[10].value;
@@ -398,11 +413,10 @@ const editFunc = (index) => {
       localStorage.setItem("personInfo", JSON.stringify(personInfoArray));
       showPersonInfo();
     } else {
-      console.log(allInputFields);
       event.preventDefault();
     }
   });
-
+  //Reset function
   resetButton.addEventListener("click", (event) => {
     const personInfoValue = Object.values(personInfoArray[index]);
     imageOutput.src = personInfoValue[0];
@@ -417,7 +431,6 @@ const editFunc = (index) => {
           }
         });
       }
-      console.log(element.value)
     });
     personInfoValue[8] == "Male"
       ? (maleCheckBox.checked = true)

@@ -435,6 +435,7 @@ const editFunc = (index) => {
     personInfoValue[8] == "Male"
       ? (maleCheckBox.checked = true)
       : (femaleCheckBox.checked = true);
+    event.preventDefault();
   });
 };
 

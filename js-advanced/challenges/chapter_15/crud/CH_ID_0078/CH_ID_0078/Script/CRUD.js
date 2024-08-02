@@ -48,26 +48,14 @@ let emailPattern = /^[a-zA-Z0-9-_.]+@[a-zA-Z0-9-]+\.[a-zA-z0-9]{2,16}$/;
 let cityPattern = /^[a-zA-Z]+[\sa-zA-Z]*$/;
 let pincodePattern = /^[1-9][0-9]{5}$/;
 let allErrorOutputs = [],
-  allInputFields = [],
-  organizationOptions = ["Code tech", "Tech ultra", "Coders", "Chip company"];
-let dob, lastName, mobileNo, firstName, email, cityName, pincode;
+  allInputFields = [];
 let gender = false;
 
 //Get all input fields and push into an array
 allInputFields.push(imageOutput);
 getAllInputs.forEach((element) => {
-  if (
-    ![
-      "regBtn",
-      "update",
-      "resetBtn",
-      "successCode",
-      "uploadButton",
-      "male",
-      "female",
-      "checkedBox",
-    ].includes(element.id)
-  ) {
+  //prettier-ignore
+  if ( ![ "regBtn", "update", "resetBtn", "successCode", "uploadButton", "male", "female", "checkedBox",].includes(element.id)) {
     allInputFields.push(element);
   }
 });
@@ -171,11 +159,6 @@ countrySelect.addEventListener("change", (event) => {
 });
 
 //Organization select
-organizationOptions.forEach((element) => {
-  let option = document.createElement("option");
-  option.textContent = element;
-  organizationSelect.appendChild(option);
-});
 organizationSelect.addEventListener("change", (event) => {});
 
 //Communication and permanent address to be same
@@ -197,28 +180,26 @@ const validationFunc = () => {
     element.innerHTML = "";
   });
   isInputsFilled = true;
-  allErrorOutputs.forEach((element) => {
-    element.innerHTML = "Please fill this field";
-  });
 
   if (!maleCheckBox.checked && !femaleCheckBox.checked)
     genderValueError.innerHTML = "Please fill this field";
   else genderValueError.innerHTML = "";
   //element "" for dob, element "Select" for dropdown, element.value for input fields
+
   allInputFields.forEach((element, index) => {
     if (index != 0 && index != 8) {
-      if (element.value == "" || element.value == "Select") {
+      if (
+        element.value == "" ||
+        element.value == "Select" ||
+        imageOutput.src == ""
+      )
         isInputsFilled = false;
-      }
     }
-  });
-  //Clear all input error messages if valid input is found
-  allInputFields.forEach((element, index) => {
-    if (element.value != "" && element.value != "Select" && index != 0)
+
+    if (element.value != "" && element.value != "Select" && index != 0) {
       allErrorOutputs[index].innerHTML = "";
-    if (imageOutput.src != "") {
-      allErrorOutputs[0].innerHTML = "";
-    }
+      if (imageOutput.src != "") allErrorOutputs[0].innerHTML = "";
+    } else allErrorOutputs[index].innerHTML = "Please fill this field";
   });
   //Regex pattern
   if (lastNameInput.value != "" && !lastNamePattern.test(lastNameInput.value)) {
@@ -243,15 +224,9 @@ const validationFunc = () => {
 
 //Register button function to add new info to localStorage
 const validateForm = () => {
-  (dob = dobInput.value),
-    (lastName = lastNameInput.value),
-    (mobileNo = mobileNoInput.value),
-    (firstName = firstNameInput.value),
-    (email = emailInput.value),
-    (cityName = cityInput.value),
-    (pincode = pincodeInput.value);
   if (maleCheckBox.checked) gender = maleCheckBox.value;
   else if (femaleCheckBox.checked) gender = femaleCheckBox.value;
+  validationFunc();
 };
 //To prevent form getting submitted when validation fails
 form.addEventListener("submit", (event) => {
@@ -266,49 +241,33 @@ form.addEventListener("submit", (event) => {
         person.firstName === firstNameInput.value &&
         person.lastName === lastNameInput.value
     );
-    if (existingPersonIndex !== -1) {
-      personInfoArray[existingPersonIndex] = {
-        personImg: imageOutput.src,
-        dob: dobInput.value,
-        country: countrySelect.value,
-        organization: organizationSelect.value,
-        lastName: lastNameInput.value,
-        mobileNo: mobileNoInput.value,
-        state: stateSelect.value,
-        firstName: firstNameInput.value,
-        gender: gender,
-        email: emailInput.value,
-        city: cityInput.value,
-        communicationAddress: communicationAddressId.value,
-        permanentAddress: permanentAddressId.value,
-        pincode: pincodeInput.value,
-      };
-    } else {
-      // Add new person's information
-      let personInfoObj = {
-        personImg: imageOutput.src,
-        dob: dobInput.value,
-        country: countrySelect.value,
-        organization: organizationSelect.value,
-        lastName: lastNameInput.value,
-        mobileNo: mobileNoInput.value,
-        state: stateSelect.value,
-        firstName: firstNameInput.value,
-        gender: gender,
-        email: emailInput.value,
-        city: cityInput.value,
-        communicationAddress: communicationAddressId.value,
-        permanentAddress: permanentAddressId.value,
-        pincode: pincodeInput.value,
-      };
-      personInfoArray.push(personInfoObj);
-    }
+    let personInfoObj = {
+      personImg: imageOutput.src,
+      dob: dobInput.value,
+      country: countrySelect.value,
+      organization: organizationSelect.value,
+      lastName: lastNameInput.value,
+      mobileNo: mobileNoInput.value,
+      state: stateSelect.value,
+      firstName: firstNameInput.value,
+      gender: gender,
+      email: emailInput.value,
+      city: cityInput.value,
+      communicationAddress: communicationAddressId.value,
+      permanentAddress: permanentAddressId.value,
+      pincode: pincodeInput.value,
+    };
+    if (existingPersonIndex !== -1)
+      personInfoArray[existingPersonIndex] = personInfoObj;
+    else personInfoArray.push(personInfoObj);
+
     localStorage.setItem("personInfo", JSON.stringify(personInfoArray));
   } else {
     event.preventDefault();
     validationFunc();
   }
 });
+
 //Display table
 let crudTableId = document.getElementById("crudTable");
 const showPersonInfo = () => {
@@ -322,50 +281,39 @@ const showPersonInfo = () => {
 
     let table = document.createElement("table");
     table.style.borderCollapse = "collapse";
-    let tableContent = "";
+    table.style.margin = "auto";
     while (crudTableId.lastChild) {
       crudTableId.removeChild(crudTableId.lastChild);
     }
-    tableContent = `<thead>
-                  <th> Image </th>
-                  <th> Frist Name </th>
-                  <th> Last Name </th>
-                  <th> Date of Birth </th>
-                  <th> Organization </th>
-                  <th> Mobile number </th>
-                  <th> Country </th>
-                  <th> State </th>
-                  <th> Gender </th>
-                  <th> Email </th>
-                  <th> City </th>
-                  <th> Communication address</th>
-                  <th> Permanent address </th>
-                  <th> Pincode </th>
-                  <th> Actions </th>
-                  </thead><tbody>`;
+    //prettier-ignore
+    let headers = ["Image", "Name", "Organization", "Moblie number", "Country", "Email", "City", "Communication address", "Actions"];
+    let head = document.createElement("thead");
+    let tr = document.createElement("tr");
+    headers.forEach((element) => {
+      let th = document.createElement("th");
+      th.textContent = element;
+      tr.appendChild(th);
+    });
+    head.appendChild(tr);
+    table.appendChild(head);
+    let tbody = document.createElement("tbody");
 
     personInfoArray.forEach((element, index) => {
-      tableContent += `<tr>
+      let tr = document.createElement("tr");
+      tr.innerHTML = `
       <td> <img src="${element.personImg}" height=100px width=100px/> </td>
-      <td> ${element.firstName} </td>
-      <td> ${element.lastName} </td>
-      <td> ${element.dob} </td>
+      <td> ${element.firstName} ${element.lastName} </td>
       <td> ${element.organization} </td>
       <td> ${element.mobileNo} </td>
       <td> ${element.country} </td>
-      <td> ${element.state} </td>
-      <td> ${element.gender} </td>
       <td> ${element.email} </td>
       <td> ${element.city} </td>
       <td> ${element.communicationAddress} </td>
-      <td> ${element.permanentAddress} </td>
-      <td> ${element.pincode} </td>
       <td> <i class="fa-solid fa-pen-to-square" style="cursor: pointer;" onclick="editFunc(${index})"></i> <br> <br>
-           <i class="fa-solid fa-trash" style="color: #ff0000; cursor: pointer" onclick="deleteFunc(${index})"></i> </td>
-      </tr>`;
+           <i class="fa-solid fa-trash" style="color: #ff0000; cursor: pointer" onclick="deleteFunc(${index})"></i> </td>`;
+      tbody.appendChild(tr);
     });
-    tableContent += "</tbody>";
-    table.innerHTML = tableContent;
+    table.appendChild(tbody);
     crudTableId.appendChild(table);
   }
 };
@@ -373,21 +321,16 @@ document.onload = showPersonInfo();
 
 //Edit function if user clicked the edit button
 const editFunc = (index) => {
-  let trashIcon = document.getElementsByClassName("fa-trash");
-  let editIcon = document.getElementsByClassName("fa-pen-to-square");
-
-  Array.from(trashIcon).forEach((element, loopIndex) => {
-    trashIcon[loopIndex].removeAttribute("onclick");
-  });
-  Array.from(editIcon).forEach((element, loopIndex) => {
-    editIcon[loopIndex].removeAttribute("onclick");
-  });
+  document
+    .querySelectorAll(".fa-trash, .fa-pen-to-square")
+    .forEach((element) => element.removeAttribute("onclick"));
 
   registerButton.style.display = "none";
   updateButton.style.display = "block";
-  let personInfoArray = JSON.parse(localStorage.getItem("personInfo"));
 
+  let personInfoArray = JSON.parse(localStorage.getItem("personInfo"));
   const personInfoValue = Object.values(personInfoArray[index]);
+
   imageOutput.src = personInfoValue[0];
   allInputFields.forEach((element, loopIndex) => {
     if (loopIndex != 0 && loopIndex != 6)
@@ -407,22 +350,12 @@ const editFunc = (index) => {
   //Update function if user clicks update button
   updateButton.addEventListener("click", (event) => {
     if (validationFunc()) {
-      personInfoArray[index].city = allInputFields[10].value;
-      personInfoArray[index].communicationAddress = allInputFields[11].value;
-      personInfoArray[index].country = allInputFields[2].value;
-      personInfoArray[index].dob = allInputFields[1].value;
-      personInfoArray[index].email = allInputFields[9].value;
-      personInfoArray[index].firstName = allInputFields[7].value;
+      personInfoValue.forEach((element, index) => {
+        element = allInputFields[index].value;
+      });
       if (maleCheckBox.checked) gender = maleCheckBox.value;
       else if (femaleCheckBox.checked) gender = femaleCheckBox.value;
-      personInfoArray[index].gender = gender;
-      personInfoArray[index].lastName = allInputFields[4].value;
-      personInfoArray[index].mobileNo = allInputFields[5].value;
-      personInfoArray[index].organization = allInputFields[3].value;
-      personInfoArray[index].permanentAddress = allInputFields[12].value;
-      personInfoArray[index].personImg = imageOutput.src;
-      personInfoArray[index].pincode = allInputFields[13].value;
-      personInfoArray[index].state = allInputFields[6].value;
+      personInfoArray[0].personImg = imageOutput.src;
 
       localStorage.setItem("personInfo", JSON.stringify(personInfoArray));
       showPersonInfo();

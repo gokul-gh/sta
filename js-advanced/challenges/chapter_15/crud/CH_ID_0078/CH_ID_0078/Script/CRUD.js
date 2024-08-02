@@ -26,9 +26,7 @@ let emailIdError = document.getElementById("mailError");
 let cityInput = document.getElementById("city");
 let cityNameError = document.getElementById("cityError");
 let communicationAddressId = document.getElementById("commAddress");
-let communicationAddressError = document.getElementById("commAddr");
 let permanentAddressId = document.getElementById("perAddress");
-let permanentAddressError = document.getElementById("permAddr");
 let pincodeInput = document.getElementById("pinNumber");
 let pincodeError = document.getElementById("pinError");
 let isSameAdress = document.getElementById("checkedBox");
@@ -59,14 +57,16 @@ let gender = false;
 allInputFields.push(imageOutput);
 getAllInputs.forEach((element) => {
   if (
-    element.id != "regBtn" &&
-    element.id != "update" &&
-    element.id != "resetBtn" &&
-    element.id != "successCode" &&
-    element.id != "uploadButton" &&
-    element.id != "male" &&
-    element.id != "female" &&
-    element.id != "checkedBox"
+    ![
+      "regBtn",
+      "update",
+      "resetBtn",
+      "successCode",
+      "uploadButton",
+      "male",
+      "female",
+      "checkedBox",
+    ].includes(element.id)
   ) {
     allInputFields.push(element);
   }
@@ -115,10 +115,14 @@ imageInput.setAttribute("accept", "image/*");
 imageInput.onchange = (event) => {
   let file = event.target.files[0];
   const reader = new FileReader();
+  if (!file.type.match("image.*")) {
+    alert("Only image files are allowed");
+    return;
+  }
   reader.readAsDataURL(file);
-  reader.addEventListener("load", function () {
+  reader.onload = function () {
     imageOutput.src = reader.result;
-  });
+  };
 };
 
 //Set minimum and maximum range for date input
@@ -210,7 +214,7 @@ const validationFunc = () => {
   });
   //Clear all input error messages if valid input is found
   allInputFields.forEach((element, index) => {
-    if (element.value != "" && element.value != "Select")
+    if (element.value != "" && element.value != "Select" && index != 0)
       allErrorOutputs[index].innerHTML = "";
     if (imageOutput.src != "") {
       allErrorOutputs[0].innerHTML = "";
@@ -369,6 +373,16 @@ document.onload = showPersonInfo();
 
 //Edit function if user clicked the edit button
 const editFunc = (index) => {
+  let trashIcon = document.getElementsByClassName("fa-trash");
+  let editIcon = document.getElementsByClassName("fa-pen-to-square");
+
+  Array.from(trashIcon).forEach((element, loopIndex) => {
+    trashIcon[loopIndex].removeAttribute("onclick");
+  });
+  Array.from(editIcon).forEach((element, loopIndex) => {
+    editIcon[loopIndex].removeAttribute("onclick");
+  });
+
   registerButton.style.display = "none";
   updateButton.style.display = "block";
   let personInfoArray = JSON.parse(localStorage.getItem("personInfo"));
@@ -440,7 +454,12 @@ const editFunc = (index) => {
 };
 
 const updateForm = (element) => {};
-const clearFields = () => {};
+const clearFields = () => {
+  allErrorOutputs.forEach((element) => {
+    element.innerHTML = "";
+  });
+  imageOutput.removeAttribute("src");
+};
 const deleteFunc = (index) => {
   let personInfoArray = JSON.parse(localStorage.getItem("personInfo"));
   personInfoArray.splice(index, 1);

@@ -8,6 +8,7 @@
 
 //Variables declaration
 let imageInput = document.getElementById("uploadButton");
+let imageError = document.getElementById("imgError");
 let dobInput = document.getElementById("dob");
 let countrySelect = document.getElementById("country");
 let organizationSelect = document.getElementById("organization");
@@ -52,48 +53,24 @@ let allErrorOutputs = [],
 let gender = false;
 
 //Get all input fields and push into an array
-allInputFields.push(imageOutput);
 getAllInputs.forEach((element) => {
   //prettier-ignore
   if ( ![ "regBtn", "update", "resetBtn", "successCode", "uploadButton", "male", "female", "checkedBox",].includes(element.id)) {
     allInputFields.push(element);
   }
 });
-getAllSelect.forEach((element, index) => {
-  if (index == 0) allInputFields.splice(2, 0, element);
-  else if (index == 1) allInputFields.splice(3, 0, element);
-  else if (index == 2) allInputFields.splice(6, 0, element);
+getAllSelect.forEach((element) => {
+  allInputFields.push(element);
 });
-allInputFields.splice(8, 0, gender);
-getAllTextarea.forEach((element, index) => {
-  if (index == 0) allInputFields.splice(11, 0, element);
-  if (index == 1) allInputFields.splice(12, 0, element);
+getAllTextarea.forEach((element) => {
+  allInputFields.push(element);
 });
 
-//Get all error span fields and push it in an array
-getAllSpan.forEach((element) => {
-  if (
-    element.id != "exerciseHeading" &&
-    element.id != "inputId" &&
-    element.id != ""
-  ) {
-    allErrorOutputs.push(element);
-  }
-});
+//Remove error message if user started typing
+const clearErrors = (input) => {
+  input.nextElementSibling.nextElementSibling.innerHTML = "";
+};
 
-//Event listener to remove error message if user started typing
-allInputFields.forEach((element, index) => {
-  if (index != 8) {
-    element.addEventListener("keydown", (event) => {
-      allErrorOutputs[index].innerHTML = "";
-    });
-    if (index == 1 || index == 2 || index == 3 || index == 6) {
-      element.addEventListener("change", (event) => {
-        allErrorOutputs[index].innerHTML = "";
-      });
-    }
-  }
-});
 //Disable update button
 updateButton.style.display = "none";
 
@@ -129,9 +106,7 @@ dateRange();
 
 //Function to fill select dropdown values in country and state
 const dropdownFunc = (data, select) => {
-  while (select.firstChild) {
-    select.removeChild(select.lastChild);
-  }
+  while (select.firstChild) select.removeChild(select.lastChild);
   let option = document.createElement("option");
   option.textContent = "Select";
   select.appendChild(option);
@@ -152,9 +127,8 @@ dropdownFunc(dropdownData, countrySelect);
 //Function call to fill states dropdown
 countrySelect.addEventListener("change", (event) => {
   dropdownData.forEach((element) => {
-    if (element.name == countrySelect.value) {
+    if (element.name == countrySelect.value)
       dropdownFunc(element.states, stateSelect);
-    }
   });
 });
 
@@ -166,7 +140,7 @@ isSameAdress.addEventListener("change", () => {
   if (isSameAdress.checked) {
     permanentAddressId.value = communicationAddressId.value;
     permanentAddressId.disabled = true;
-    allErrorOutputs[12].innerHTML = "";
+    allInputFields[11].nextElementSibling.nextElementSibling.innerHTML = "";
   } else if (!isSameAdress.checked) permanentAddressId.disabled = false;
 });
 communicationAddressId.addEventListener("input", () => {
@@ -174,40 +148,41 @@ communicationAddressId.addEventListener("input", () => {
     permanentAddressId.value = communicationAddressId.value;
 });
 
+console.log(allInputFields);
+
 const validationFunc = () => {
   //Clear all error messages
-  allErrorOutputs.forEach((element) => {
-    element.innerHTML = "";
+  allInputFields.forEach((element) => {
+    element.nextElementSibling.nextElementSibling.innerHTML = "";
   });
   isInputsFilled = true;
 
   if (!maleCheckBox.checked && !femaleCheckBox.checked)
     genderValueError.innerHTML = "Please fill this field";
   else genderValueError.innerHTML = "";
+
   //element "" for dob, element "Select" for dropdown, element.value for input fields
-
   allInputFields.forEach((element, index) => {
-    if (index != 0 && index != 8) {
-      if (
-        element.value == "" ||
-        element.value == "Select" ||
-        imageOutput.src == ""
-      )
-        isInputsFilled = false;
-    }
+    if (
+      element.value == "" ||
+      element.value == "Select" ||
+      imageOutput.src == ""
+    )
+      isInputsFilled = false;
 
-    if (element.value != "" && element.value != "Select" && index != 0) {
-      allErrorOutputs[index].innerHTML = "";
-      if (imageOutput.src != "") allErrorOutputs[0].innerHTML = "";
-    } else allErrorOutputs[index].innerHTML = "Please fill this field";
+    if (element.value != "" && element.value != "Select") {
+      allInputFields[index].nextElementSibling.nextElementSibling.innerHTML =
+        "";
+      if (imageOutput.src != "") imageError.innerHTML = "";
+    } else
+      allInputFields[index].nextElementSibling.nextElementSibling.innerHTML =
+        "Please fill this field";
   });
   //Regex pattern
-  if (lastNameInput.value != "" && !lastNamePattern.test(lastNameInput.value)) {
+  if (lastNameInput.value != "" && !lastNamePattern.test(lastNameInput.value))
     lastNameError.innerHTML = "Enter valid name";
-  }
-  if (mobileNoInput.value != "" && !mobileNoPattern.test(mobileNoInput.value)) {
+  if (mobileNoInput.value != "" && !mobileNoPattern.test(mobileNoInput.value))
     mobileNoError.innerHTML = "Enter valid mobile number";
-  }
   if (
     firstNameInput.value != "" &&
     !firstNamePattern.test(firstNameInput.value)
@@ -231,31 +206,29 @@ const validateForm = () => {
 //To prevent form getting submitted when validation fails
 form.addEventListener("submit", (event) => {
   if (isInputsFilled) {
-    if (localStorage.getItem("personInfo") == null) {
-      personInfoArray = [];
-    } else {
-      personInfoArray = JSON.parse(localStorage.getItem("personInfo"));
-    }
+    if (localStorage.getItem("personInfo") == null) personInfoArray = [];
+    else personInfoArray = JSON.parse(localStorage.getItem("personInfo"));
+
     let existingPersonIndex = personInfoArray.findIndex(
       (person) =>
         person.firstName === firstNameInput.value &&
         person.lastName === lastNameInput.value
     );
     let personInfoObj = {
-      personImg: imageOutput.src,
       dob: dobInput.value,
-      country: countrySelect.value,
-      organization: organizationSelect.value,
       lastName: lastNameInput.value,
       mobileNo: mobileNoInput.value,
-      state: stateSelect.value,
       firstName: firstNameInput.value,
-      gender: gender,
       email: emailInput.value,
       city: cityInput.value,
+      pincode: pincodeInput.value,
+      country: countrySelect.value,
+      organization: organizationSelect.value,
+      state: stateSelect.value,
       communicationAddress: communicationAddressId.value,
       permanentAddress: permanentAddressId.value,
-      pincode: pincodeInput.value,
+      personImg: imageOutput.src,
+      gender: gender,
     };
     if (existingPersonIndex !== -1)
       personInfoArray[existingPersonIndex] = personInfoObj;
@@ -273,18 +246,17 @@ let crudTableId = document.getElementById("crudTable");
 const showPersonInfo = () => {
   if (localStorage.getItem("personInfo") == "[]") {
     personInfoArray = [];
-    while (crudTableId.lastChild) {
+    while (crudTableId.lastChild)
       crudTableId.removeChild(crudTableId.lastChild);
-    }
   } else {
     personInfoArray = JSON.parse(localStorage.getItem("personInfo"));
 
     let table = document.createElement("table");
     table.style.borderCollapse = "collapse";
     table.style.margin = "auto";
-    while (crudTableId.lastChild) {
+    while (crudTableId.lastChild)
       crudTableId.removeChild(crudTableId.lastChild);
-    }
+
     //prettier-ignore
     let headers = ["Image", "Name", "Organization", "Moblie number", "Country", "Email", "City", "Communication address", "Actions"];
     let head = document.createElement("thead");
@@ -330,21 +302,20 @@ const editFunc = (index) => {
 
   let personInfoArray = JSON.parse(localStorage.getItem("personInfo"));
   const personInfoValue = Object.values(personInfoArray[index]);
-
-  imageOutput.src = personInfoValue[0];
+  console.log(personInfoValue);
+  imageOutput.src = personInfoValue[12];
   allInputFields.forEach((element, loopIndex) => {
-    if (loopIndex != 0 && loopIndex != 6)
-      element.value = personInfoValue[loopIndex];
-    if (loopIndex == 6) {
+    if (loopIndex != 9) element.value = personInfoValue[loopIndex];
+    if (loopIndex == 9) {
       dropdownData.forEach((element) => {
-        if (element.name == personInfoValue[2]) {
+        if (element.name == personInfoValue[7]) {
           dropdownFunc(element.states, stateSelect);
-          stateSelect.value = personInfoValue[6];
+          stateSelect.value = personInfoValue[9];
         }
       });
     }
   });
-  personInfoValue[8] == "Male"
+  personInfoValue[13] == "Male"
     ? (maleCheckBox.checked = true)
     : (femaleCheckBox.checked = true);
   //Update function if user clicks update button
@@ -366,20 +337,19 @@ const editFunc = (index) => {
   //Reset function
   resetButton.addEventListener("click", (event) => {
     const personInfoValue = Object.values(personInfoArray[index]);
-    imageOutput.src = personInfoValue[0];
+    imageOutput.src = personInfoValue[12];
     allInputFields.forEach((element, loopIndex) => {
-      if (loopIndex != 0 && loopIndex != 6)
-        element.value = personInfoValue[loopIndex];
-      if (loopIndex == 6) {
+      if (loopIndex != 9) element.value = personInfoValue[loopIndex];
+      if (loopIndex == 9) {
         dropdownData.forEach((element) => {
-          if (element.name == personInfoValue[2]) {
+          if (element.name == personInfoValue[7]) {
             dropdownFunc(element.states, stateSelect);
-            stateSelect.value = personInfoValue[6];
+            stateSelect.value = personInfoValue[9];
           }
         });
       }
     });
-    personInfoValue[8] == "Male"
+    personInfoValue[13] == "Male"
       ? (maleCheckBox.checked = true)
       : (femaleCheckBox.checked = true);
     event.preventDefault();
@@ -388,8 +358,8 @@ const editFunc = (index) => {
 
 const updateForm = (element) => {};
 const clearFields = () => {
-  allErrorOutputs.forEach((element) => {
-    element.innerHTML = "";
+  allInputFields.forEach((element) => {
+    element.nextElementSibling.nextElementSibling.innerHTML = "";
   });
   imageOutput.removeAttribute("src");
 };

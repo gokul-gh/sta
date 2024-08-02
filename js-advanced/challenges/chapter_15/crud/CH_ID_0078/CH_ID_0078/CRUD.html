@@ -74,12 +74,16 @@
 
                     <div>
                       <label class="required">Date of Birth</label><br />
-                      <input id="dob" type="date" /><br />
+                      <input
+                        id="dob"
+                        type="date"
+                        onchange="clearErrors(dob)"
+                      /><br />
                       <span id="dateError"></span>
                     </div>
                     <div>
                       <label class="required">Select Country</label><br />
-                      <select id="country">
+                      <select id="country" onchange="clearErrors(country)">
                         <option value="">Select</option></select
                       ><br />
                       <span id="countryError"></span><br />
@@ -88,7 +92,10 @@
                   <div id="secondColumn">
                     <div id="organizations">
                       <label class="required">Select organization</label><br />
-                      <select id="organization">
+                      <select
+                        id="organization"
+                        onchange="clearErrors(organization)"
+                      >
                         <option value="">Select</option>
                         <option value="Google">Google</option>
                         <option value="Yahoo">Yahoo</option>
@@ -99,18 +106,26 @@
                     </div>
                     <div id="lastName">
                       <label class="required">Last name</label><br />
-                      <input id="enterLast" type="text" /><br />
+                      <input
+                        id="enterLast"
+                        type="text"
+                        onkeydown="clearErrors(enterLast)"
+                      /><br />
                       <span id="lastError"></span>
                     </div>
                     <div id="mobileNo">
                       <label class="required errorColor">Mobile Number</label
                       ><br />
-                      <input id="enterMobile" type="number" /><br />
+                      <input
+                        id="enterMobile"
+                        type="number"
+                        onkeydown="clearErrors(enterMobile)"
+                      /><br />
                       <span id="mobileError"></span>
                     </div>
                     <div id="selectState">
                       <label>Select state</label><br />
-                      <select id="state"></select
+                      <select id="state" onchange="clearErrors(state)"></select
                       ><br />
                       <span id="stateError"></span><br />
                     </div>
@@ -118,7 +133,11 @@
                   <div id="thirdColumn">
                     <div>
                       <label class="required">First Name</label><br />
-                      <input type="text" id="firstName" /><br /><br />
+                      <input
+                        type="text"
+                        id="firstName"
+                        onkeydown="clearErrors(firstName)"
+                      /><br />
                       <span id="firstError"></span>
                     </div>
                     <div>
@@ -139,12 +158,20 @@
                     </div>
                     <div id="mailId">
                       <label class="required">Email</label><br />
-                      <input id="email" type="text" /><br />
+                      <input
+                        id="email"
+                        type="text"
+                        onkeydown="clearErrors(email)"
+                      /><br />
                       <span id="mailError"></span>
                     </div>
                     <div id="cities">
                       <label class="required">City</label><br />
-                      <input id="city" type="text" /><br />
+                      <input
+                        id="city"
+                        type="text"
+                        onkeydown="clearErrors(city)"
+                      /><br />
                       <span id="cityError"></span><br />
                     </div>
                   </div>
@@ -152,13 +179,23 @@
                 <div id="address">
                   <div id="communicationAddress">
                     <label class="required">Communication Address</label><br />
-                    <textarea id="commAddress" rows="7" cols="20"></textarea
+                    <textarea
+                      id="commAddress"
+                      rows="7"
+                      cols="20"
+                      onkeydown="clearErrors(commAddress)"
+                    ></textarea
                     ><br />
                     <span id="commAddr"></span>
                   </div>
                   <div id="permanentAddress">
                     <label class="required">Permanent Address</label><br />
-                    <textarea id="perAddress" rows="7" cols="20"></textarea
+                    <textarea
+                      id="perAddress"
+                      rows="7"
+                      cols="20"
+                      onkeydown="clearErrors(perAddress)"
+                    ></textarea
                     ><br />
                     <span id="permAddr"></span>
                   </div>
@@ -172,7 +209,7 @@
                 <br />
                 <div id="pinCode">
                   <label class="required">Pincode</label><br />
-                  <input type="number" maxlength="6" id="pinNumber" /><br />
+                  <input type="number" maxlength="6" id="pinNumber" onkeydown="clearErrors(pinNumber)"/><br />
                   <span id="pinError"></span>
                   <!-- </div> -->
                   <div id="register">

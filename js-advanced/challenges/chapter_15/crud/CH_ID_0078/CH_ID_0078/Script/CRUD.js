@@ -13,23 +13,17 @@ let dobInput = document.getElementById("dob");
 let countrySelect = document.getElementById("country");
 let organizationSelect = document.getElementById("organization");
 let lastNameInput = document.getElementById("enterLast");
-let lastNameError = document.getElementById("lastError");
 let mobileNoInput = document.getElementById("enterMobile");
-let mobileNoError = document.getElementById("mobileError");
 let stateSelect = document.getElementById("state");
 let firstNameInput = document.getElementById("firstName");
-let firstNameError = document.getElementById("firstError");
 let maleCheckBox = document.getElementById("male");
 let femaleCheckBox = document.getElementById("female");
 let genderValueError = document.getElementById("genderError");
 let emailInput = document.getElementById("email");
-let emailIdError = document.getElementById("mailError");
 let cityInput = document.getElementById("city");
-let cityNameError = document.getElementById("cityError");
 let communicationAddressId = document.getElementById("commAddress");
 let permanentAddressId = document.getElementById("perAddress");
 let pincodeInput = document.getElementById("pinNumber");
-let pincodeError = document.getElementById("pinError");
 let isSameAdress = document.getElementById("checkedBox");
 let imageOutput = document.getElementById("photoId");
 let registerButton = document.getElementById("regBtn");
@@ -180,20 +174,26 @@ const validationFunc = () => {
   });
   //Regex pattern
   if (lastNameInput.value != "" && !lastNamePattern.test(lastNameInput.value))
-    lastNameError.innerHTML = "Enter valid name";
+    allInputFields[1].nextElementSibling.nextElementSibling.innerHTML =
+      "Enter valid name";
   if (mobileNoInput.value != "" && !mobileNoPattern.test(mobileNoInput.value))
-    mobileNoError.innerHTML = "Enter valid mobile number";
+    allInputFields[2].nextElementSibling.nextElementSibling.innerHTML =
+      "Enter valid mobile number";
   if (
     firstNameInput.value != "" &&
     !firstNamePattern.test(firstNameInput.value)
   )
-    firstNameError.innerHTML = "Enter valid fist name";
+    allInputFields[3].nextElementSibling.nextElementSibling.innerHTML =
+      "Enter valid fist name";
   if (emailInput.value != "" && !emailPattern.test(emailInput.value))
-    emailIdError.innerHTML = "Enter valid email id";
+    allInputFields[4].nextElementSibling.nextElementSibling.innerHTML =
+      "Enter valid email id";
   if (cityInput.value != "" && !cityPattern.test(cityInput.value))
-    cityNameError.innerHTML = "Enter valid city name";
+    allInputFields[5].nextElementSibling.nextElementSibling.innerHTML =
+      "Enter valid city name";
   if (pincodeInput.value != "" && !pincodePattern.test(pincodeInput.value))
-    pincodeError.innerHTML = "Enter valid pincode";
+    allInputFields[6].nextElementSibling.nextElementSibling.innerHTML =
+      "Enter valid pincode";
   return isInputsFilled;
 };
 
@@ -302,7 +302,6 @@ const editFunc = (index) => {
 
   let personInfoArray = JSON.parse(localStorage.getItem("personInfo"));
   const personInfoValue = Object.values(personInfoArray[index]);
-  console.log(personInfoValue);
   imageOutput.src = personInfoValue[12];
   allInputFields.forEach((element, loopIndex) => {
     if (loopIndex != 9) element.value = personInfoValue[loopIndex];

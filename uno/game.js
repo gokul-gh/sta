@@ -18,13 +18,10 @@ let cardsColor = ["red", "green", "blue", "yellow"];
 let cardStack = [],
   cardsName = [];
 
-for (let iter = 0; iter < 10; iter++) {
-  cardsName.push(iter);
-}
+for (let iter = 0; iter < 10; iter++) cardsName.push(iter);
+
 //Push special cards to card names array
-specialCards.forEach((element) => {
-  cardsName.push(element);
-});
+specialCards.forEach((element) => cardsName.push(element));
 
 for (let iter = 0; iter < 2; iter++) {
   cardsColor.forEach((color) => {
@@ -66,7 +63,7 @@ const displayCard = (name, color, appendTag) => {
   let upperNoDiv = document.createElement("div");
   upperNoDiv.className = "upperNoDivId";
   let middleNoDiv = document.createElement("div");
-  middleNoDiv.className = "middleNoDivId"
+  middleNoDiv.className = "middleNoDivId";
   let lowerNoDiv = document.createElement("div");
   lowerNoDiv.className = "lowerNoDivId";
   cardDiv.style.backgroundColor = color;
@@ -106,7 +103,6 @@ const displayCard = (name, color, appendTag) => {
         //If the clicked card consists of any of 0 to 9 cards
         if (cardDiv.firstElementChild.textContent != "") {
           playerTurn(
-            cardDiv,
             cardDiv.style.backgroundColor,
             cardDiv.firstElementChild.textContent,
             playerCardsArray
@@ -116,7 +112,6 @@ const displayCard = (name, color, appendTag) => {
         //outerHTML is because, it converts into string from object, else display will be error
         else {
           playerTurn(
-            cardDiv,
             cardDiv.style.backgroundColor,
             cardDiv.firstElementChild.firstElementChild.outerHTML,
             playerCardsArray
@@ -128,14 +123,12 @@ const displayCard = (name, color, appendTag) => {
         cardBorderDiv.remove();
         //If user clicks +2 card, then add two cards and skip the cpu turn
         if (cardDiv.firstElementChild.textContent == "+2") {
-          cpuCardsArray.push(
-            cardStack[Math.floor(Math.random() * cardStack.length)]
-          );
-          cpuCardsArray.push(
-            cardStack[Math.floor(Math.random() * cardStack.length)]
-          );
-          displayImage(cpuCards);
-          displayImage(cpuCards);
+          for (let iter = 0; iter < 2; iter++) {
+            cpuCardsArray.push(
+              cardStack[Math.floor(Math.random() * cardStack.length)]
+            );
+            displayImage(cpuCards);
+          }
           cpuTurn = false;
         }
       }
@@ -143,13 +136,7 @@ const displayCard = (name, color, appendTag) => {
     //Function call for cpuTurn
     if (cpuTurn) {
       setTimeout(() => {
-        cpuTurnFunc(
-          cpuCardsArray,
-          dropCardsArray,
-          displayCard,
-          drawCards,
-          cardBorderDiv
-        );
+        cpuTurnFunc(cpuCardsArray, dropCardsArray, drawCards, cardBorderDiv);
       }, "1000");
     }
   });
@@ -160,14 +147,40 @@ const displayCard = (name, color, appendTag) => {
   }
 };
 
+//Function to display uno Image
+const displayImage = (appendTag) => {
+  let cardBorderDiv = document.createElement("div");
+  cardBorderDiv.className = "cardBorderDivId";
+  let img = document.createElement("img");
+  cardBorderDiv.appendChild(img);
+  appendTag.appendChild(cardBorderDiv);
+};
+
+//Function call to display cpu cards
+cpuCardsArray = cardStack.slice(0, 7);
+cpuCardsArray.forEach((element) => displayImage(cpuCards));
+
+//Function call to display draw cards
+displayImage(drawCards);
+drawCardsArray.push(...cardStack);
+let noSpecialCards = cardStack.filter(
+  (element) => !specialCards.includes(element.name)
+);
+displayCard(noSpecialCards[50].name, noSpecialCards[50].color, drawCards);
+dropCardsArray.push(noSpecialCards[50]);
+
+//Function call to display player cards
+playerCardsArray = cardStack.slice(9, 16);
+playerCardsArray.forEach((element) => {
+  displayCard(element.name, element.color, playerCards);
+});
+
+[cpuCards, drawCards, playerCards].forEach((element) => {
+  cardDeck.appendChild(element);
+});
+
 //Logic to do cpu movement
-function cpuTurnFunc(
-  cpuCardsArray,
-  dropCardsArray,
-  displayCard,
-  drawCards,
-  cardBorderDiv
-) {
+function cpuTurnFunc(cpuCardsArray, dropCardsArray, drawCards, cardBorderDiv) {
   //iteration to check if dropCard's name/color matches
   for (let iter = 0; iter < cpuCardsArray.length; iter++) {
     if (
@@ -194,13 +207,7 @@ function cpuTurnFunc(
       //if a skip or reverse card found, then block player play and cpu has turn
       if (dropCardsArray[0].name == reverse || dropCardsArray[0].name == skip)
         setTimeout(() => {
-          cpuTurnFunc(
-            cpuCardsArray,
-            dropCardsArray,
-            displayCard,
-            drawCards,
-            cardBorderDiv
-          );
+          cpuTurnFunc(cpuCardsArray, dropCardsArray, drawCards, cardBorderDiv);
         }, "1000");
       return;
     }
@@ -210,13 +217,7 @@ function cpuTurnFunc(
     cpuCardsArray.push(drawCardsArray.pop());
     displayImage(cpuCards);
     setTimeout(() => {
-      cpuTurnFunc(
-        cpuCardsArray,
-        dropCardsArray,
-        displayCard,
-        drawCards,
-        cardBorderDiv
-      );
+      cpuTurnFunc(cpuCardsArray, dropCardsArray, drawCards, cardBorderDiv);
     }, "1000");
     ++cpuDrawCardCount;
   } else {
@@ -226,7 +227,7 @@ function cpuTurnFunc(
 }
 
 //Player clicks a card, it gets removed from the array
-function playerTurn(cardDiv, color, name, playerCardsArray) {
+function playerTurn(color, name, playerCardsArray) {
   let doSplice = true;
   let allPlayerCards = playerCards.querySelectorAll(".cardDivId");
   allPlayerCards.forEach((element) => {
@@ -254,49 +255,3 @@ function playerTurn(cardDiv, color, name, playerCardsArray) {
     }
   });
 }
-
-//Function to display uno Image
-const displayImage = (appendTag) => {
-  let cardBorderDiv = document.createElement("div");
-  cardBorderDiv.className = "cardBorderDivId";
-  cardBorderDiv.style.margin = "0.2rem";
-  cardBorderDiv.style.height = "30vh";
-  cardBorderDiv.style.width = "20vh";
-  cardBorderDiv.style.border = "2px rgba(0, 0, 0, 0.3) solid";
-  cardBorderDiv.style.borderRadius = "5px";
-  let img = document.createElement("img");
-  img.src = "Images/UNO-Back-edit.png";
-  img.style.width = "20vh";
-  img.style.height = "30vh";
-  cardBorderDiv.appendChild(img);
-  appendTag.appendChild(cardBorderDiv);
-};
-
-//Function call to display cpu cards
-for (let iter = 0; iter < 7; iter++) {
-  cpuCardsArray.push(cardStack[iter]);
-}
-for (let iter = 0; iter < cpuCardsArray.length; iter++) {
-  displayImage(cpuCards);
-}
-
-//Function call to display draw cards
-displayImage(drawCards);
-drawCardsArray.push(...cardStack);
-let noSpecialCards = cardStack.filter(
-  (element) => !specialCards.includes(element.name)
-);
-displayCard(noSpecialCards[50].name, noSpecialCards[50].color, drawCards);
-dropCardsArray.push(noSpecialCards[50]);
-
-//Function call to display player cards
-for (let iter = 0; iter < 7; iter++) {
-  playerCardsArray.push(cardStack[iter + 9]);
-}
-for (let iter = 0; iter < playerCardsArray.length; iter++) {
-  displayCard(cardStack[iter + 9].name, cardStack[iter + 9].color, playerCards);
-}
-
-cardDeck.appendChild(cpuCards);
-cardDeck.appendChild(drawCards);
-cardDeck.appendChild(playerCards);

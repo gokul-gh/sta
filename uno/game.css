@@ -12,16 +12,8 @@
   color: white;
 }
 
-.cpuCardsId {
+.cpuCardsId, .drawCardsId, .playerCardsId {
   display: flex;
-}
-
-.drawCardsId {
-  display: flex;
-}
-
-.playerCardsId {
-    display: flex;
 }
 
 .cardBorderDivId {
@@ -57,4 +49,10 @@
   padding: 0rem 0rem 0.8rem 0.3rem;
   font-size: 1.8rem;
   transform: rotate(-180deg);
+}
+
+img {
+    height: 30vh;
+    width: 20vh;
+    content: url("Images/UNO-Back-edit.png");
 }

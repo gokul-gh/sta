@@ -6,7 +6,9 @@ let cpuCardsArray = [],
   playerCardsArray = [],
   drawCardsArray = [],
   dropCardsArray = [];
-let cpuTurn = false;
+let cpuTurn = false,
+  cpuDrawCardCount = 0,
+  isCodeLoaded = false;
 
 let skip = `<i class="fa-solid fa-ban fa-xs"></i>`;
 let reverse = `<i class="fa-solid fa-rotate fa-xs"></i>`;
@@ -49,67 +51,38 @@ const shuffle = (array) => {
 shuffle(cardStack);
 
 //Apply flex property to cpuCards, drawCard and playerCards
-cardDeck.style.display = "flex";
-cardDeck.style.flexDirection = "column";
-cardDeck.style.alignItems = "center";
 cpuCards.className = "cpuCardsId";
-cpuCards.style.display = "flex";
-drawCards.style.display = "flex";
-drawCards.className = "drawCards";
+drawCards.className = "drawCardsId";
 playerCards.className = "playerCardsId";
-playerCards.style.display = "flex";
 
 //Function to display cards
 const displayCard = (name, color, appendTag) => {
   //cardBorderDiv is for creating border around a card
   let cardBorderDiv = document.createElement("div");
   cardBorderDiv.className = "cardBorderDivId";
-  cardBorderDiv.style.margin = "0.2rem";
   //cardDiv is card content inside the border
   let cardDiv = document.createElement("div");
   cardDiv.className = "cardDivId";
   let upperNoDiv = document.createElement("div");
+  upperNoDiv.className = "upperNoDivId";
   let middleNoDiv = document.createElement("div");
+  middleNoDiv.className = "middleNoDivId"
   let lowerNoDiv = document.createElement("div");
-
-  cardBorderDiv.style.height = "30vh";
-  cardBorderDiv.style.width = "20vh";
-  cardBorderDiv.style.border = "2px rgba(0, 0, 0, 0.3) solid";
-  cardBorderDiv.style.borderRadius = "5px";
-
+  lowerNoDiv.className = "lowerNoDivId";
   cardDiv.style.backgroundColor = color;
-  cardDiv.style.height = "94%";
-  cardDiv.style.width = "90%";
-  cardDiv.style.margin = "4% auto";
-  cardDiv.style.borderRadius = "5px";
-  cardDiv.style.color = "white";
 
   //Number at upper portion of card
   upperNoDiv.innerHTML = name;
-  upperNoDiv.style.fontSize = "1.8rem";
-  upperNoDiv.style.padding = "0 0.3rem";
 
   //Number at middle portion of card
   div = document.createElement("div");
+  div.className = "middleNoId";
   div.innerHTML = name;
-  div.style.fontSize = "2rem";
   div.style.color = color;
-  middleNoDiv.style.margin = "0.5rem 0rem 0rem 1.7rem";
-  middleNoDiv.style.padding = "0 1.3rem 0 0";
-  middleNoDiv.style.height = "50%";
-  middleNoDiv.style.width = "35%";
-  middleNoDiv.style.transform = "rotate(35deg)";
-  middleNoDiv.style.backgroundColor = "white";
-  middleNoDiv.style.borderRadius = "50%";
-  div.style.transform = "rotate(-35deg)";
-  div.style.padding = "1.8rem 0 0 0";
   middleNoDiv.appendChild(div);
 
   //Number at lower portion of card
-  lowerNoDiv.style.padding = "0rem 0rem 0.8rem 0.3rem";
   lowerNoDiv.innerHTML = name;
-  lowerNoDiv.style.fontSize = "1.8rem";
-  lowerNoDiv.style.transform = "rotate(-180deg)";
 
   cardDiv.appendChild(upperNoDiv);
   cardDiv.appendChild(middleNoDiv);
@@ -117,9 +90,12 @@ const displayCard = (name, color, appendTag) => {
   cardBorderDiv.appendChild(cardDiv);
   appendTag.appendChild(cardBorderDiv);
 
+  if (playerCards.childElementCount == 7) isCodeLoaded = true;
+
   //Event listener for player clicking a card
   cardDiv.addEventListener("click", (event) => {
     if (!cpuTurn) {
+      cpuDrawCardCount = 0;
       //Finds if the clicked card matches with dropCards either with color or name
       if (
         cardDiv.style.backgroundColor == dropCardsArray[0].color ||
@@ -127,27 +103,44 @@ const displayCard = (name, color, appendTag) => {
         cardDiv.firstElementChild.firstElementChild.outerHTML ==
           dropCardsArray[0].name
       ) {
+        //If the clicked card consists of any of 0 to 9 cards
         if (cardDiv.firstElementChild.textContent != "") {
           playerTurn(
             cardDiv,
             cardDiv.style.backgroundColor,
-            cardDiv.firstElementChild.textContent
+            cardDiv.firstElementChild.textContent,
+            playerCardsArray
           );
         }
-        //else condition for if the clicked card contains fontawesome icon
+        //else condition if the clicked card contains fontawesome icon
         //outerHTML is because, it converts into string from object, else display will be error
         else {
           playerTurn(
             cardDiv,
             cardDiv.style.backgroundColor,
-            cardDiv.firstElementChild.firstElementChild.outerHTML
+            cardDiv.firstElementChild.firstElementChild.outerHTML,
+            playerCardsArray
           );
         }
+        //displayCard function call to update card in dropCards area, remove previous card
         displayCard(dropCardsArray[0].name, dropCardsArray[0].color, drawCards);
         drawCards.children[1].remove();
         cardBorderDiv.remove();
+        //If user clicks +2 card, then add two cards and skip the cpu turn
+        if (cardDiv.firstElementChild.textContent == "+2") {
+          cpuCardsArray.push(
+            cardStack[Math.floor(Math.random() * cardStack.length)]
+          );
+          cpuCardsArray.push(
+            cardStack[Math.floor(Math.random() * cardStack.length)]
+          );
+          displayImage(cpuCards);
+          displayImage(cpuCards);
+          cpuTurn = false;
+        }
       }
     }
+    //Function call for cpuTurn
     if (cpuTurn) {
       setTimeout(() => {
         cpuTurnFunc(
@@ -160,6 +153,11 @@ const displayCard = (name, color, appendTag) => {
       }, "1000");
     }
   });
+  if (isCodeLoaded) {
+    console.log(playerCardsArray);
+    console.log(dropCardsArray);
+    console.log(cpuTurn);
+  }
 };
 
 //Logic to do cpu movement
@@ -170,17 +168,19 @@ function cpuTurnFunc(
   drawCards,
   cardBorderDiv
 ) {
+  //iteration to check if dropCard's name/color matches
   for (let iter = 0; iter < cpuCardsArray.length; iter++) {
     if (
       cpuCardsArray[iter].color == dropCardsArray[0].color ||
       cpuCardsArray[iter].name == dropCardsArray[0].name
     ) {
+      //Function call to update dropCard div output with cpu matched card
       displayCard(
         cpuCardsArray[iter].name,
         cpuCardsArray[iter].color,
         drawCards
       );
-
+      //update dropCardsArray with last card, remove matched card from cpuCardsArray, remove last drawCard element, remove matched cpuCard, handover turn to player
       dropCardsArray.push({
         color: cpuCardsArray[iter].color,
         name: cpuCardsArray[iter].name,
@@ -191,7 +191,7 @@ function cpuTurnFunc(
       cpuCards.children[1].remove();
       dropCardsArray.shift();
       cpuTurn = false;
-
+      //if a skip or reverse card found, then block player play and cpu has turn
       if (dropCardsArray[0].name == reverse || dropCardsArray[0].name == skip)
         setTimeout(() => {
           cpuTurnFunc(
@@ -205,26 +205,31 @@ function cpuTurnFunc(
       return;
     }
   }
-  //If cpuCardsArray is not matched with dropcards color/name, then recreate the cpuCardsArray with new iteration starting from index 10 of cardStack
-  cpuCardsArray.forEach((element, index) => {
-    cpuCardsArray[index] =
-      cardStack[Math.floor(Math.random() * cardStack.length) + index];
-  });
-  setTimeout(() => {
-    cpuTurnFunc(
-      cpuCardsArray,
-      dropCardsArray,
-      displayCard,
-      drawCards,
-      cardBorderDiv
-    );
-  }, "1000");
+  //If cpuCardsArray is not matched with dropcards color/name, then get a card from drawCardsArray
+  if (cpuDrawCardCount == 0) {
+    cpuCardsArray.push(drawCardsArray.pop());
+    displayImage(cpuCards);
+    setTimeout(() => {
+      cpuTurnFunc(
+        cpuCardsArray,
+        dropCardsArray,
+        displayCard,
+        drawCards,
+        cardBorderDiv
+      );
+    }, "1000");
+    ++cpuDrawCardCount;
+  } else {
+    cpuTurn = false;
+    return;
+  }
 }
 
-function playerTurn(cardDiv, color, name) {
-  //Player clicks a card, it gets removed from the array
+//Player clicks a card, it gets removed from the array
+function playerTurn(cardDiv, color, name, playerCardsArray) {
+  let doSplice = true;
   let allPlayerCards = playerCards.querySelectorAll(".cardDivId");
-  allPlayerCards.forEach((element, index) => {
+  allPlayerCards.forEach((element) => {
     if (
       element.style.backgroundColor == color ||
       element.firstElementChild.textContent == name
@@ -234,7 +239,15 @@ function playerTurn(cardDiv, color, name) {
         name: name,
       });
       dropCardsArray.shift();
-      playerCardsArray.splice(index, 1);
+
+      let index = playerCardsArray.findIndex(
+        (e) => e.name == name && e.color == color
+      );
+      //doSplice is for remove only one time. This forEach executes splice more than once and hence this usage
+      if (doSplice) {
+        playerCardsArray.splice(index, 1);
+        doSplice = false;
+      }
       cpuTurn = true;
       //if player clicks skip/reverse, the cpu turn must not be given
       if (name == skip || name == reverse) cpuTurn = false;

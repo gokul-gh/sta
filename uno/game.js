@@ -7,8 +7,10 @@ let cpuCardsArray = [],
   drawCardsArray = [],
   dropCardsArray = [];
 let cpuTurn = false,
-  cpuDrawCardCount = 0,
-  isCodeLoaded = false;
+  isCodeLoaded = false,
+  isEventListenerAdded = false,
+  cardBorderDiv,
+  cpuDrawCardCount = 0;
 
 let skip = `<i class="fa-solid fa-ban fa-xs"></i>`;
 let reverse = `<i class="fa-solid fa-rotate fa-xs"></i>`;
@@ -55,7 +57,7 @@ playerCards.className = "playerCardsId";
 //Function to display cards
 const displayCard = (name, color, appendTag) => {
   //cardBorderDiv is for creating border around a card
-  let cardBorderDiv = document.createElement("div");
+  cardBorderDiv = document.createElement("div");
   cardBorderDiv.className = "cardBorderDivId";
   //cardDiv is card content inside the border
   let cardDiv = document.createElement("div");
@@ -88,62 +90,8 @@ const displayCard = (name, color, appendTag) => {
   appendTag.appendChild(cardBorderDiv);
 
   if (playerCards.childElementCount == 7) isCodeLoaded = true;
-
-  //Event listener for player clicking a card
-  cardDiv.addEventListener("click", (event) => {
-    if (!cpuTurn) {
-      cpuDrawCardCount = 0;
-      //Finds if the clicked card matches with dropCards either with color or name
-      if (
-        cardDiv.style.backgroundColor == dropCardsArray[0].color ||
-        cardDiv.firstElementChild.textContent == dropCardsArray[0].name ||
-        cardDiv.firstElementChild.firstElementChild.outerHTML ==
-          dropCardsArray[0].name
-      ) {
-        //If the clicked card consists of any of 0 to 9 cards
-        if (cardDiv.firstElementChild.textContent != "") {
-          playerTurn(
-            cardDiv.style.backgroundColor,
-            cardDiv.firstElementChild.textContent,
-            playerCardsArray
-          );
-        }
-        //else condition if the clicked card contains fontawesome icon
-        //outerHTML is because, it converts into string from object, else display will be error
-        else {
-          playerTurn(
-            cardDiv.style.backgroundColor,
-            cardDiv.firstElementChild.firstElementChild.outerHTML,
-            playerCardsArray
-          );
-        }
-        //displayCard function call to update card in dropCards area, remove previous card
-        displayCard(dropCardsArray[0].name, dropCardsArray[0].color, drawCards);
-        drawCards.children[1].remove();
-        cardBorderDiv.remove();
-        //If user clicks +2 card, then add two cards and skip the cpu turn
-        if (cardDiv.firstElementChild.textContent == "+2") {
-          for (let iter = 0; iter < 2; iter++) {
-            cpuCardsArray.push(
-              cardStack[Math.floor(Math.random() * cardStack.length)]
-            );
-            displayImage(cpuCards);
-          }
-          cpuTurn = false;
-        }
-      }
-    }
-    //Function call for cpuTurn
-    if (cpuTurn) {
-      setTimeout(() => {
-        cpuTurnFunc(cpuCardsArray, dropCardsArray, drawCards, cardBorderDiv);
-      }, "1000");
-    }
-  });
   if (isCodeLoaded) {
-    console.log(playerCardsArray);
-    console.log(dropCardsArray);
-    console.log(cpuTurn);
+    test(dropCardsArray, playerCardsArray);
   }
 };
 
@@ -179,6 +127,60 @@ playerCardsArray.forEach((element) => {
   cardDeck.appendChild(element);
 });
 
+let allPlayerCards = playerCards.querySelectorAll(".cardDivId");
+allPlayerCards.forEach((element) => {
+  //Event listener for player clicking a card
+  element.addEventListener("click", (event) => {
+    if (!cpuTurn) {
+      cpuDrawCardCount = 0;
+      //Finds if the clicked card matches with dropCards either with color or name
+      if (
+        element.style.backgroundColor == dropCardsArray[0].color ||
+        element.firstElementChild.textContent == dropCardsArray[0].name ||
+        element.firstElementChild.firstElementChild.outerHTML ==
+          dropCardsArray[0].name
+      ) {
+        //If the clicked card consists of any of 0 to 9 cards
+        if (element.firstElementChild.textContent != "") {
+          playerTurn(
+            element.style.backgroundColor,
+            element.firstElementChild.textContent,
+            playerCardsArray
+          );
+        }
+        //else condition if the clicked card contains fontawesome icon
+        //outerHTML is because, it converts into string from object, else display will be error
+        else {
+          playerTurn(
+            element.style.backgroundColor,
+            element.firstElementChild.firstElementChild.outerHTML,
+            playerCardsArray
+          );
+        }
+        //displayCard function call to update card in dropCards area, remove previous card
+        displayCard(dropCardsArray[0].name, dropCardsArray[0].color, drawCards);
+        drawCards.children[1].remove();
+        //If user clicks +2 card, then add two cards and skip the cpu turn
+        if (element.firstElementChild.textContent == "+2") {
+          for (let iter = 0; iter < 2; iter++) {
+            cpuCardsArray.push(
+              cardStack[Math.floor(Math.random() * cardStack.length)]
+            );
+            displayImage(cpuCards);
+          }
+          cpuTurn = false;
+        }
+      }
+    }
+    //Function call for cpuTurn
+    if (cpuTurn) {
+      setTimeout(() => {
+        cpuTurnFunc(cpuCardsArray, dropCardsArray, drawCards, cardBorderDiv);
+      }, "1000");
+    }
+  });
+});
+
 //Logic to do cpu movement
 function cpuTurnFunc(cpuCardsArray, dropCardsArray, drawCards, cardBorderDiv) {
   //iteration to check if dropCard's name/color matches
@@ -204,6 +206,7 @@ function cpuTurnFunc(cpuCardsArray, dropCardsArray, drawCards, cardBorderDiv) {
       cpuCards.children[1].remove();
       dropCardsArray.shift();
       cpuTurn = false;
+      // test(dropCardsArray, playerCardsArray);
       //if a skip or reverse card found, then block player play and cpu has turn
       if (dropCardsArray[0].name == reverse || dropCardsArray[0].name == skip)
         setTimeout(() => {
@@ -214,7 +217,9 @@ function cpuTurnFunc(cpuCardsArray, dropCardsArray, drawCards, cardBorderDiv) {
   }
   //If cpuCardsArray is not matched with dropcards color/name, then get a card from drawCardsArray
   if (cpuDrawCardCount == 0) {
-    cpuCardsArray.push(drawCardsArray.pop());
+    cpuCardsArray.push(
+      drawCardsArray[Math.floor(Math.random() * drawCardsArray.length)]
+    );
     displayImage(cpuCards);
     setTimeout(() => {
       cpuTurnFunc(cpuCardsArray, dropCardsArray, drawCards, cardBorderDiv);
@@ -222,6 +227,7 @@ function cpuTurnFunc(cpuCardsArray, dropCardsArray, drawCards, cardBorderDiv) {
     ++cpuDrawCardCount;
   } else {
     cpuTurn = false;
+    // test(dropCardsArray, playerCardsArray);
     return;
   }
 }
@@ -229,8 +235,7 @@ function cpuTurnFunc(cpuCardsArray, dropCardsArray, drawCards, cardBorderDiv) {
 //Player clicks a card, it gets removed from the array
 function playerTurn(color, name, playerCardsArray) {
   let doSplice = true;
-  let allPlayerCards = playerCards.querySelectorAll(".cardDivId");
-  allPlayerCards.forEach((element) => {
+  allPlayerCards.forEach((element, index) => {
     if (
       element.style.backgroundColor == color ||
       element.firstElementChild.textContent == name
@@ -248,10 +253,34 @@ function playerTurn(color, name, playerCardsArray) {
       if (doSplice) {
         playerCardsArray.splice(index, 1);
         doSplice = false;
+        playerCards.children[index].remove();
       }
       cpuTurn = true;
       //if player clicks skip/reverse, the cpu turn must not be given
       if (name == skip || name == reverse) cpuTurn = false;
     }
   });
+}
+
+function test(dropCardsArray, playerCardsArray) {
+  const imgEL = drawCards.firstElementChild.firstElementChild;
+  const handleClick = (event) => {
+    const card =
+      drawCardsArray[Math.floor(Math.random() * drawCardsArray.length)];
+    displayCard(card.name, card.color, drawCards);
+    console.log("hai");
+  };
+  if (
+    playerCardsArray.some((cards) => cards.name == dropCardsArray[0].name) ||
+    playerCardsArray.some((cards) => cards.color == dropCardsArray[0].color)
+  ) {
+    imgEL.removeEventListener("click", handleClick);
+    isEventListenerAdded = false;
+  } else {
+    console.log("test");
+    if (!isEventListenerAdded) {
+      imgEL.addEventListener("click", handleClick);
+      isEventListenerAdded = true;
+    }
+  }
 }

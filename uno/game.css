@@ -15,18 +15,24 @@
 .cpuCardsId, .drawCardsId, .playerCardsId {
   display: flex;
   cursor: pointer;
+  margin: 1vh 0;
+}
+
+/*If a card is drawn, then distinguish it */
+.drawCardsId > div:nth-child(3) {
+  margin-left: 10vh;
 }
 
 .cardBorderDivId {
-  height: 30vh;
-  width: 20vh;
+  height: 27vh;
+  width: 18vh;
   border: 2px rgba(0, 0, 0, 0.3) solid;
   border-radius: 5px;
-  margin: 0.2rem;
+  margin: 0.4rem;
 }
 
 .upperNoDivId {
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   padding: 0 0.3rem;
 }
 
@@ -48,12 +54,30 @@
 
 .lowerNoDivId {
   padding: 0rem 0rem 0.8rem 0.3rem;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   transform: rotate(-180deg);
 }
 
 img {
-    height: 30vh;
-    width: 20vh;
+    height: 27vh;
+    width: 18vh;
     content: url("Images/UNO-Back-edit.png");
+}
+
+.playPass {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 2vh;
+}
+
+.playPass button {
+  margin: 3vh;
+  height: 5vh;
+  width: 10vh;
+}
+
+.playPass button:hover {
+  background-color: lightblue;
+  cursor: pointer;
 }

@@ -8,7 +8,6 @@ let cpuCardsArray = [],
   dropCardsArray = [];
 let cpuTurn = false,
   isCodeLoaded = false,
-  isEventListenerAdded = false,
   cardBorderDiv,
   cpuDrawCardCount = 0;
 
@@ -90,9 +89,6 @@ const displayCard = (name, color, appendTag) => {
   appendTag.appendChild(cardBorderDiv);
 
   if (playerCards.childElementCount == 7) isCodeLoaded = true;
-  if (isCodeLoaded) {
-    test(dropCardsArray, playerCardsArray);
-  }
 };
 
 //Function to display uno Image
@@ -130,7 +126,7 @@ playerCardsArray.forEach((element) => {
 let allPlayerCards = playerCards.querySelectorAll(".cardDivId");
 allPlayerCards.forEach((element) => {
   //Event listener for player clicking a card
-  element.addEventListener("click", (event) => {
+  element.onclick = (event) => {
     if (!cpuTurn) {
       cpuDrawCardCount = 0;
       //Finds if the clicked card matches with dropCards either with color or name
@@ -142,7 +138,7 @@ allPlayerCards.forEach((element) => {
       ) {
         //If the clicked card consists of any of 0 to 9 cards
         if (element.firstElementChild.textContent != "") {
-          playerTurn(
+          playerTurnFunc(
             element.style.backgroundColor,
             element.firstElementChild.textContent,
             playerCardsArray
@@ -151,7 +147,7 @@ allPlayerCards.forEach((element) => {
         //else condition if the clicked card contains fontawesome icon
         //outerHTML is because, it converts into string from object, else display will be error
         else {
-          playerTurn(
+          playerTurnFunc(
             element.style.backgroundColor,
             element.firstElementChild.firstElementChild.outerHTML,
             playerCardsArray
@@ -178,7 +174,7 @@ allPlayerCards.forEach((element) => {
         cpuTurnFunc(cpuCardsArray, dropCardsArray, drawCards, cardBorderDiv);
       }, "1000");
     }
-  });
+  };
 });
 
 //Logic to do cpu movement
@@ -206,7 +202,7 @@ function cpuTurnFunc(cpuCardsArray, dropCardsArray, drawCards, cardBorderDiv) {
       cpuCards.children[1].remove();
       dropCardsArray.shift();
       cpuTurn = false;
-      // test(dropCardsArray, playerCardsArray);
+      getCard(dropCardsArray, playerCardsArray);
       //if a skip or reverse card found, then block player play and cpu has turn
       if (dropCardsArray[0].name == reverse || dropCardsArray[0].name == skip)
         setTimeout(() => {
@@ -227,15 +223,15 @@ function cpuTurnFunc(cpuCardsArray, dropCardsArray, drawCards, cardBorderDiv) {
     ++cpuDrawCardCount;
   } else {
     cpuTurn = false;
-    // test(dropCardsArray, playerCardsArray);
+    getCard(dropCardsArray, playerCardsArray);
     return;
   }
 }
 
 //Player clicks a card, it gets removed from the array
-function playerTurn(color, name, playerCardsArray) {
+function playerTurnFunc(color, name, playerCardsArray) {
   let doSplice = true;
-  allPlayerCards.forEach((element, index) => {
+  allPlayerCards.forEach((element) => {
     if (
       element.style.backgroundColor == color ||
       element.firstElementChild.textContent == name
@@ -262,25 +258,64 @@ function playerTurn(color, name, playerCardsArray) {
   });
 }
 
-function test(dropCardsArray, playerCardsArray) {
+getCard(dropCardsArray, playerCardsArray);
+function getCard(dropCardsArray, playerCardsArray) {
   const imgEL = drawCards.firstElementChild.firstElementChild;
-  const handleClick = (event) => {
-    const card =
-      drawCardsArray[Math.floor(Math.random() * drawCardsArray.length)];
-    displayCard(card.name, card.color, drawCards);
-    console.log("hai");
-  };
+  let isclick = false;
   if (
     playerCardsArray.some((cards) => cards.name == dropCardsArray[0].name) ||
     playerCardsArray.some((cards) => cards.color == dropCardsArray[0].color)
   ) {
-    imgEL.removeEventListener("click", handleClick);
-    isEventListenerAdded = false;
+    imgEL.removeAttribute("onclick");
   } else {
     console.log("test");
-    if (!isEventListenerAdded) {
-      imgEL.addEventListener("click", handleClick);
-      isEventListenerAdded = true;
-    }
+    imgEL.onclick = (event) => {
+      if (!isclick) {
+        isclick = true;
+        const addedCard =
+          drawCardsArray[Math.floor(Math.random() * drawCardsArray.length)];
+        if (
+          addedCard.color == dropCardsArray[0].color ||
+          addedCard.name == dropCardsArray[0].name
+        ) {
+          console.log("card present");
+          displayCard(addedCard.name, addedCard.color, drawCards);
+          let div = document.createElement("div");
+          div.className = "playPass";
+          ["play", "pass"].forEach((element) => {
+            let btn = document.createElement("button");
+            btn.className = element;
+            btn.textContent = element;
+            div.appendChild(btn);
+          });
+          drawCards.appendChild(div);
+
+          let allBtn = document.getElementsByTagName("button");
+          allBtn[0].onclick = () => console.log("play press");
+          allBtn[1].onclick = () => {
+            drawCards.children[2].remove();
+            drawCards.children[2].remove();
+            playerCardsArray.push(addedCard);
+            displayCard(addedCard.name, addedCard.color, playerCards);
+            console.log(playerCardsArray);
+            cpuTurn = true;
+          };
+          setTimeout(() => {
+            cpuTurnFunc(
+              cpuCardsArray,
+              dropCardsArray,
+              drawCards,
+              cardBorderDiv
+            );
+          }, 1000);
+        } else {
+          console.log("not present");
+          displayCard(addedCard.name, addedCard.color, playerCards);
+          playerCardsArray.push(addedCard);
+          cpuTurn = true;
+          //Do it later
+        }
+      }
+    };
   }
 }

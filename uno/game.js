@@ -5,11 +5,10 @@ let playerCards = document.createElement("div");
 let cpuCardsArray = [],
   playerCardsArray = [],
   drawCardsArray = [],
-  dropCardsArray = [];
+  dropCardsArray;
 let cpuTurn = false,
-  isCardDrawn = false,
   cardBorderDiv,
-  cpuDrawCardCount = 0;
+  clickedIndex;
 
 const skip = `<i class="fa-solid fa-ban fa-xs"></i>`;
 const reverse = `<i class="fa-solid fa-rotate fa-xs"></i>`;
@@ -89,7 +88,7 @@ const displayCard = (name, color, appendTag) => {
 };
 
 //Function to display uno image
-const displayImage = (appendTag) => {
+const displayUnoImageFunc = (appendTag) => {
   let cardBorderDiv = document.createElement("div");
   cardBorderDiv.className = "cardBorderDivId";
   let img = document.createElement("img");
@@ -99,10 +98,11 @@ const displayImage = (appendTag) => {
 
 //Display cpu cards
 cpuCardsArray = cardStackCopy.splice(0, 7);
-cpuCardsArray.forEach((element) => displayImage(cpuCards));
+cpuCardsArray.forEach((element) => displayUnoImageFunc(cpuCards));
 
 //Display draw cards
-displayImage(drawCards);
+displayUnoImageFunc(drawCards);
+//noSpecialCards is a recursive function.  If a special card is found, the current index is skipped and next card is processed
 const noSpecialCards = () => {
   let isNoSpecialCard = specialCards.some(
     (cards) => cards == cardStackCopy[0].name
@@ -110,13 +110,14 @@ const noSpecialCards = () => {
   if (isNoSpecialCard) {
     cardStackCopy.splice(0, 1);
     noSpecialCards();
-  } else dropCardsArray = cardStackCopy.splice(0, 1);
+  } else dropCardsArray = cardStackCopy.splice(0, 1)[0];
 };
 noSpecialCards();
-displayCard(dropCardsArray[0].name, dropCardsArray[0].color, drawCards);
+displayCard(dropCardsArray.name, dropCardsArray.color, drawCards);
 
 //Display player cards
 playerCardsArray = cardStackCopy.splice(0, 7);
+playerCardsArray = [{ name: "1", color: "red" }];
 playerCardsArray.forEach((element) => {
   displayCard(element.name, element.color, playerCards);
 });
@@ -127,30 +128,103 @@ playerCardsArray.forEach((element) => {
 
 let allPlayerCards = document.querySelector(".playerCardsId");
 const clickPlayerCard = (event) => {
-  const clickedCard = event.target.closest(".cardDivId");
-  const color = clickedCard.style.backgroundColor;
+  if (!cpuTurn) {
+    const clickedCard = event.target.closest(".cardDivId");
+    const color = clickedCard.style.backgroundColor;
 
-  //if condition - executes when thecard name is a number
-  //else condition - executes when the card name is skip or reverse
-  if (clickedCard.firstElementChild.textContent) {
-    const name = clickedCard.firstElementChild.textContent;
-    //if condition - executes if the card is +2 number
-    //else condition - executes if the card is normal number
-    if (name == "+2") {
-      for (let iter = 0; iter < 2; iter++) {
-        cpuCardsArray.push(
-          cardStackCopy[Math.floor(Math.random() * cardStackCopy.length)]
-        );
-        displayImage(cpuCards);
+    const allPlayerCardsList = playerCards.querySelectorAll(".cardDivId");
+    allPlayerCardsList.forEach((element, index) => {
+      if (element == clickedCard) clickedIndex = index;
+    });
+
+    //if condition - executes when the card name is a number
+    //else condition - executes when the card name is skip or reverse
+    if (clickedCard.firstElementChild.textContent) {
+      const name = clickedCard.firstElementChild.textContent;
+      //if condition - executes if the card is +2 number
+      //else condition - executes if the card is normal number
+      if (name == "+2") {
+        if (dropCardsArray.name == name || dropCardsArray.color == color) {
+          for (let iter = 0; iter < 2; iter++) {
+            cpuCardsArray.push(
+              cardStackCopy[Math.floor(Math.random() * cardStackCopy.length)]
+            );
+            displayUnoImageFunc(cpuCards);
+          }
+        }
+        playerToDropCardFunc(name, color);
+      } else {
+        playerToDropCardFunc(name, color);
+        if (dropCardsArray.name == name || dropCardsArray.color == color) {
+          cpuTurn = true;
+        } else {
+          getCardFunc();
+        }
       }
-      cpuTurn = false;
-    } else {
-      console.log("test");
-
     }
   } else {
     const name = clickedCard.firstElementChild.firstElementChild.outerHTML;
+    playerToDropCardFunc(name, color);
+  }
+  console.log(cpuTurn);
+  if (cpuTurn) {
+    allPlayerCards.removeEventListener("click", clickPlayerCard);
+    setTimeout(() => {
+      cpuTurnFunc();
+    }, 1000);
   }
 };
 
 allPlayerCards.addEventListener("click", clickPlayerCard);
+
+//Player clicks a card, this function executes
+const playerToDropCardFunc = (name, color) => {
+  if (dropCardsArray.name == name || dropCardsArray.color == color) {
+    dropCardsArray = playerCardsArray[clickedIndex];
+    playerCardsArray.splice(clickedIndex, 1);
+    playerCards.children[clickedIndex].remove();
+    displayCard(name, color, drawCards);
+    drawCards.children[1].remove();
+  }
+};
+
+//Function to do cpu turn
+const cpuTurnFunc = () => {
+  //Find the first match of a cpu card with dropCards
+  let matchedIndex = cpuCardsArray.findIndex(
+    (element) =>
+      element.name == dropCardsArray.name ||
+      element.color == dropCardsArray.color
+  );
+  //If a match is found "if" condition executes, if not, else condition: draw a card from drawCards
+  if (matchedIndex != -1) {
+    dropCardsArray = cpuCardsArray[matchedIndex];
+    cpuCardsArray.splice(matchedIndex, 1);
+    cpuCards.children[matchedIndex].remove();
+    displayCard(dropCardsArray.name, dropCardsArray.color, drawCards);
+    drawCards.children[1].remove();
+
+    allPlayerCards.addEventListener("click", clickPlayerCard);
+  }
+};
+
+let image = drawCards.querySelector("img");
+const getCardFunc = () => {
+  console.log("test");
+  playerCardsArray.push(cardStackCopy.shift());
+  displayCard(
+    playerCardsArray[playerCardsArray.length - 1].name,
+    playerCardsArray[playerCardsArray.length - 1].color,
+    playerCards
+  );
+  image.removeEventListener("click", getCardFunc);
+};
+
+//Check if any of playerCardsArray matches with dropCards at start, else drawCard
+let matchedIndex = playerCardsArray.findIndex(
+  (element) =>
+    element.name == dropCardsArray.name || element.color == dropCardsArray.color
+);
+if (matchedIndex == -1) {
+  image.addEventListener("click", getCardFunc);
+}

@@ -8,7 +8,8 @@ let cpuCardsArray = [],
   dropCardsArray;
 let cpuTurn = false,
   cardBorderDiv,
-  clickedIndex;
+  clickedIndex,
+  turnSkipCount = 0;
 
 const skip = `<i class="fa-solid fa-ban fa-xs"></i>`;
 const reverse = `<i class="fa-solid fa-rotate fa-xs"></i>`;
@@ -121,6 +122,7 @@ playerCardsArray = [{ name: "1", color: "red" }];
 playerCardsArray.forEach((element) => {
   displayCard(element.name, element.color, playerCards);
 });
+
 //Append all of the created div
 [cpuCards, drawCards, playerCards].forEach((element) => {
   cardDeck.appendChild(element);
@@ -129,6 +131,7 @@ playerCardsArray.forEach((element) => {
 let allPlayerCards = document.querySelector(".playerCardsId");
 const clickPlayerCard = (event) => {
   if (!cpuTurn) {
+    getCardFunc();
     const clickedCard = event.target.closest(".cardDivId");
     const color = clickedCard.style.backgroundColor;
 
@@ -136,7 +139,6 @@ const clickPlayerCard = (event) => {
     allPlayerCardsList.forEach((element, index) => {
       if (element == clickedCard) clickedIndex = index;
     });
-
     //if condition - executes when the card name is a number
     //else condition - executes when the card name is skip or reverse
     if (clickedCard.firstElementChild.textContent) {
@@ -151,6 +153,7 @@ const clickPlayerCard = (event) => {
             );
             displayUnoImageFunc(cpuCards);
           }
+          cpuTurn = false;
         }
         playerToDropCardFunc(name, color);
       } else {
@@ -161,12 +164,12 @@ const clickPlayerCard = (event) => {
           getCardFunc();
         }
       }
+    } else {
+      console.log("test");
+      const name = clickedCard.firstElementChild.firstElementChild.outerHTML;
+      playerToDropCardFunc(name, color);
     }
-  } else {
-    const name = clickedCard.firstElementChild.firstElementChild.outerHTML;
-    playerToDropCardFunc(name, color);
   }
-  console.log(cpuTurn);
   if (cpuTurn) {
     allPlayerCards.removeEventListener("click", clickPlayerCard);
     setTimeout(() => {
@@ -174,7 +177,6 @@ const clickPlayerCard = (event) => {
     }, 1000);
   }
 };
-
 allPlayerCards.addEventListener("click", clickPlayerCard);
 
 //Player clicks a card, this function executes
@@ -196,7 +198,7 @@ const cpuTurnFunc = () => {
       element.name == dropCardsArray.name ||
       element.color == dropCardsArray.color
   );
-  //If a match is found "if" condition executes, if not, else condition: draw a card from drawCards
+  //If a match is found with cpuCard and dropcard, "if" condition executes
   if (matchedIndex != -1) {
     dropCardsArray = cpuCardsArray[matchedIndex];
     cpuCardsArray.splice(matchedIndex, 1);
@@ -205,26 +207,43 @@ const cpuTurnFunc = () => {
     drawCards.children[1].remove();
 
     allPlayerCards.addEventListener("click", clickPlayerCard);
+    cpuTurn = false;
+  }
+  //Draw card if no match is found in cpuArray
+  else {
+    cpuCardsArray.push(cardStackCopy.shift());
+    displayUnoImageFunc(cpuCards);
+    cpuTurn = false;
+    allPlayerCards.addEventListener("click", clickPlayerCard);
   }
 };
 
-let image = drawCards.querySelector("img");
-const getCardFunc = () => {
-  console.log("test");
-  playerCardsArray.push(cardStackCopy.shift());
-  displayCard(
-    playerCardsArray[playerCardsArray.length - 1].name,
-    playerCardsArray[playerCardsArray.length - 1].color,
-    playerCards
-  );
-  image.removeEventListener("click", getCardFunc);
-};
-
 //Check if any of playerCardsArray matches with dropCards at start, else drawCard
-let matchedIndex = playerCardsArray.findIndex(
-  (element) =>
-    element.name == dropCardsArray.name || element.color == dropCardsArray.color
-);
-if (matchedIndex == -1) {
-  image.addEventListener("click", getCardFunc);
-}
+const getCardFunc = () => {
+  let matchedIndex = playerCardsArray.findIndex(
+    (element) =>
+      element.name == dropCardsArray.name ||
+      element.color == dropCardsArray.color
+  );
+
+  if (matchedIndex == -1) {
+    let image = drawCards.querySelector("img");
+
+    const clickFunc = () => {
+      playerCardsArray.push(cardStackCopy.shift());
+      displayCard(
+        playerCardsArray[playerCardsArray.length - 1].name,
+        playerCardsArray[playerCardsArray.length - 1].color,
+        playerCards
+      );
+      image.removeEventListener("click", clickFunc);
+      //Initially get card from drawCard, then pass the turn to CPU
+      cpuTurn = true;
+      setTimeout(() => {
+        cpuTurnFunc();
+      }, 1000);
+    };
+    image.addEventListener("click", clickFunc);
+  }
+};
+getCardFunc();

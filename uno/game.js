@@ -53,7 +53,7 @@ drawCards.className = "drawCardsId";
 playerCards.className = "playerCardsId";
 
 //Function to display cards
-const displayCard = (name, color, appendTag) => {
+const displayCard = (color, name, appendTag) => {
   //cardBorderDiv is for creating border around a card
   cardBorderDiv = document.createElement("div");
   cardBorderDiv.className = "cardBorderDivId";
@@ -114,13 +114,13 @@ const noSpecialCards = () => {
   } else dropCardsArray = cardStackCopy.splice(0, 1)[0];
 };
 noSpecialCards();
-displayCard(dropCardsArray.name, dropCardsArray.color, drawCards);
+displayCard(dropCardsArray.color, dropCardsArray.name, drawCards);
 
 //Display player cards
 playerCardsArray = cardStackCopy.splice(0, 7);
 playerCardsArray = [{ name: "1", color: "red" }];
 playerCardsArray.forEach((element) => {
-  displayCard(element.name, element.color, playerCards);
+  displayCard(element.color, element.name, playerCards);
 });
 
 //Append all of the created div
@@ -185,7 +185,7 @@ const playerToDropCardFunc = (name, color) => {
     dropCardsArray = playerCardsArray[clickedIndex];
     playerCardsArray.splice(clickedIndex, 1);
     playerCards.children[clickedIndex].remove();
-    displayCard(name, color, drawCards);
+    displayCard(color, name, drawCards);
     drawCards.children[1].remove();
   }
 };
@@ -203,7 +203,7 @@ const cpuTurnFunc = () => {
     dropCardsArray = cpuCardsArray[matchedIndex];
     cpuCardsArray.splice(matchedIndex, 1);
     cpuCards.children[matchedIndex].remove();
-    displayCard(dropCardsArray.name, dropCardsArray.color, drawCards);
+    displayCard(dropCardsArray.color, dropCardsArray.name, drawCards);
     drawCards.children[1].remove();
 
     allPlayerCards.addEventListener("click", clickPlayerCard);
@@ -227,21 +227,66 @@ const getCardFunc = () => {
   );
 
   if (matchedIndex == -1) {
+    allPlayerCards.removeEventListener("click", clickPlayerCard);
     let image = drawCards.querySelector("img");
 
     const clickFunc = () => {
-      playerCardsArray.push(cardStackCopy.shift());
-      displayCard(
-        playerCardsArray[playerCardsArray.length - 1].name,
-        playerCardsArray[playerCardsArray.length - 1].color,
-        playerCards
-      );
+      let addedCard = cardStackCopy.shift();
+      console.log(addedCard);
+      console.log(dropCardsArray);
+      //If the drawCard matches with dropCard characteristics, then show play/pass button
+      if (
+        addedCard.name == dropCardsArray.name ||
+        addedCard.color == dropCardsArray.color
+      ) {
+        displayCard(addedCard.color, addedCard.name, drawCards);
+        let div = document.createElement("div");
+        div.className = "playPass";
+        ["play", "pass"].forEach((element) => {
+          let btn = document.createElement("button");
+          btn.className = element;
+          btn.textContent = element;
+          div.appendChild(btn);
+        });
+        drawCards.appendChild(div);
+
+        let allBtn = document.getElementsByTagName("button");
+        allBtn[0].onclick = () => {
+          while (drawCards.children.length > 1) {
+            drawCards.children[1].remove();
+          }
+          dropCardsArray = addedCard;
+          displayCard(dropCardsArray.color, dropCardsArray.name, drawCards);
+          cpuTurn = true;
+          setTimeout(() => {
+            cpuTurnFunc();
+          }, 1000);
+        };
+        allBtn[1].onclick = () => {
+          //Remove card and button
+          drawCards.children[2].remove();
+          drawCards.children[2].remove();
+          playerCardsArray.push(addedCard);
+          displayCard(addedCard.color, addedCard.name, playerCards);
+          cpuTurn = true;
+          setTimeout(() => {
+            cpuTurnFunc();
+          }, 1000);
+        };
+      } else {
+        playerCardsArray.push(addedCard);
+        displayCard(
+          playerCardsArray[playerCardsArray.length - 1].color,
+          playerCardsArray[playerCardsArray.length - 1].name,
+          playerCards
+        );
+        cpuTurn = true;
+        setTimeout(() => {
+          cpuTurnFunc();
+        }, 1000);
+      }
       image.removeEventListener("click", clickFunc);
       //Initially get card from drawCard, then pass the turn to CPU
-      cpuTurn = true;
-      setTimeout(() => {
-        cpuTurnFunc();
-      }, 1000);
     };
     image.addEventListener("click", clickFunc);
   }

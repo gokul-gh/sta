@@ -12,7 +12,9 @@
   color: white;
 }
 
-.cpuCardsId, .drawCardsId, .playerCardsId {
+.cpuCardsId,
+.drawCardsId,
+.playerCardsId {
   display: flex;
   cursor: pointer;
   margin: 1vh 0;
@@ -59,9 +61,9 @@
 }
 
 img {
-    height: 27vh;
-    width: 18vh;
-    content: url("Images/UNO-Back-edit.png");
+  height: 27vh;
+  width: 18vh;
+  content: url("Images/UNO-Back-edit.png");
 }
 
 .playPass {
@@ -79,5 +81,18 @@ img {
 
 .playPass button:hover {
   background-color: lightblue;
+  cursor: pointer;
+}
+
+.unoButton {
+  margin: auto 0 auto 4vh;
+  height: 5vh;
+  width: 9vh;
+  text-align: center;
+}
+
+.unoButton:hover {
+  background-color: grey;
+  color: white;
   cursor: pointer;
 }

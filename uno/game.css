@@ -8,6 +8,10 @@ body {
   align-items: center;
 }
 
+#cardsDeckId > div:not(.nameInputDivId) {
+  display: none;
+}
+
 .nameInputDivId {
   margin-top: 30vh;
   color: white;
@@ -22,6 +26,7 @@ body {
 
 .nameInputDivId button:hover {
   background-color: grey;
+  cursor: pointer;
 }
 
 .nameInputDivId input {
@@ -44,7 +49,7 @@ body {
   min-height: 26vh;
   display: flex;
   cursor: pointer;
-  margin: 2vh 0;
+  margin: 1vh 0;
 }
 
 /*If a card is drawn, then distinguish it */
@@ -53,22 +58,22 @@ body {
 }
 
 .cardBorderDivId {
-  height: 24vh;
-  width: 16vh;
+  height: 23vh;
+  width: 15vh;
   border: 4px rgb(255, 255, 255) solid;
   border-radius: 5px;
   margin: 0.4rem;
 }
 
 .upperNoDivId {
-  font-size: 1.6rem;
-  padding: 0 0.3rem;
+  font-size: 1.4rem;
+  padding: 0 0rem;
 }
 
 .middleNoDivId {
-  margin: 0.5rem 0rem 0rem 1.7rem;
-  padding: 0 1.3rem 0 0;
-  height: 50%;
+  margin: 0.5rem 0rem 0rem 1rem;
+  padding: 0 1.3rem 1.2rem 0;
+  height: 45%;
   width: 35%;
   transform: rotate(35deg);
   background-color: white;
@@ -82,14 +87,14 @@ body {
 }
 
 .lowerNoDivId {
-  padding: 0rem 0rem 0.8rem 0.3rem;
-  font-size: 1.6rem;
+  padding: 0rem 0rem 0.2rem 0rem;
+  font-size: 1.4rem;
   transform: rotate(-180deg);
 }
 
 img {
-  height: 24vh;
-  width: 16vh;
+  height: 23vh;
+  width: 15vh;
   content: url("Images/UNO_back.png");
 }
 
@@ -122,4 +127,9 @@ img {
   background-color: grey;
   color: white;
   cursor: pointer;
+}
+
+.cpuName, .playerName {
+  color: white;
+  font-size: 1.5rem;
 }

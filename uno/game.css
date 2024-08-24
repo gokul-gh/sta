@@ -187,3 +187,11 @@ img {
 h1 {
   text-align: center;
 }
+
+#timerId {
+  position: absolute;
+  color: white;
+  top: 1rem;
+  right: 1rem;
+  font-size: 2rem;
+}

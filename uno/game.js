@@ -138,7 +138,7 @@ const displayUnoImageFunc = (appendTag) => {
 };
 
 //Display cpu cards
-cpuCardsArray = cardStackCopy.splice(0, 7);
+cpuCardsArray = cardStackCopy.splice(0, 1);
 cpuCardsArray.forEach((element) => displayUnoImageFunc(cpuCards));
 
 //Display draw cards
@@ -157,7 +157,8 @@ noSpecialCards();
 displayCard(dropCardsArray.color, dropCardsArray.name, drawCards);
 
 //Display player cards
-playerCardsArray = cardStackCopy.splice(0, 7);
+playerCardsArray = cardStackCopy.splice(0, 1);
+playerCardsArray = [{ name: "+2", color: "red" }];
 playerCardsArray.forEach((element) => {
   displayCard(element.color, element.name, playerCards);
 });
@@ -214,7 +215,6 @@ const clickPlayerCard = (event) => {
     setTimeout(() => {
       if (playerCardsArray.length != 0) {
         cpuTurnFunc();
-        allPlayerCards.removeEventListener("click", clickPlayerCard);
       }
     }, timeOut);
   }
@@ -259,10 +259,11 @@ const playerToDropCardFunc = (name, color) => {
       displayCard(color, name, drawCards);
       drawCards.children[1].remove();
 
+      //if player wins, end game and declare results
       if (playerCardsArray.length == 0) {
         calculteScore(cpuCardsArray);
         setTimeout(() => {
-          createModalFunc();
+          createModalFunc("Player");
         }, 2000);
       }
 
@@ -305,7 +306,7 @@ const cpuTurnFunc = () => {
     //If cpu wins, then show modal
     if (cpuCardsArray.length == 0) {
       calculteScore(playerCardsArray);
-      createModalFunc();
+      createModalFunc("CPU");
       allPlayerCards.removeEventListener("click", clickPlayerCard);
     }
 
@@ -430,6 +431,8 @@ const getCardFunc = () => {
       //Initially get card from drawCard, then pass the turn to CPU
     };
     image.addEventListener("click", clickFunc);
+    if (playerCardsArray.length == 0)
+      image.removeEventListener("click", clickFunc);
   }
 };
 getCardFunc();
@@ -442,11 +445,11 @@ const calculteScore = (array) => {
   });
 };
 
-const createModalFunc = () => {
+const createModalFunc = (whoWon) => {
   const modal = document.querySelector(".modal-overlay");
   const closeBtn = document.querySelector(".close-modal-btn");
   const modalContent = document.querySelector(".modal-content");
-  modalContent.innerHTML = `<p>Player Won this match<p> <p>Player score is ${score} </p>`;
+  modalContent.innerHTML = `<p>${whoWon} Won this match</p> <p>${whoWon} score is ${score} </p>`;
   modal.classList.remove("hide");
   const closeModal = (e, clickedOutside) => {
     if (clickedOutside) {

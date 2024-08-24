@@ -6,7 +6,8 @@ let cpuCardsArray = [],
   playerCardsArray = [],
   drawCardsArray = [],
   dropCardsArray,
-  loginName = "";
+  loginName = "",
+  score = 0;
 let cpuTurn = false,
   cardBorderDiv,
   clickedIndex,
@@ -137,7 +138,8 @@ const displayUnoImageFunc = (appendTag) => {
 };
 
 //Display cpu cards
-cpuCardsArray = cardStackCopy.splice(0, 7);
+cpuCardsArray = cardStackCopy.splice(0, 2);
+cpuCardsArray = [{ name: "2", color: "green" }];
 cpuCardsArray.forEach((element) => displayUnoImageFunc(cpuCards));
 
 //Display draw cards
@@ -156,7 +158,8 @@ noSpecialCards();
 displayCard(dropCardsArray.color, dropCardsArray.name, drawCards);
 
 //Display player cards
-playerCardsArray = cardStackCopy.splice(0, 7);
+playerCardsArray = cardStackCopy.splice(0, 2);
+playerCardsArray = [{ name: "2", color: "red" }];
 playerCardsArray.forEach((element) => {
   displayCard(element.color, element.name, playerCards);
 });
@@ -211,7 +214,10 @@ const clickPlayerCard = (event) => {
     if (playerCardsArray.length == 2) timeOut = 4000;
 
     setTimeout(() => {
-      cpuTurnFunc();
+      if (playerCardsArray.length != 0) {
+        cpuTurnFunc();
+        allPlayerCards.removeEventListener("click", clickPlayerCard);
+      }
     }, timeOut);
   }
 };
@@ -254,6 +260,14 @@ const playerToDropCardFunc = (name, color) => {
       }
       displayCard(color, name, drawCards);
       drawCards.children[1].remove();
+
+      if (playerCardsArray.length == 0) {
+        calculteScore(cpuCardsArray);
+        setTimeout(() => {
+          createModalFunc();
+        }, 2000);
+      }
+
       if (
         dropCardsArray.name.length == 2 ||
         dropCardsArray.name == skip ||
@@ -289,6 +303,13 @@ const cpuTurnFunc = () => {
     cpuCards.children[matchedIndex].remove();
     displayCard(dropCardsArray.color, dropCardsArray.name, drawCards);
     drawCards.children[1].remove();
+
+    //If cpu wins, then show modal
+    if (cpuCardsArray.length == 0) {
+      calculteScore(playerCardsArray);
+      createModalFunc();
+      allPlayerCards.removeEventListener("click", clickPlayerCard);
+    }
 
     if (
       dropCardsArray.name == reverse ||
@@ -414,3 +435,26 @@ const getCardFunc = () => {
   }
 };
 getCardFunc();
+
+const calculteScore = (array) => {
+  array.forEach((element) => {
+    if (element.name.length == 1) {
+      score += Number(element.name);
+    } else score += 20;
+  });
+};
+
+const createModalFunc = () => {
+  const modal = document.querySelector(".modal-overlay");
+  const closeBtn = document.querySelector(".close-modal-btn");
+  const modalContent = document.querySelector(".modal-content");
+  modalContent.innerHTML = `<p>Player Won this match<p> <p>Player score is ${score} </p>`;
+  modal.classList.remove("hide");
+  const closeModal = (e, clickedOutside) => {
+    if (clickedOutside) {
+      if (e.target.classList.contains("modal-overlay"))
+        modal.classList.add("hide");
+    } else modal.classList.add("hide");
+  };
+  closeBtn.addEventListener("click", closeModal);
+};

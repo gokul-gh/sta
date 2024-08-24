@@ -138,8 +138,7 @@ const displayUnoImageFunc = (appendTag) => {
 };
 
 //Display cpu cards
-cpuCardsArray = cardStackCopy.splice(0, 2);
-cpuCardsArray = [{ name: "2", color: "green" }];
+cpuCardsArray = cardStackCopy.splice(0, 7);
 cpuCardsArray.forEach((element) => displayUnoImageFunc(cpuCards));
 
 //Display draw cards
@@ -158,8 +157,7 @@ noSpecialCards();
 displayCard(dropCardsArray.color, dropCardsArray.name, drawCards);
 
 //Display player cards
-playerCardsArray = cardStackCopy.splice(0, 2);
-playerCardsArray = [{ name: "2", color: "red" }];
+playerCardsArray = cardStackCopy.splice(0, 7);
 playerCardsArray.forEach((element) => {
   displayCard(element.color, element.name, playerCards);
 });

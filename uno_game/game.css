@@ -1,0 +1,50 @@
+/* Login page and login form */
+#loginPageId {
+  height: 100%;
+}
+
+#nameInputId {
+  height: 20rem;
+  width: 30%;
+  background-color: #213546fa;
+  margin: 10% auto;
+  border: 5px rgb(116, 149, 219) solid;
+  border-radius: 0.5rem;
+  color: white;
+  text-align: center;
+  font-size: 1.2rem;
+  color: moccasin;
+  font-weight: 700;
+}
+
+#nameInputId label {
+  display: block;
+  margin-top: 10%;
+  font-size: 1.4rem;
+  margin-bottom: 3%;
+}
+
+#nameInputId input {
+  padding: 0.7rem;
+  width: 70%;
+  border-radius: 5px;
+}
+
+#nameInputId button {
+  margin-top: 8%;
+  padding: 0.8rem;
+  background-color: orange;
+  font-weight: 800;
+  font-size: 1rem;
+  border-radius: 10px;
+}
+
+#nameInputId button:hover {
+  background-color: chocolate;
+  cursor: pointer;
+}
+
+#nameInputId div{
+    text-align: left;
+    padding: 1rem 0 0 3rem;
+}

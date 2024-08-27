@@ -2,6 +2,7 @@ let cardDeck = document.getElementById("cardsDeckId");
 let cpuCards = document.createElement("div");
 let drawCards = document.createElement("div");
 let playerCards = document.createElement("div");
+let timerOutput = document.getElementById("timerId");
 let cpuCardsArray = [],
   playerCardsArray = [],
   drawCardsArray = [],
@@ -51,6 +52,41 @@ enterBtn.onclick = () => {
     [playerDiv, cpuDiv, cpuCards, drawCards, playerCards].forEach((element) => {
       element.style.display = "inherit";
     });
+    timerFunc();
+  }
+};
+
+const timerFunc = () => {
+  for (let i = 300; i >= 0; i--) {
+    (function (second) {
+      setTimeout(function () {
+        if (
+          (second % 60).toString().length == 1 &&
+          Math.floor(second / 60).toString().length == 1
+        )
+          timerOutput.innerHTML = `0${Math.floor(second / 60)}:0${second % 60}`;
+        else if ((second % 60).toString().length == 1)
+          timerOutput.innerHTML = `${Math.floor(second / 60)}:0${second % 60}`;
+        else if (Math.floor(second / 60).toString().length == 1)
+          timerOutput.innerHTML = `0${Math.floor(second / 60)}:${second % 60}`;
+        else
+          timerOutput.innerHTML = `${Math.floor(second / 60)}:${second % 60}`;
+        if (second == 0) {
+          console.log(cpuCardsArray);
+          if (calculteScore(playerCardsArray) < calculteScore(cpuCardsArray)) {
+            createModalFunc("Player");
+          } else if (
+            calculteScore(cpuCardsArray) < calculteScore(playerCardsArray)
+          ) {
+            createModalFunc("CPU");
+          } else if (
+            calculteScore(cpuCardsArray) == calculteScore(playerCardsArray)
+          ) {
+            createModalFunc("Draw");
+          }
+        }
+      }, 1000 + 1000 * (300 - second));
+    })(i);
   }
 };
 
@@ -138,7 +174,7 @@ const displayUnoImageFunc = (appendTag) => {
 };
 
 //Display cpu cards
-cpuCardsArray = cardStackCopy.splice(0, 1);
+cpuCardsArray = cardStackCopy.splice(0, 7);
 cpuCardsArray.forEach((element) => displayUnoImageFunc(cpuCards));
 
 //Display draw cards
@@ -157,8 +193,7 @@ noSpecialCards();
 displayCard(dropCardsArray.color, dropCardsArray.name, drawCards);
 
 //Display player cards
-playerCardsArray = cardStackCopy.splice(0, 1);
-playerCardsArray = [{ name: "+2", color: "red" }];
+playerCardsArray = cardStackCopy.splice(0, 7);
 playerCardsArray.forEach((element) => {
   displayCard(element.color, element.name, playerCards);
 });
@@ -438,18 +473,22 @@ const getCardFunc = () => {
 getCardFunc();
 
 const calculteScore = (array) => {
+  score = 0;
   array.forEach((element) => {
     if (element.name.length == 1) {
       score += Number(element.name);
     } else score += 20;
   });
+  return score;
 };
 
 const createModalFunc = (whoWon) => {
   const modal = document.querySelector(".modal-overlay");
   const closeBtn = document.querySelector(".close-modal-btn");
   const modalContent = document.querySelector(".modal-content");
-  modalContent.innerHTML = `<p>${whoWon} Won this match</p> <p>${whoWon} score is ${score} </p>`;
+  if (whoWon == "Draw") modalContent.innerHTML = `<p>Match Draw</p>`;
+  else
+    modalContent.innerHTML = `<p>${whoWon} Won this match</p> <p>${whoWon} score is ${score} </p>`;
   modal.classList.remove("hide");
   const closeModal = (e, clickedOutside) => {
     if (clickedOutside) {

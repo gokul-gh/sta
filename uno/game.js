@@ -8,7 +8,8 @@ let cpuCardsArray = [],
   drawCardsArray = [],
   dropCardsArray,
   loginName = "",
-  score = 0;
+  score = 0,
+  image;
 let cpuTurn = false,
   cardBorderDiv,
   clickedIndex,
@@ -26,26 +27,25 @@ let cardsName = [],
   cardStackCopy = [];
 
 //Login page
-let nameInputDiv = document.createElement("div");
-let p = document.createElement("p");
+let nameInputDiv = document.querySelector(".nameInputDivId");
 let enterBtn = document.createElement("button");
 let namePattern = /^[a-zA-z ]*$/;
-enterBtn.textContent = "Enter game";
-p.textContent = "Enter your name";
-nameInputDiv.className = "nameInputDivId";
+enterBtn.textContent = "Start game";
 let nameInput = document.createElement("input");
-[p, nameInput, enterBtn].forEach((element) =>
+nameInput.placeholder = "Your name";
+[nameInput, enterBtn].forEach((element) =>
   nameInputDiv.appendChild(element)
 );
 cardDeck.appendChild(nameInputDiv);
 
 enterBtn.onclick = () => {
-  if (namePattern.test(nameInput.value)) playerName = nameInput.value;
+  if (namePattern.test(nameInput.value) && nameInput.value != "")
+    playerName = nameInput.value;
   else alert("Enter valid name");
   if (playerName) {
     let playerDiv = document.createElement("div");
     playerDiv.className = "playerName";
-    playerDiv.textContent = `${playerName}'s Cards`;
+    playerDiv.textContent = `${playerName} deck`;
     cardDeck.appendChild(playerDiv);
 
     nameInputDiv.style.display = "none";
@@ -71,19 +71,18 @@ const timerFunc = () => {
           timerOutput.innerHTML = `0${Math.floor(second / 60)}:${second % 60}`;
         else
           timerOutput.innerHTML = `${Math.floor(second / 60)}:${second % 60}`;
-        if (second == 0) {
-          console.log(cpuCardsArray);
-          if (calculteScore(playerCardsArray) < calculteScore(cpuCardsArray)) {
+        if (second == 0 && score == 0) {
+          allPlayerCards.removeEventListener("click", clickPlayerCard);
+          if (calculteScore(playerCardsArray) < calculteScore(cpuCardsArray))
             createModalFunc("Player");
-          } else if (
+          else if (
             calculteScore(cpuCardsArray) < calculteScore(playerCardsArray)
-          ) {
+          )
             createModalFunc("CPU");
-          } else if (
+          else if (
             calculteScore(cpuCardsArray) == calculteScore(playerCardsArray)
-          ) {
+          )
             createModalFunc("Draw");
-          }
         }
       }, 1000 + 1000 * (300 - second));
     })(i);
@@ -124,7 +123,7 @@ playerCards.className = "playerCardsId";
 
 let cpuDiv = document.createElement("div");
 cpuDiv.className = "cpuName";
-cpuDiv.textContent = "CPU's Cards";
+cpuDiv.textContent = "CPU deck";
 cardDeck.appendChild(cpuDiv);
 
 //Function to display cards
@@ -169,6 +168,7 @@ const displayUnoImageFunc = (appendTag) => {
   let cardBorderDiv = document.createElement("div");
   cardBorderDiv.className = "cardBorderDivId";
   let img = document.createElement("img");
+  img.className = "unoCardImage";
   cardBorderDiv.appendChild(img);
   appendTag.appendChild(cardBorderDiv);
 };
@@ -390,7 +390,7 @@ const getCardFunc = () => {
   );
   if (matchedIndex == -1) {
     allPlayerCards.removeEventListener("click", clickPlayerCard);
-    let image = drawCards.querySelector("img");
+    image = drawCards.querySelector("img");
 
     const clickFunc = () => {
       let addedCard = cardStackCopy.shift();

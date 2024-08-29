@@ -27,23 +27,26 @@ let cardsName = [],
   cardStackCopy = [];
 
 //Login page
-let nameInputDiv = document.querySelector(".nameInputDivId");
+let nameInputDiv = document.createElement("div");
+let p = document.createElement("p");
 let enterBtn = document.createElement("button");
 let namePattern = /^[a-zA-z ]*$/;
-enterBtn.textContent = "Start game";
+enterBtn.textContent = "Enter game";
+p.textContent = "Enter your name";
+nameInputDiv.className = "nameInputDivId";
 let nameInput = document.createElement("input");
-nameInput.placeholder = "Your name";
-[nameInput, enterBtn].forEach((element) => nameInputDiv.appendChild(element));
+[p, nameInput, enterBtn].forEach((element) =>
+  nameInputDiv.appendChild(element)
+);
 cardDeck.appendChild(nameInputDiv);
 
 enterBtn.onclick = () => {
-  if (namePattern.test(nameInput.value) && nameInput.value != "")
-    playerName = nameInput.value;
+  if (namePattern.test(nameInput.value)) playerName = nameInput.value;
   else alert("Enter valid name");
   if (playerName) {
     let playerDiv = document.createElement("div");
     playerDiv.className = "playerName";
-    playerDiv.textContent = `${playerName} deck`;
+    playerDiv.textContent = `${playerName}'s Cards`;
     cardDeck.appendChild(playerDiv);
 
     nameInputDiv.style.display = "none";
@@ -121,7 +124,7 @@ playerCards.className = "playerCardsId";
 
 let cpuDiv = document.createElement("div");
 cpuDiv.className = "cpuName";
-cpuDiv.textContent = "CPU deck";
+cpuDiv.textContent = "CPU's Cards";
 cardDeck.appendChild(cpuDiv);
 
 //Function to display cards
@@ -166,13 +169,12 @@ const displayUnoImageFunc = (appendTag) => {
   let cardBorderDiv = document.createElement("div");
   cardBorderDiv.className = "cardBorderDivId";
   let img = document.createElement("img");
-  img.className = "unoCardImage";
   cardBorderDiv.appendChild(img);
   appendTag.appendChild(cardBorderDiv);
 };
 
 //Display cpu cards
-cpuCardsArray = cardStackCopy.splice(0, 2);
+cpuCardsArray = cardStackCopy.splice(0, 7);
 cpuCardsArray.forEach((element) => displayUnoImageFunc(cpuCards));
 
 //Display draw cards
@@ -191,7 +193,7 @@ noSpecialCards();
 displayCard(dropCardsArray.color, dropCardsArray.name, drawCards);
 
 //Display player cards
-playerCardsArray = cardStackCopy.splice(0, 2);
+playerCardsArray = cardStackCopy.splice(0, 7);
 playerCardsArray.forEach((element) => {
   displayCard(element.color, element.name, playerCards);
 });
@@ -220,10 +222,7 @@ const clickPlayerCard = (event) => {
       //else condition - executes if the card is normal number
       if (name == "+2") {
         if (dropCardsArray.name == name || dropCardsArray.color == color) {
-          for (let iter = 0; iter < 2; iter++) {
-            cpuCardsArray.push(cardStackCopy.splice(0, 1)[0]);
-            displayUnoImageFunc(cpuCards);
-          }
+          specialCardFunc(cpuCardsArray);
           cpuTurn = false;
         }
         playerToDropCardFunc(name, color);
@@ -254,32 +253,35 @@ const clickPlayerCard = (event) => {
 };
 allPlayerCards.addEventListener("click", clickPlayerCard);
 
+const specialCardFunc = (array) => {
+  for (let iter = 0; iter < 2; iter++) {
+    array.push(cardStackCopy.splice(0, 1)[0]);
+    displayUnoImageFunc(cpuCards);
+  }
+};
+
 //Player clicks a card, this function executes
 const playerToDropCardFunc = (name, color) => {
   if (dropCardsArray.name == name || dropCardsArray.color == color) {
     let timeOut = 0,
-      isBtnClicked = false,
-      btn = document.createElement("button");
-    setTimeout(() => {
-      dropCardsArray = playerCardsArray[clickedIndex];
-      playerCardsArray.splice(clickedIndex, 1);
-      playerCards.children[clickedIndex].remove();
-    }, timeOut);
-    displayCard(color, name, drawCards);
-    drawCards.children[1].remove();
-
+      isBtnClicked = false;
     if (playerCardsArray.length == 2) {
       timeOut = 2000;
-
+      let btn = document.createElement("button");
       btn.className = "unoButton";
       btn.textContent = "UNO";
       drawCards.appendChild(btn);
       btn.onclick = () => {
         isBtnClicked = true;
       };
+      setTimeout(() => {
+        drawCards.children[2].remove();
+      }, timeOut);
     } else isBtnClicked = true;
-
     setTimeout(() => {
+      dropCardsArray = playerCardsArray[clickedIndex];
+      playerCardsArray.splice(clickedIndex, 1);
+      playerCards.children[clickedIndex].remove();
       if (!isBtnClicked) {
         for (let iter = 0; iter < 2; iter++) {
           playerCardsArray.push(cardStackCopy.splice(0, 1)[0]);
@@ -289,12 +291,13 @@ const playerToDropCardFunc = (name, color) => {
               playerCardsArray[playerCardsArray.length - 1].name,
               playerCards
             );
-            btn.remove();
           }, timeOut - 1000);
           getCardFunc();
         }
       }
-      btn.remove();
+      displayCard(color, name, drawCards);
+      drawCards.children[1].remove();
+
       //if player wins, end game and declare results
       if (playerCardsArray.length == 0) {
         calculteScore(cpuCardsArray);
@@ -325,7 +328,6 @@ const playerToDropCardFunc = (name, color) => {
 
 //Function to do cpu turn
 const cpuTurnFunc = () => {
-  console.log(cpuCardsArray);
   //Find the first match of a cpu card with dropCards
   let matchedIndex = cpuCardsArray.findIndex(
     (element) =>
@@ -345,7 +347,6 @@ const cpuTurnFunc = () => {
       calculteScore(playerCardsArray);
       createModalFunc("CPU");
       allPlayerCards.removeEventListener("click", clickPlayerCard);
-      return;
     }
 
     if (
@@ -384,7 +385,7 @@ const cpuTurnFunc = () => {
   }
 };
 
-//Check if any of playerCardsArray matches with dropCards, else drawCard
+//Check if any of playerCardsArray matches with dropCards at start, else drawCard
 const getCardFunc = () => {
   let matchedIndex = playerCardsArray.findIndex(
     (element) =>
@@ -397,7 +398,6 @@ const getCardFunc = () => {
 
     const clickFunc = () => {
       let addedCard = cardStackCopy.shift();
-      image.removeEventListener("click", clickFunc);
       //If the drawCard matches with dropCard characteristics, then show play/pass button
       if (
         addedCard.name == dropCardsArray.name ||
@@ -421,10 +421,7 @@ const getCardFunc = () => {
           }
           dropCardsArray = addedCard;
           if (dropCardsArray.name == "+2") {
-            for (let iter = 0; iter < 2; iter++) {
-              cpuCardsArray.push(cardStackCopy.splice(0, 1)[0]);
-              displayUnoImageFunc(cpuCards);
-            }
+            specialCardFunc(cpuCardsArray);
             allPlayerCards.addEventListener("click", clickPlayerCard);
             getCardFunc();
           } else if (
@@ -490,7 +487,6 @@ const createModalFunc = (whoWon) => {
   const modal = document.querySelector(".modal-overlay");
   const closeBtn = document.querySelector(".close-modal-btn");
   const modalContent = document.querySelector(".modal-content");
-  let restartBtn = document.querySelector(".restart-modal-btn");
   if (whoWon == "Draw") modalContent.innerHTML = `<p>Match Draw</p>`;
   else
     modalContent.innerHTML = `<p>${whoWon} Won this match</p> <p>${whoWon} score is ${score} </p>`;
@@ -502,11 +498,4 @@ const createModalFunc = (whoWon) => {
     } else modal.classList.add("hide");
   };
   closeBtn.addEventListener("click", closeModal);
-  restartBtn.onclick = () => {
-    restart();
-  };
-};
-
-const restart = () => {
-  window.location.reload();
 };

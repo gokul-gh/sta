@@ -48,3 +48,23 @@
     text-align: left;
     padding: 1rem 0 0 3rem;
 }
+
+#gameStartsId {
+  height: 96%;
+  display: flex;
+  flex-direction: column;
+}
+
+#cpuCardsId {
+  height: 30%;
+  width: 80%;
+  align-items: center;
+}
+
+.unoImage {
+  content: url("Images/uno_image.png");
+  border: 4px white solid;
+  height: 100%;
+  width: 10%;
+  margin: 5px;
+}

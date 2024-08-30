@@ -1,0 +1,52 @@
+/* all of cpu, player, deck cards */
+#cardsDeckId {
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#cpuCardsId,
+#deckId,
+#playerCardsId {
+  display: flex;
+  margin: 8px 0;
+}
+
+/* uno image in cpu, closeDeck cards */
+.cpuUnoImage,
+.closeDeckUnoImage {
+  /* content: url("Images/UNO_back.png"); */
+  height: 25vh;
+  width: 18vh;
+  border: 4px white solid;
+  margin: 8px;
+}
+
+/* Number, special cards div */
+.cardDivId {
+  height: 25vh;
+  width: 18vh;
+  border: 4px white solid;
+  margin: 8px;
+  color: white;
+  font-size: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.upperNoClass {
+  margin-left: 10%;
+}
+
+.middleNoClass {
+  background-color: white;
+  width: 80%;
+  text-align: center;
+  margin: auto;
+  border-radius: 30%;
+}
+
+.lastNoClass {
+  margin-left: 80%;
+}
